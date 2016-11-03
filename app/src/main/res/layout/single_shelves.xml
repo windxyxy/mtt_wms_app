@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="singleback">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:id="@+id/button14"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生成上架单"
+                android:id="@+id/button16"
+                android:layout_alignBottom="@+id/button14"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="creatshelf" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="单个上架单"
+                android:id="@+id/textView12"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="25dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout6"
+            android:background="#fcfcfc">
+
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                layout="@layout/bottom_state"/>
+
+
+        </RelativeLayout>
+
+
+
+            <ScrollView
+                android:id="@+id/scrollView_showMessages"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="50dp"
+                android:layout_above="@+id/relativeLayout6"
+                android:background="#ffffff">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/RelativeLayouts"
+                    android:layout_below="@+id/relativeLayout"
+                    android:layout_alignBottom="@+id/scrollView_showMessages">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="入库单："
+                        android:id="@+id/textView14"
+                        android:layout_marginLeft="41dp"
+                        android:layout_marginStart="41dp"
+                        android:textSize="16dp"
+                        android:textIsSelectable="false"
+                        android:layout_marginTop="27dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="220dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/editText5"
+                        android:layout_alignTop="@+id/textView14"
+                        android:layout_toRightOf="@+id/textView14"
+                        android:layout_marginTop="-10dp"
+                        android:background="@drawable/border" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="库位分配："
+                        android:id="@+id/textView16"
+                        android:textSize="16dp"
+                        android:layout_marginTop="29dp"
+                        android:layout_below="@+id/editText5"
+                        android:layout_toLeftOf="@+id/editText5"
+                        android:layout_toStartOf="@+id/editText5" />
+
+
+                    <RadioGroup
+                        android:id="@+id/gendergroup"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignTop="@+id/textView16"
+                        android:layout_toRightOf="@+id/textView16"
+                        android:layout_toEndOf="@+id/textView16"
+                        android:layout_marginTop="-5dp">
+
+                        <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自动分配"
+                        android:id="@+id/radioButton"
+                        android:checked="true"
+                        android:layout_alignTop="@+id/textView16"
+                        android:layout_toRightOf="@+id/textView16"
+                        android:layout_toEndOf="@+id/textView16" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="任意存放"
+                            android:id="@+id/radioButton2"
+                            android:checked="false"
+                            android:layout_alignTop="@+id/radioButton"
+                            android:layout_toRightOf="@+id/radioButton"
+                            android:layout_toEndOf="@+id/radioButton"
+                            android:layout_marginLeft="27dp"
+                            android:layout_marginStart="27dp"
+                            android:layout_gravity="center_horizontal" />
+
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="分配策略："
+                        android:id="@+id/textView17"
+                        android:textSize="16dp"
+                        android:layout_below="@+id/gendergroup"
+                        android:layout_toLeftOf="@+id/gendergroup"
+                        android:layout_toStartOf="@+id/gendergroup"
+                        android:layout_marginTop="24dp" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout"
+                        android:layout_alignTop="@+id/textView17"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toRightOf="@+id/textView17"
+                        android:layout_toEndOf="@+id/textView17"
+                        android:layout_marginTop="-3dp">
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="默认库位"
+                            android:id="@+id/checkBox"
+                            android:checked="false" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="同品牌"
+                            android:id="@+id/checkBox2"
+                            android:checked="false" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="同供应商"
+                            android:id="@+id/checkBox3"
+                            android:checked="false" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="同货主"
+
+                            android:id="@+id/checkBox4"
+                            android:checked="false" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="同批次"
+                            android:id="@+id/checkBox5"
+                            android:checked="false" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:id="@+id/imageView3"
+                        android:layout_alignRight="@+id/gendergroup"
+                        android:layout_alignEnd="@+id/gendergroup"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:background="#e6e6e6" />
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_height="1dp"
+                        android:id="@+id/imageView5"
+                        android:background="#e6e6e6"
+                        android:layout_alignLeft="@+id/textView17"
+                        android:layout_alignStart="@+id/textView17"
+                        android:layout_below="@+id/linearLayout"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="-10dp" />
+
+                    <com.djx.wms.anter.tags
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/gridViews"
+
+                        android:numColumns="3"
+                        android:layout_below="@+id/imageView5"
+                        android:layout_marginTop="20dp"
+                        android:paddingTop="20dp"
+                        android:layout_alignRight="@+id/imageView5"
+                        android:layout_alignEnd="@+id/imageView5"
+                        android:layout_alignLeft="@+id/imageView5"
+                        android:layout_alignStart="@+id/imageView5" />
+
+
+                </RelativeLayout>
+            </ScrollView>
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/ItemText" android:bufferType="normal"
+        android:singleLine="true" android:background="#000000"
+        android:layout_width="fill_parent" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content">
+    </TextView>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

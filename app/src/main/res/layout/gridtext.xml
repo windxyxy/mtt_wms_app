@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/LinearLayout01"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:background="#989494"
+    android:layout_height="fill_parent"
+    android:weightSum="3">
+
+    <TextView
+        android:id="@+id/ItemText" android:bufferType="normal"
+        android:background="#fdfdfd"
+        android:singleLine="true"
+        android:layout_width="179dp" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_weight="3.22"
+        android:textColor="#000000">
+    </TextView>
+
+    <TextView
+        android:id="@+id/ItemTexts" android:bufferType="normal"
+        android:singleLine="true" android:background="#fdfdfd"
+        android:layout_width="116dp" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="#040b88">
+    </TextView>
+
+  <!--  <TextView
+        android:id="@+id/Itemthere" android:bufferType="normal"
+        android:singleLine="true" android:background="#fdfdfd"
+
+        android:layout_width="60dp" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:textIsSelectable="false">
+    </TextView>-->
+    <!--<TextView
+        android:id="@+id/Itemfour" android:bufferType="normal"
+        android:singleLine="true" android:background="#fdfdfd"
+
+        android:layout_width="60dp" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp">
+    </TextView>-->
+<!--
+    &lt;!&ndash;<TextView
+        android:id="@+id/Itemfive" android:bufferType="normal"
+        android:singleLine="true" android:background="#fdfdfd"
+
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_margin="1dip" android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp">&ndash;&gt;
+    </TextView>-->
+</LinearLayout>

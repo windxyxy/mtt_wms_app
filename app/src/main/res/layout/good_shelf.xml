@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:id="@+id/button14"
+                android:background="@drawable/disablebutton"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:onClick="goodback" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主菜单"
+                android:id="@+id/button16"
+                android:layout_alignBottom="@+id/button14"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="backmeue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="货品上架"
+                android:id="@+id/textView12"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="25dp"
+                android:textIsSelectable="false" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:id="@+id/imageView6"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button14"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#e6e6e6" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout14">
+
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                layout="@layout/bottom_state"/>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/relativeLayout14"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="入库单号："
+                android:id="@+id/textView89"
+                android:layout_marginTop="35dp"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/button29"
+                android:layout_toStartOf="@+id/button29" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="上架单号："
+                android:id="@+id/textView90"
+                android:layout_below="@+id/textView89"
+                android:layout_alignLeft="@+id/textView89"
+                android:layout_alignStart="@+id/textView89"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="货位："
+                android:id="@+id/textView91"
+                android:layout_below="@+id/textView90"
+                android:layout_alignRight="@+id/textView90"
+                android:layout_alignEnd="@+id/textView90"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="SKU："
+                android:id="@+id/textView92"
+                android:layout_below="@+id/textView91"
+                android:layout_alignRight="@+id/textView90"
+                android:layout_alignEnd="@+id/textView90"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="商品名称："
+                android:id="@+id/textView93"
+                android:layout_below="@+id/textView92"
+                android:layout_alignRight="@+id/textView92"
+                android:layout_alignEnd="@+id/textView92"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="上架数量："
+                android:id="@+id/textView94"
+                android:layout_below="@+id/textView93"
+                android:layout_alignRight="@+id/textView93"
+                android:layout_alignEnd="@+id/textView93"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="剩余数量："
+                android:id="@+id/textView95"
+                android:layout_below="@+id/textView94"
+                android:layout_alignLeft="@+id/textView94"
+                android:layout_alignStart="@+id/textView94"
+                android:layout_marginTop="25dp"
+                android:textSize="16dp" />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText11"
+                android:background="@drawable/grayborder"
+                android:layout_above="@+id/textView90"
+                android:enabled="false"
+                android:layout_toRightOf="@+id/textView91" />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText12"
+                android:layout_above="@+id/textView91"
+                android:layout_toRightOf="@+id/textView91"
+                android:layout_toEndOf="@+id/textView91"
+                android:background="@drawable/grayborder"
+                android:enabled="false"
+                />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText13"
+                android:background="@drawable/bg_edittext"
+                android:singleLine="true"
+                android:maxLength="60"
+                android:layout_above="@+id/textView93"
+                android:layout_toRightOf="@+id/textView92"
+                android:layout_toEndOf="@+id/textView92" />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText15"
+                android:background="@drawable/bg_edittext"
+                android:singleLine="true"
+                android:maxLength="60"
+                android:layout_alignBottom="@+id/textView91"
+                android:layout_alignLeft="@+id/editText12"
+                android:layout_alignStart="@+id/editText12" />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText16"
+                android:layout_above="@+id/textView95"
+                android:layout_toRightOf="@+id/textView94"
+                android:layout_toEndOf="@+id/textView94"
+                android:background="@drawable/bg_edittext"
+                android:inputType="number" />
+
+            <EditText
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:id="@+id/editText17"
+                android:singleLine="false"
+                android:layout_alignBottom="@+id/textView95"
+                android:layout_alignLeft="@+id/editText16"
+                android:layout_alignStart="@+id/editText16"
+                android:background="@drawable/grayborder"
+                android:enabled="false"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="保存"
+                android:id="@+id/button29"
+                android:background="@drawable/button"
+                android:layout_below="@+id/editText17"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:onClick="shelfsava" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/editText14"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@drawable/grayborder"
+                android:layout_above="@+id/textView94"
+                android:layout_toRightOf="@+id/textView92"
+                android:layout_alignRight="@+id/editText13"
+                android:layout_alignEnd="@+id/editText13" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

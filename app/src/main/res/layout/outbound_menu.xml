@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <Button
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="上    架"
+            android:id="@+id/button6"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:visibility="gone"
+            android:onClick="shelfclick"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginBottom="66dp"
+            android:layout_above="@+id/button17"
+            android:layout_alignLeft="@+id/button17"
+            android:layout_alignStart="@+id/button17" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回"
+            android:id="@+id/button10"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:onClick="outbound_menubcak"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="出库菜单"
+            android:id="@+id/textView5"
+            android:textSize="25dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textIsSelectable="false"
+            android:textColor="#6b6969"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout2">
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                layout="@layout/bottom_state"/>
+
+
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="调拨"
+            android:visibility="invisible"
+            android:id="@+id/button17"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:onClick="clickallocation_task"
+            android:nestedScrollingEnabled="false"
+            android:layout_above="@+id/relativeLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="159dp" />
+
+        <Button
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="创建入库"
+            android:id="@+id/button18"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:onClick="Storageclick"
+            android:visibility="gone"
+            android:nestedScrollingEnabled="false"
+            android:layout_above="@+id/button17"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:id="@+id/imageView8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#e6e6e6" />
+
+        <Button
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="拣货"
+            android:id="@+id/button46"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:nestedScrollingEnabled="false"
+            android:onClick="pickingquery"
+            android:layout_above="@+id/button17"
+            android:layout_alignRight="@+id/button54"
+            android:layout_alignEnd="@+id/button54"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:text="出库"
+            android:id="@+id/button54"
+            android:background="@drawable/button"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:clickable="true"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/button46"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="33dp"
+            android:layout_alignRight="@+id/relativeLayout2"
+            android:layout_alignEnd="@+id/relativeLayout2"
+            android:onClick="click_thelibrary" />
+
+    </RelativeLayout>
+</LinearLayout>

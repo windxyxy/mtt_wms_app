@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f1f3">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="主菜单"
+            android:textIsSelectable="false"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:onClick="Backwhselect"
+            android:text="返回" />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout26"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+
+            android:layout_alignParentStart="true">
+
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                layout="@layout/bottom_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/button5"
+            android:background="#e6e6e6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/relativeLayout26"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/button5"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button12"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="47dp"
+                android:background="@drawable/button"
+                android:clickable="true"
+                android:onClick="Storageclick"
+                android:text="入  库"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/button"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/button"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button"
+                android:clickable="true"
+                android:onClick="pickingoutbound_menu"
+                android:text="出  库"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/button12"
+                android:layout_alignLeft="@+id/button12"
+                android:layout_alignRight="@+id/button12"
+                android:layout_alignStart="@+id/button12"
+                android:layout_below="@+id/button12"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/button"
+                android:nestedScrollingEnabled="false"
+                android:onClick="library"
+                android:text="库  内"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

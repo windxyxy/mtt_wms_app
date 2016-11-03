@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:id="@+id/button14"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:onClick="library_managementbcak" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="库内管理"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:id="@+id/textView12"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="25dp"
+                android:textIsSelectable="false" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:id="@+id/imageView6"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button14"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#e6e6e6" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout17">
+            <include
+                android:id="@+id/relativeLayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                layout="@layout/bottom_state"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView7"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/relativeLayout17"
+            android:layout_below="@+id/relativeLayout">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/relativeLayout17"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:id="@+id/relativeLayout27">
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="移库"
+                    android:id="@+id/button18"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="transfer_click"
+                    android:layout_below="@+id/button32"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="补货"
+                    android:id="@+id/button32"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:onClick="replenishment"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_below="@+id/button33"
+                    android:layout_alignRight="@+id/button18"
+                    android:layout_alignEnd="@+id/button18"
+                    android:layout_alignLeft="@+id/button18"
+                    android:layout_alignStart="@+id/button18"
+                    android:layout_marginTop="5dp" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="盘点"
+                    android:id="@+id/button33"
+                    android:background="@drawable/button"
+
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_centerVertical="true"
+                    android:layout_alignLeft="@+id/button18"
+                    android:layout_alignStart="@+id/button18" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="盘点"
+                    android:id="@+id/button47"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickinventory_task"
+                    android:layout_below="@+id/button18"
+                    android:layout_alignLeft="@+id/button18"
+                    android:layout_alignStart="@+id/button18"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="异常处理"
+                    android:id="@+id/button49"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="exception_menu"
+                    android:layout_below="@+id/button52"
+                    android:layout_alignLeft="@+id/button50"
+                    android:layout_alignStart="@+id/button50"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="仓内加工"
+                    android:visibility="invisible"
+                    android:id="@+id/button50"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_below="@+id/button51"
+                    android:layout_alignLeft="@+id/button51"
+                    android:layout_alignStart="@+id/button51"
+                    android:layout_marginTop="15dp"
+                    android:onClick="clicklibrary_processing" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="货品查询"
+                    android:id="@+id/button51"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickgoodquery"
+                    android:layout_below="@+id/button47"
+                    android:layout_alignLeft="@+id/button47"
+                    android:layout_alignStart="@+id/button47"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="货位查询"
+                    android:id="@+id/button52"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickpostionquery"
+                    android:layout_below="@+id/button51"
+                    android:layout_alignLeft="@+id/button50"
+                    android:layout_alignStart="@+id/button50"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:layout_width="275dp"
+                    android:layout_height="wrap_content"
+                    android:text="下架"
+                    android:id="@+id/button53"
+                    android:background="@drawable/button"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_below="@+id/button49"
+                    android:layout_alignLeft="@+id/button49"
+                    android:layout_alignStart="@+id/button49"
+                    android:layout_marginTop="10dp"
+                    android:onClick="click_Offshelf"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+</LinearLayout>

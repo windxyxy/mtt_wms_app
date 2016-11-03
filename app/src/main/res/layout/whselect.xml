@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退出"
+                android:id="@+id/button14"
+                android:focusable="false"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:onClick="backmeuns" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仓库选择"
+                android:id="@+id/textView12"
+                android:textSize="22dp"
+                android:focusable="true"
+                android:textIsSelectable="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:id="@+id/imageView6"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/button14"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#e6e6e6" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout20">
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                layout="@layout/bottom_state"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/relativeLayout20"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_below="@+id/relativeLayout"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="仓库名称："
+                android:id="@+id/textView107"
+                android:layout_marginTop="112dp"
+                android:textSize="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:id="@+id/spinner4"
+                android:background="@drawable/blackborder"
+                android:layout_alignTop="@+id/textView107"
+                android:layout_toRightOf="@+id/textView107"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:text="确定"
+                android:id="@+id/button35"
+                android:background="@drawable/button"
+                android:layout_marginTop="73dp"
+                android:onClick="Clickhome"
+                android:layout_below="@+id/spinner4"
+                android:layout_alignLeft="@+id/spinner4"
+                android:layout_alignStart="@+id/spinner4" />
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="27dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="▼"
+                android:id="@+id/textView110"
+                android:textColor="#b5b4b4"
+                android:background="#ffffff"
+                android:layout_alignTop="@+id/spinner4"
+                android:layout_alignRight="@+id/spinner4"
+                android:layout_alignEnd="@+id/spinner4"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="1dp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
