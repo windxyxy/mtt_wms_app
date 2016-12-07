@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:onClick="purchase_back"
-                android:text="返回" />
+                android:text="返回"/>
 
             <TextView
                 android:id="@+id/textView12"
@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:text="货品反拣"
                 android:textIsSelectable="false"
-                android:textSize="25dp" />
+                android:textSize="25dp"/>
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -46,7 +46,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/button14"
-                android:background="#e6e6e6" />
+                android:background="#e6e6e6"/>
 
         </RelativeLayout>
 
@@ -63,7 +63,7 @@
                 layout="@layout/bottom_state"
                 android:layout_width="match_parent"
 
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
@@ -91,11 +91,14 @@
                 <TextView
                     android:id="@+id/textView104"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:text="货品条码："
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_cusId"
+                    android:layout_alignRight="@+id/tv_cusId"
+                    android:gravity="center|left"
+                    android:paddingRight="3dp"
+                    android:text="仓库货品条码:"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/editText27"
@@ -103,7 +106,7 @@
                     android:layout_height="30dp"
                     android:layout_toRightOf="@+id/textView104"
                     android:background="@drawable/bg_edittext"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/tv_cusId"
@@ -114,7 +117,7 @@
                     android:gravity="center"
                     android:text="商家编码："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/tv_cusIdContent"
@@ -125,7 +128,7 @@
                     android:layout_toRightOf="@+id/tv_cusId"
                     android:gravity="center|left"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
 
                 <TextView
@@ -138,7 +141,7 @@
                     android:text="货品名称："
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textIsSelectable="false"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/editText26"
@@ -153,7 +156,7 @@
                     android:scrollbars="vertical"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
 
                 <ImageView
@@ -169,7 +172,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"
-                    android:background="#e6e6e6" />
+                    android:background="#e6e6e6"/>
 
                 <com.djx.wms.anter.tags
                     android:id="@+id/gv_gridview"
@@ -188,7 +191,7 @@
                     android:gravity="center"
                     android:text="货位编码："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/editText25"
@@ -198,7 +201,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/textView96"
                     android:background="@drawable/bg_edittext"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/textView106"
@@ -207,9 +210,9 @@
                     android:layout_below="@+id/textView96"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="补货数量："
+                    android:text="拣货数量："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/editText28"
@@ -220,17 +223,17 @@
                     android:layout_toRightOf="@+id/textView106"
                     android:background="@drawable/bg_edittext"
                     android:inputType="number"
-                    android:singleLine="false" />
+                    android:singleLine="false"/>
 
-                <Button
-                    android:id="@+id/button45"
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_alignBottom="@+id/editText27"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:focusable="false"
-                    android:onClick="enters" />
+                <!--<Button-->
+                <!--android:id="@+id/button45"-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_alignBottom="@+id/editText27"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:focusable="false"-->
+                <!--android:onClick="enters" />-->
 
                 <Button
                     android:id="@+id/button36"
@@ -241,7 +244,7 @@
                     android:layout_marginTop="37dp"
                     android:background="@drawable/button"
                     android:onClick="savagood"
-                    android:text="完   成" />
+                    android:text="完   成"/>
             </RelativeLayout>
         </ScrollView>
 

@@ -1,34 +1,24 @@
 package com.djx.wms.anter;
 
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Selection;
-import android.text.Spannable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.djx.wms.anter.entity.SPEntity;
 import com.djx.wms.anter.tools.Datarequest;
 import com.djx.wms.anter.tools.TransactSQL;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -38,16 +28,13 @@ import java.util.Map;
  * Created by gfgh on 2016/4/7.
  */
 public class temporary extends buttom_state {
-    private TextView textView26, tv_cusIdCon, edit26;
+    private TextView textView26, tv_cusIdCon;
     private EditText editText28, editText27, editText25;
     private int sums = 0, realStock = 0;
-    private List<Hashtable> listhas = new ArrayList<Hashtable>();
+    private List<Hashtable> listhas;
 
-    private String nextsku = "";
     int sum = 0;
 
-    private Boolean statce = false;
-    private String LocationID = "";
 
     private List<Hashtable> listData = new ArrayList<Hashtable>();
     public GridView gridview;
@@ -61,12 +48,11 @@ public class temporary extends buttom_state {
         gridview = (GridView) findViewById(R.id.gv_gridview);
         textView26 = (TextView) findViewById(R.id.editText26);
         tv_cusIdCon = (TextView) findViewById(R.id.tv_cusIdContent);
-        editText28 = (EditText) findViewById(R.id.editText28);
-        editText27 = (EditText) findViewById(R.id.editText27);
-        editText25 = (EditText) findViewById(R.id.editText25);
+        editText28 = (EditText) findViewById(R.id.editText28);//补货数量
+        editText27 = (EditText) findViewById(R.id.editText27);//货品条码
+        editText25 = (EditText) findViewById(R.id.editText25);//货位编码
 
-        edit26 = (TextView) findViewById(R.id.editText26);
-        roll(edit26);
+        roll(textView26);
 
 
         /*获取焦点*/
@@ -75,31 +61,13 @@ public class temporary extends buttom_state {
         editText27.requestFocus();
 
 
-        //输入框值change事件
-        editText25.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        LocationID = "";
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-                });
-
-
         editText25.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     String Text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
                     Hashtable ParamValue = new Hashtable<>();
                     ParamValue.put("SPName", "PRO_UP_GOODS_CHECK_POSITION");
-                    String username = AppStart.GetInstance().initUserEntity();
+//                    String username = AppStart.GetInstance().initUserEntity();
                     ParamValue.put("whid", AppStart.GetInstance().Warehouse);
                     ParamValue.put("PosFullCode", Text25);
                     ParamValue.put("type", 0);
@@ -110,23 +78,17 @@ public class temporary extends buttom_state {
                     result = Datarequest.GETstored(ParamValue);
 
                     if (result.get(0).get("result").toString().equals("0.0")) {
-                        LocationID = result.get(0).get("msg").toString();
+                        Log.e("getResult","result.get(0)的结果：："+result.get(0).toString());
+
                     } else {
                         editText25.setError(result.get(0).get("msg").toString());
-                        editText25.setText(editText25.getText().toString());//添加这句后实现效果
-                        Spannable content = editText25.getText();
-                        Selection.selectAll(content);
+                        selectall(editText25);
                         return true;
                     }
-
-
-                    return false;
                 }
                 return false;
             }
         });
-
-
 
 
         /*失去焦点触发事件*/
@@ -144,16 +106,14 @@ public class temporary extends buttom_state {
                     ParamValue.put("msg", "output-varchar-100");
                     ParamValue.put("msg1", "output-varchar-100");
 
-
                     List<Hashtable> result = new ArrayList<Hashtable>();
                     result = Datarequest.GETstored(ParamValue);
                     if (result.get(0).get("result").toString().equals("0.0")) {
-                        LocationID = result.get(0).get("msg").toString();
+
                     } else {
                         editText25.setError(result.get(0).get("msg").toString());
-                        editText25.setText(editText25.getText().toString());//添加这句后实现效果
-                        Spannable content = editText25.getText();
-                        Selection.selectAll(content);
+                        selectall(editText25);
+                        return;
                     }
 
                 }
@@ -165,7 +125,8 @@ public class temporary extends buttom_state {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    enters(v);
+//                    enters();
+                    quergood();
                 }
             }
         });
@@ -174,7 +135,19 @@ public class temporary extends buttom_state {
         editText27.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    enters(v);
+//                    enters();
+                    sum++;
+                    if (sum % 2 != 0) {
+                        quergood();
+                        if (editText27.getError() == null) {
+                            editText25.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    editText25.requestFocus();
+                                }
+                            }, 400);
+                        }
+                    }
                     return true;
                 }
                 return true;
@@ -183,51 +156,21 @@ public class temporary extends buttom_state {
     }
 
 
-    public void enters(View v) {
-
-        sum++;
-        if (sum % 2 != 0) {
-            editText27.setText(editText27.getText().toString());//添加这句后实现效果
-            if (quergood()) {
-                return;
-            }
-            if (!editText27.getText().toString().equals("")) {
-                nextsku = editText27.getText().toString();
-            }
-        }
-    }
-
-
-
-    public Boolean quergood() {
-        Boolean open = true;
-        String sku = editText27.getText().toString();
-        sku = TransactSQL.instance.filterSQL(sku);
+    public void quergood() {
+        String str27 = editText27.getText().toString();
+        String sku = TransactSQL.instance.filterSQL(str27);
         if (sku.equals("")) {
+            selectall(editText27);
             editText27.setError("请输入正确的货品！");
-            return true;
-        }
-        if (!nextsku.equals("")) {
-            if (statce) {
-                if (nextsku.equals(sku)) {
-                    int sum = Integer.parseInt(editText28.getText().toString());
-                    sum = sum + 1;
-                    editText28.setText("" + sum + "");
-                    open = false;
-                    return false;
-                }
-            }
+            return;
         }
 
-//        String SQL = "select * from  v_querygoods_android  where  wareGoodsCodes='" + sku + "' and warehouseId=" + AppStart.GetInstance().Warehouse + " ";
-        String SQL = " select * from  v_querygoods_android as a,t_goods as b  where a.indexId = b.indexId and a.wareGoodsCodes ='" + sku + "' and warehouseId=" + AppStart.GetInstance().Warehouse + "";
-
+        String SQL = "select * from  v_querygoods_android  where  wareGoodsCodes='" + sku + "' and warehouseId=" + AppStart.GetInstance().Warehouse + " ";
+        listhas = new ArrayList<Hashtable>();
         listhas = Datarequest.GetDataArrayList(SQL);
         if (listhas.size() != 0) {
             tv_cusIdCon.setText(listhas.get(0).get("goodsCode").toString());
             textView26.setText(listhas.get(0).get("goodsName").toString());
-            editText28.setText("1");
-
 
             String SQL1 = "select * from v_stock where wareGoodsCodes='" + sku + "'and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
             listData = new ArrayList<>();
@@ -248,23 +191,17 @@ public class temporary extends buttom_state {
                 addData();
                 setListViewHeightBasedOnChildren(gridview);
 
-            } else {/*AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
+            } else {
+                /*AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
             build.setMessage("库存不足！").show();*/
             }
 
-            statce = true;
-            return false;
         } else {
-            EditText edit27 = (EditText) findViewById(R.id.editText27);
-            edit27.setError("商品信息不存在，请同步商品信息！");
-            TextView text = (TextView) findViewById(R.id.editText26);
-            text.setText("");
-            statce = false;
+            editText27.setError("商品信息不存在，请同步商品信息！");
+            selectall(editText27);
+            return;
 
-            return true;
         }
-
-
     }
 
     /*表格头部*/
@@ -297,35 +234,37 @@ public class temporary extends buttom_state {
 
     public void savagood(View v) {
 
-        String Text26 = edit26.getText().toString();
+        String text26 = textView26.getText().toString();
 
-        if (Text26.equals("")) {
+        if (text26.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(temporary.this);
             build.setMessage("请查询货品！").show();
             return;
         }
 
-        String Text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
-        if (editText25.getText().toString().equals("")) {
+        final String text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
+        if (text25.equals("")) {
             editText25.setError("请输入货位！");
+            editText25.requestFocus();
             return;
         }
-        String Text27 = TransactSQL.instance.filterSQL(editText27.getText().toString());
+        final String text27 = TransactSQL.instance.filterSQL(editText27.getText().toString());
 
-        if (Text27.equals("")) {
+        if (text27.equals("")) {
             editText27.setError("请输入货品！");
+            editText27.requestFocus();
             return;
         }
 
-        String Textsum = editText28.getText().toString();
-        if (Textsum.equals("") || Textsum.equals("0")) {
+        final String textsum = editText28.getText().toString();
+        if (textsum.equals("") || textsum.equals("0")) {
             editText28.setError("数量不能为空或0！");
+            editText28.requestFocus();
             return;
         }
 
 
-        String sku = editText27.getText().toString();
-        sku = TransactSQL.instance.filterSQL(sku);
+        String sku = TransactSQL.instance.filterSQL(text27);
         String SQL = "select *from   v_querygoods_android  where  wareGoodsCodes='" + sku + "' and warehouseId=" + AppStart.GetInstance().Warehouse + " ";
         listhas = Datarequest.GetDataArrayList(SQL);
         if (listhas.size() != 0) {
@@ -341,29 +280,34 @@ public class temporary extends buttom_state {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
-                        String Text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
-                        String Text27 = TransactSQL.instance.filterSQL(editText27.getText().toString());
-                        String Textsum = editText28.getText().toString();
 
                         Hashtable ParamValues = new Hashtable<>();
                         ParamValues.put("SPName", "PRO_UP_GOODS_ADD");
-                        ParamValues.put("wareGoodsCodes", Text27);
+                        ParamValues.put("userId", AppStart.GetInstance().getUserID());//----------
+                        ParamValues.put("wareGoodsCodes", text27);
                         ParamValues.put("msg", "output-varchar-8000");
-                        ParamValues.put("PosFullCode", Text25);
+                        ParamValues.put("PosFullCode", text25);
                         ParamValues.put("warehouseId", AppStart.GetInstance().Warehouse);
-                        ParamValues.put("planQty", Textsum);
+                        ParamValues.put("planQty", textsum);
 
                         List<Hashtable> results = new ArrayList<Hashtable>();
                         results = Datarequest.GETstored(ParamValues);
 
                         if (results.get(0).get("result").toString().equals("0.0")) {
-                            AlertDialog.Builder builds = new AlertDialog.Builder(temporary.this);
-                            builds.setMessage("上架成功").show();
+                            new AlertDialog.Builder(temporary.this)
+                                    .setTitle("提示")
+                                    .setMessage("上架成功")
+                                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent myIntent = new Intent(temporary.this, temporary.class);
+                                            dialog.dismiss();
+                                            startActivity(myIntent);
+                                            temporary.this.finish();
+                                        }
+                                    })
+                                    .show();
 
-                            Intent myIntent = new Intent();
-                            myIntent = new Intent(temporary.this, temporary.class);
-                            startActivity(myIntent);
-                            temporary.this.finish();
                         } else {
                             AlertDialog.Builder build = new AlertDialog.Builder(temporary.this);
                             build.setMessage(results.get(0).get("msg").toString()).show();

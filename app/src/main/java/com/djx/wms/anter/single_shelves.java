@@ -163,11 +163,4 @@ public class single_shelves extends buttom_state {
         // 设置参数
         listView.setLayoutParams(params);
     }
-
-
-
-
 }
-
-
-

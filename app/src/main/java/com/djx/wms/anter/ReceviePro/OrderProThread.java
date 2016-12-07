@@ -26,7 +26,4 @@ public class OrderProThread {
         OrderParse.GetInstance().ExitWhile();
         OrderThreadWaitNotify.getIntance().DoNotify();
     }
-
-
-
 }

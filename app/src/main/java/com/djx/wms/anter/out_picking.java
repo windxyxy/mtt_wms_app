@@ -38,7 +38,7 @@ public class out_picking extends buttom_state {
     public GridView gridview;
     protected ArrayList<HashMap<String, String>> srcTable;
     protected SimpleAdapter saTable;// 适配器
-
+    private String pickingorder = null;
     private int sum = 0, sums = 0, realStock = 0;
     private String nextsku = "";
     private List<Hashtable> listData = new ArrayList<Hashtable>();
@@ -49,32 +49,26 @@ public class out_picking extends buttom_state {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.out_pickings);
 
-//        Intent intent = this.getIntent();
-//        querypick = (List<Hashtable>) intent.getSerializableExtra("qurypick");
-//        boolean flag = true;
-//        while (flag){
-//            for (int i = 0; i <querypick.size() ; i++) {
-//                Log.d("XiaoTest","querypick====="+querypick.get(i).get("outStockNo").toString());
-//            }
-//            flag = false;
-//        }
-
-
+        Intent intent = getIntent();
+        pickingorder = intent.getStringExtra("picorder");
+        Log.e("picorder--from", pickingorder);
 
         Hashtable Param = new Hashtable<>();
         Param.put("SPName", "sp_out_stock_detail_get");
-        Param.put("outstockno ",AppStart.GetInstance().outorder);
+//        Param.put("outstockno ",AppStart.GetInstance().outorder);
+        Param.put("outstockno ", pickingorder);
         int userid = AppStart.GetInstance().getUserID();
         Param.put("currid", "" + userid + "");
         Param.put("whid", "" + AppStart.GetInstance().Warehouse + "");
         Param.put("msg", "output-varchar-500");
         querypick = Datarequest.GETstored(Param);
+
         if (querypick.size() != 1) {
             querypick.remove(0);
-        } else {
+        }else {
             new AlertDialog.Builder(this)
                     .setTitle("提示")
-                    .setMessage("出库完成")
+                    .setMessage("该出库单已完成拣货，等待电脑端确认出库")
                     .setCancelable(false)
                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
@@ -82,12 +76,11 @@ public class out_picking extends buttom_state {
                             // TODO Auto-generated method stub
                             Intent intent = new Intent();
                             intent.setClass(out_picking.this, the_library.class);
+                            dialog.dismiss();
                             startActivity(intent);/*调用startActivity方法发送意图给系统*/
-                            out_picking.this.finish();
                         }
                     })
                     .show();
-
             return;
         }
 
@@ -102,7 +95,8 @@ public class out_picking extends buttom_state {
         /*名称超出滚动*/
         roll(goodName);
 
-        mgoNo.setText(AppStart.GetInstance().outorder);
+//        mgoNo.setText(AppStart.GetInstance().outorder);
+        mgoNo.setText(pickingorder);
         wareCode.setText(querypick.get(0).get("wareGoodsCodes").toString());
         MerchantCode.setText(querypick.get(0).get("itemCode").toString());
         goodName.setText(querypick.get(0).get("goodsName").toString());
@@ -157,40 +151,6 @@ public class out_picking extends buttom_state {
         postion.requestFocus();
 
 
-        //输入框值change事件
-        pickingsum.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                        if (!pickingsum.getText().toString().equals("")) {
-                            int jhsum = 0;
-
-                            try {
-                                jhsum = Integer.parseInt(pickingsum.getText().toString());
-                            } catch (Exception e) {
-                            }
-
-                            int demand = Integer.parseInt(surplussum.getText().toString());
-                            if (/*jhsum > realStock ||*/ jhsum <= 0 || jhsum > demand) {
-                                pickingsum.setText("");
-                                AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
-                                build.setMessage("拣货数量不正确！").show();
-                            }
-
-                        }
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-                });
-
-
        /*货位回车事件*/
         postion.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -220,6 +180,11 @@ public class out_picking extends buttom_state {
                     sum++;
                     if (sum % 2 != 0) {
                         querycode();
+                        if (goodCode.getError() == null) {
+                            pickingsum.requestFocus();
+
+                        }
+
                     }
                     return true;
                 }
@@ -290,6 +255,13 @@ public class out_picking extends buttom_state {
 
     /*完成提交*/
     public void sumbit() {
+        int num = Integer.parseInt(pickingsum.getText().toString());//实际拣货
+        int demand = Integer.parseInt(surplussum.getText().toString());//预拣货
+        if (num <= 0 || num > demand) {
+            pickingsum.setError("拣货数量不正确");
+            selectall(pickingsum);
+            return;
+        }
         String postiontext = TransactSQL.instance.filterSQL(postion.getText().toString());
         Hashtable ParamValues = new Hashtable<>();
 
@@ -306,12 +278,26 @@ public class out_picking extends buttom_state {
         List<Hashtable> data = new ArrayList<Hashtable>();
         data = Datarequest.GETstored(ParamValues);
         if (data.get(0).get("result").toString().equals("0.0")) {
-            AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
-            build.setMessage("拣货成功！").show();
-            Intent intent = new Intent();
-            intent.setClass(out_picking.this, out_picking.class);
-            startActivity(intent);/*调用startActivity方法发送意图给系统*/
-            out_picking.this.finish();
+            new AlertDialog.Builder(this)
+                    .setMessage("拣货完成")
+                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent();
+                            intent.putExtra("picorder", pickingorder);
+                            intent.setClass(out_picking.this, out_picking.class);
+                            startActivity(intent);/*调用startActivity方法发送意图给系统*/
+                            dialog.dismiss();
+                            out_picking.this.finish();
+                        }
+                    }).show();
+//            AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
+//            build.setMessage("拣货成功！").show();
+//            Intent intent = new Intent();
+//            intent.putExtra("picorder",pickingorder);
+//            intent.setClass(out_picking.this, out_picking.class);
+//            startActivity(intent);/*调用startActivity方法发送意图给系统*/
+//            out_picking.this.finish();
         } else {
             AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
             build.setMessage(data.get(0).get("msg").toString()).show();
@@ -326,7 +312,6 @@ public class out_picking extends buttom_state {
 
         goodCode.setText("");
         pickingsum.setText("");
-        nextsku = "";
         String bhposition = TransactSQL.instance.filterSQL(postion.getText().toString());
 
         if (bhposition.equals("")) {
@@ -348,9 +333,9 @@ public class out_picking extends buttom_state {
     public Boolean querycode() {
 
         String values = TransactSQL.instance.filterSQL(goodCode.getText().toString());
-        selectall(goodCode);
+//        selectall(goodCode);
         if (values.equals("")) {
-            nextsku = "";
+            goodCode.setError("货品条码不能为空");
             return true;
         }
 
@@ -359,44 +344,44 @@ public class out_picking extends buttom_state {
             goodCode.setError("货品条码不正确！");
             selectall(goodCode);
         } else {
-            selectall(goodCode);
-            repeat();
-            nextsku = goodCode.getText().toString();
+//            selectall(goodCode);
+//            nextsku = goodCode.getText().toString();
+//            repeat();
         }
 
         return true;
     }
 
 
-    public void repeat() {
-
-        if (nextsku.equals(goodCode.getText().toString())) {
-            int sursum = 0;
-            try {
-                sursum = Integer.parseInt(pickingsum.getText().toString());
-            } catch (Exception e) {
-            }
-            sursum++;
-
-            if (realStock == 0) {
-                AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
-                build.setMessage("请扫入库存大于0的货位编码！").show();
-                return;
-            }
-
-            int surplue = Integer.parseInt(surplussum.getText().toString());
-            if (sursum <= realStock && sursum <= surplue) {
-                pickingsum.setText("" + sursum + "");
-            } else {
-                AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
-                build.setMessage("拣货数量不正确！").show();
-            }
-
-        } else {
-            pickingsum.setText("1");
-        }
-
-    }
+//    public void repeat() {
+//
+//        if (nextsku.equals(goodCode.getText().toString())) {
+//            int sursum = 0;
+//            try {
+//                sursum = Integer.parseInt(pickingsum.getText().toString());
+//            } catch (Exception e) {
+//            }
+//            sursum++;
+//
+//            if (realStock <= 0) {
+//                AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
+//                build.setMessage("请扫入库存大于0的货位编码！").show();
+//                return;
+//            }
+//
+//            int surplue = Integer.parseInt(surplussum.getText().toString());
+//            if (sursum <= realStock && sursum <= surplue) {
+////                pickingsum.setText("" + sursum + "");
+//            } else {
+//                AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
+//                build.setMessage("拣货数量不正确！").show();
+//            }
+//
+//        } else {
+////            pickingsum.setText("1");
+//        }
+//
+//    }
 
 
     /*表格头部*/

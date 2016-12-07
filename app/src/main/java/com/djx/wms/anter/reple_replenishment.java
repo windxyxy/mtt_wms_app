@@ -28,20 +28,13 @@ import java.util.Map;
  */
 public class reple_replenishment extends buttom_state {
 
-    private List<Map<String, String>> gridData= new ArrayList<Map<String, String>>();
-    private EditText
-            inputsku,
-            inputpostion,
-            inputsum;
+    private List<Map<String, String>> gridData = new ArrayList<Map<String, String>>();
+    private EditText inputsku, inputpostion, inputsum;
 
-    private TextView
-            bhorder,
-            goodsku,
-            jhsum,
-            hwcode;
+    private TextView bhorder, goodsku, jhsum, hwcode, tv_goodsName;
 
-    private int sum=0,datasum=0,odd=0;
-    private String nextsku,replenorder,jhpostion;
+    private int sum = 0, datasum = 0, odd = 0;
+    private String nextsku, replenorder, jhpostion;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,28 +42,28 @@ public class reple_replenishment extends buttom_state {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        gridData= (List) bundle.getSerializable("griddata");
-        replenorder=intent.getStringExtra("order");
-        jhpostion=intent.getStringExtra("jhpostion");
-        bhorder=(TextView)findViewById(R.id.editText56);
-        goodsku=(TextView)findViewById(R.id.editText57);
-        jhsum=(TextView)findViewById(R.id.editText58);
-        hwcode=(TextView)findViewById(R.id.textView130);
+        gridData = (List) bundle.getSerializable("griddata");
+        replenorder = intent.getStringExtra("order");
+        jhpostion = intent.getStringExtra("jhpostion");
+        bhorder = (TextView) findViewById(R.id.editText56);
+        goodsku = (TextView) findViewById(R.id.editText57);
+        jhsum = (TextView) findViewById(R.id.editText58);
+        hwcode = (TextView) findViewById(R.id.textView130);
+        tv_goodsName = (TextView) findViewById(R.id.tv_goodsName);
 
         /*货品名称滚动*/
         roll(goodsku);
 
         List<Hashtable> gridDatas = new ArrayList<Hashtable>();
-        String SQLs = "select * from v_fillgoods where mgoNo ='"+replenorder+"' and wareGoodsCodes='"+gridData.get(0).get("wareGoodsCodes").toString()+"'";
+        String SQLs = "select * from v_fillgoods where mgoNo ='" + replenorder + "' and wareGoodsCodes='" + gridData.get(0).get("wareGoodsCodes").toString() + "'";
         gridDatas = Datarequest.GetDataArrayList(SQLs);
-        String surplus="";
-        if (gridDatas.size()!= 0) {
-            surplus=gridDatas.get(0).get("stock").toString();
-        }else {
-
-            surplus=gridData.get(0).get("planQty").toString();
+        String surplus = "";
+        if (gridDatas.size() != 0) {
+            surplus = gridDatas.get(0).get("stock").toString();
+        } else {
+            surplus = gridData.get(0).get("planQty").toString();
         }
 
 
@@ -79,12 +72,12 @@ public class reple_replenishment extends buttom_state {
         jhsum.setText(surplus);
         hwcode.setText(jhpostion);
 
+        tv_goodsName.setText(gridData.get(0).get("goodsName").toString());//-------------新增货品名称
 
 
-        inputpostion=(EditText)findViewById(R.id.editText45);
-        inputsku=(EditText)findViewById(R.id.editText46);
-        inputsum=(EditText)findViewById(R.id.editText29);
-
+        inputpostion = (EditText) findViewById(R.id.editText45);
+        inputsku = (EditText) findViewById(R.id.editText46);
+        inputsum = (EditText) findViewById(R.id.editText29);
 
 
         inputpostion.setFocusable(true);
@@ -104,7 +97,7 @@ public class reple_replenishment extends buttom_state {
                             Spannable content = inputsku.getText();
                             Selection.selectAll(content);
                             return true;
-                        }else {
+                        } else {
                             inputsku.setText(inputsku.getText().toString());//添加这句后实现效果
                             Spannable content = inputsku.getText();
                             Selection.selectAll(content);
@@ -129,7 +122,7 @@ public class reple_replenishment extends buttom_state {
                         inputsku.setText(inputsku.getText().toString());//添加这句后实现效果
                         Spannable content = inputsku.getText();
                         Selection.selectAll(content);
-                    }else {
+                    } else {
                         inputsku.setText(inputsku.getText().toString());//添加这句后实现效果
                         Spannable content = inputsku.getText();
                         Selection.selectAll(content);
@@ -147,17 +140,17 @@ public class reple_replenishment extends buttom_state {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     odd++;
-                    if(odd%2!=0){
+                    if (odd % 2 != 0) {
 
-                        String inputpos=inputpostion.getText().toString();
-                        if(!hwcode.getText().toString().equals(inputpos)){
+                        String inputpos = inputpostion.getText().toString();
+                        if (!hwcode.getText().toString().equals(inputpos)) {
                             inputpostion.setError("货位不匹配！");
                             inputpostion.setText(inputpostion.getText().toString());
                             Spannable content = inputpostion.getText();
                             Selection.selectAll(content);
-                            return  true;
+                            return true;
                         }
-                        return  false;
+                        return false;
                     }
 
                     return true;
@@ -172,8 +165,8 @@ public class reple_replenishment extends buttom_state {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    String inputpos=inputpostion.getText().toString();
-                    if(!hwcode.getText().toString().equals(inputpos)){
+                    String inputpos = inputpostion.getText().toString();
+                    if (!hwcode.getText().toString().equals(inputpos)) {
                         inputpostion.setError("货位不匹配！");
                         inputpostion.setText(inputpostion.getText().toString());
                         Spannable content = inputpostion.getText();
@@ -185,25 +178,23 @@ public class reple_replenishment extends buttom_state {
         });
 
 
-
-
-        EditText editText29=(EditText)findViewById(R.id.editText29);
+        EditText editText29 = (EditText) findViewById(R.id.editText29);
         //输入框值change事件
         editText29.addTextChangedListener(
                 new TextWatcher() {
                     @Override
                     public void afterTextChanged(Editable s) {
 
-                        try{
-                            int lst=Integer.parseInt(jhsum.getText().toString());
-                            int sums=Integer.parseInt(inputsum.getText().toString());
-                            if(sums>lst){
-                                EditText editText29=(EditText)findViewById(R.id.editText29);
+                        try {
+                            int lst = Integer.parseInt(jhsum.getText().toString());
+                            int sums = Integer.parseInt(inputsum.getText().toString());
+                            if (sums > lst) {
+                                EditText editText29 = (EditText) findViewById(R.id.editText29);
                                 editText29.setError("不能大于拣货数量！");
                                 editText29.setText("");
                             }
-                        }catch (Exception e){
-                            EditText editText29=(EditText)findViewById(R.id.editText29);
+                        } catch (Exception e) {
+                            EditText editText29 = (EditText) findViewById(R.id.editText29);
                             editText29.setError("补货数量不正确!");
                         }
 
@@ -219,52 +210,47 @@ public class reple_replenishment extends buttom_state {
                 });
 
 
-
-
-
     }
 
 
-
-
-    public  void   replesum(){
+    public void replesum() {
 
         datasum++;
-        int lst=Integer.parseInt(jhsum.getText().toString());
-        if(datasum<=lst){
-            inputsum.setText(""+datasum+"");
-        }else {
+        int lst = Integer.parseInt(jhsum.getText().toString());
+        if (datasum <= lst) {
+            inputsum.setText("" + datasum + "");
+        } else {
             AlertDialog.Builder build = new AlertDialog.Builder(reple_replenishment.this);
             build.setMessage("不能大于拣货数量！").show();
-            datasum=Integer.parseInt(jhsum.getText().toString());
+            datasum = Integer.parseInt(jhsum.getText().toString());
         }
 
     }
 
-    public  void repleclick(View v){
+    public void repleclick(View v) {
 
         String jhtext = TransactSQL.instance.filterSQL(hwcode.getText().toString());
-        if(!jhtext.equals(inputpostion.getText().toString())) {
+        if (!jhtext.equals(inputpostion.getText().toString())) {
             inputpostion.setError("请输入正确的货位！");
             return;
         }
 
 
         String skutext = TransactSQL.instance.filterSQL(inputsku.getText().toString());
-        if(!skutext.equals(goodsku.getText().toString())){
+        if (!skutext.equals(goodsku.getText().toString())) {
             inputsku.setError("货品条码不匹配！");
             return;
         }
 
-        int inputsums=0;
-        try{
-             inputsums=Integer.parseInt(inputsum.getText().toString());
-        }catch (Exception e){
+        int inputsums = 0;
+        try {
+            inputsums = Integer.parseInt(inputsum.getText().toString());
+        } catch (Exception e) {
 
         }
 
-        int lst=Integer.parseInt(jhsum.getText().toString());
-        if(inputsums>lst){
+        int lst = Integer.parseInt(jhsum.getText().toString());
+        if (inputsums > lst) {
             AlertDialog.Builder build = new AlertDialog.Builder(reple_replenishment.this);
             build.setMessage("补货数量不正确！").show();
             return;
@@ -280,31 +266,30 @@ public class reple_replenishment extends buttom_state {
                         // TODO Auto-generated method stub
 
 
-                        Hashtable ParamValues =new Hashtable<>();
+                        Hashtable ParamValues = new Hashtable<>();
                         ParamValues.put("SPName", "PRO_MOVESGOODS_HANDHELD_FILL");
                         ParamValues.put("msg", "output-varchar-8000");
 
-                        ParamValues.put("mgotype","2");
-                        ParamValues.put("mgoNo",replenorder);
+                        ParamValues.put("mgotype", "2");
+                        ParamValues.put("mgoNo", replenorder);
 
-                        EditText text22=(EditText)findViewById(R.id.editText46);
+                        EditText text22 = (EditText) findViewById(R.id.editText46);
                         String wareGoodsCodes = TransactSQL.instance.filterSQL(text22.getText().toString());
-                        ParamValues.put("wareGoodsCodes",wareGoodsCodes);
-                        EditText text29=(EditText)findViewById(R.id.editText29);
-                        ParamValues.put("realStock",text29.getText().toString());
+                        ParamValues.put("wareGoodsCodes", wareGoodsCodes);
+                        EditText text29 = (EditText) findViewById(R.id.editText29);
+                        ParamValues.put("realStock", text29.getText().toString());
 
-                        int userId=AppStart.GetInstance().getUserID();
-                        ParamValues.put("createId",""+userId+"");
+                        int userId = AppStart.GetInstance().getUserID();
+                        ParamValues.put("createId", "" + userId + "");
                         ParamValues.put("whid", AppStart.GetInstance().Warehouse);
-                        EditText text21=(EditText)findViewById(R.id.editText45);
+                        EditText text21 = (EditText) findViewById(R.id.editText45);
                         String inPosFullCode = TransactSQL.instance.filterSQL(text21.getText().toString());
                         ParamValues.put("inPosFullCode", inPosFullCode);
 
 
-
                         List<Hashtable> data = new ArrayList<Hashtable>();
                         data = Datarequest.GETstored(ParamValues);
-                        if(data.get(0).get("result").toString().equals("0.0")){
+                        if (data.get(0).get("result").toString().equals("0.0")) {
                             AlertDialog.Builder build = new AlertDialog.Builder(reple_replenishment.this);
                             build.setMessage("补货成功！").show();
 
@@ -312,14 +297,10 @@ public class reple_replenishment extends buttom_state {
                             intent.setClass(reple_replenishment.this, reple_task.class);
                             startActivity(intent);/*调用startActivity方法发送意图给系统*/
                             reple_replenishment.this.finish();
-                        }else {
+                        } else {
                             AlertDialog.Builder build = new AlertDialog.Builder(reple_replenishment.this);
                             build.setMessage(data.get(0).get("msg").toString()).show();
                         }
-
-
-
-
 
 
                     }
@@ -335,15 +316,15 @@ public class reple_replenishment extends buttom_state {
     }
 
 
-
-    public  void backstask(View v){
+    public void backstask(View v) {
         Intent intent = new Intent();
         intent.setClass(reple_replenishment.this, reple_task.class);
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
         reple_replenishment.this.finish();
 
     }
-    public  void backsmain(View v){
+
+    public void backsmain(View v) {
         Intent intent = new Intent();
         intent.setClass(reple_replenishment.this, library_management.class);
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
@@ -352,11 +333,9 @@ public class reple_replenishment extends buttom_state {
     }
 
 
-
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
             Intent myIntent = new Intent();
             myIntent = new Intent(reple_replenishment.this, reple_task.class);
             startActivity(myIntent);
@@ -365,25 +344,4 @@ public class reple_replenishment extends buttom_state {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

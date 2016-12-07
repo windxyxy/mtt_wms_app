@@ -11,6 +11,7 @@ public class OrderRegister {
         return instance;
     }
 
+
     private Hashtable<String,IOrderTran> hash = new Hashtable<String,IOrderTran>();
 
     IOrderTran Get(String order){
@@ -24,5 +25,8 @@ public class OrderRegister {
     public void Del(String order){
         hash.remove(order);
     }
+
+
+
 
 }

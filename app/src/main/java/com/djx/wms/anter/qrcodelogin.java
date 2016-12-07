@@ -377,7 +377,7 @@ public class qrcodelogin extends AppCompatActivity {
             // TODO
             // 在这里进行 http request.网络请求相关操作
 //            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
-            data = HttpGetRequest.sendGet("http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
+            data = HttpGetRequest.sendGet("http://http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
 
             try {
                 String[] stepOne = data.split(",");

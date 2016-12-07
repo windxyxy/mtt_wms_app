@@ -31,7 +31,7 @@ public class query_good  extends buttom_state{
 
     private int sum=0;
     private EditText goodCode;
-    private TextView goodSku,goodname;
+    private TextView goodSku,goodname,goodBM,goodTXM;
     private List<Hashtable> listData = new ArrayList<Hashtable>();
 
     public GridView gridview;
@@ -46,9 +46,12 @@ public class query_good  extends buttom_state{
         setContentView(R.layout.query_good);
 
         gridview = (GridView) findViewById(R.id.gridView);
-        goodCode=(EditText)findViewById(R.id.editText32);
-        goodSku=(TextView)findViewById(R.id.textView137);
-        goodname=(TextView)findViewById(R.id.textView138);
+        goodCode=(EditText)findViewById(R.id.editText32);//仓库货品条码
+        goodSku=(TextView)findViewById(R.id.textView137);//商家编码
+        goodname=(TextView)findViewById(R.id.textView138);//货品名称
+
+        goodBM = (TextView) findViewById(R.id.tv_goodsBMT);
+        goodTXM = (TextView) findViewById(R.id.tv_goodsTXMT);
 
 
 
@@ -82,20 +85,7 @@ public class query_good  extends buttom_state{
         gridview.setAdapter(saTable);
         //添加表头
         addHeader();
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
     /*查询货品*/
     public Boolean querycode(View v){
@@ -115,6 +105,8 @@ public class query_good  extends buttom_state{
 
             goodSku.setText(listData.get(0).get("goodsCode").toString());
             goodname.setText(listData.get(0).get("goodsName").toString());
+            goodBM.setText(listData.get(0).get("goodsSku").toString());
+            goodTXM.setText(listData.get(0).get("barCodes").toString());
 
              /*如果没有数据刷新表格重新加载*/
             srcTable = new ArrayList<HashMap<String, String>>();

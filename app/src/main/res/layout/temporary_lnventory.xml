@@ -177,12 +177,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="货品条码："
+                    android:text="仓库货品条码:"
                     android:id="@+id/textView101"
                     android:textSize="16dp"
                     android:layout_below="@+id/editText45"
                     android:layout_alignLeft="@+id/textView100"
-                    android:layout_alignStart="@+id/textView100"
+                    android:layout_alignRight="@+id/textView100"
+                    android:paddingRight="3dp"
                     android:layout_marginTop="20dp" />
 
                 <EditText

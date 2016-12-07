@@ -15,9 +15,6 @@ public class outbound_menu extends buttom_state {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.outbound_menu);
     }
-
-
-
     public  void  pickingquery(View v){
         Intent intent = new Intent();
         intent.setClass(outbound_menu.this, pickingquery.class);
@@ -39,24 +36,12 @@ public class outbound_menu extends buttom_state {
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
         outbound_menu.this.finish();
     }
-
-
-
-
     public  void  click_thelibrary(View v){
         Intent intent = new Intent();
         intent.setClass(outbound_menu.this, the_library.class);
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
         outbound_menu.this.finish();
     }
-
-
-
-
-
-
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {

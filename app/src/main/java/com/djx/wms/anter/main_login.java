@@ -45,6 +45,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+
 import pers.lh.communication.TranCoreClass;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -56,13 +60,9 @@ public class main_login extends AppCompatActivity {
     /* Activity handler */
     Handler handler = null;
     Message msg;
-
     private EditText username;
     private Intent intents;
-
-
     private Intent intent;/*创建一个新的intent对象*/
-
     private MsgReceiver msgReceiver;
     private boolean mIsExit;
     public static final String TAG = "login";
@@ -71,26 +71,26 @@ public class main_login extends AppCompatActivity {
     private String ip = "";
     private Short port;
 
+    private UpdateAppManager updateManager;
+    private String Version = "";
+    private String data = "";
+    private String downUrl = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代
         /*仓库下标初始化*/
         AppStart.GetInstance().waresubscript=0;
 
-
-      //  getVersion
-
+        Version = getAPPVersionCodeFromAPP(main_login.this);
+        TranCoreClass tranCoreClass = new TranCoreClass();
+        tranCoreClass.terminalType = 2;
+        new Thread(networkTask).start();
 
         SharedPreferences sharedPreferencess = getSharedPreferences("serverconfig", 0);
         String name = sharedPreferencess.getString("username", "");
         String pass = sharedPreferencess.getString("pass", "");
-
 
         TextView textView148 = (TextView) findViewById(R.id.textView148);
         textView148.setText("version:"+getVersion());
@@ -102,7 +102,6 @@ public class main_login extends AppCompatActivity {
             username.setText(name);
             password.setText(pass);
         }
-
         username = (EditText) findViewById(R.id.user);
         CreateHandler();
         Log.d("loginActivity", "onCreate");
@@ -116,14 +115,8 @@ public class main_login extends AppCompatActivity {
 
         TextView textView2 = (TextView) findViewById(R.id.textView2);
         TextView textView119 = (TextView) findViewById(R.id.textView119);
-
-
-
         Log.d(TAG, "状态----------------------------------------");
         Log.d(TAG, "" + AppStart.GetInstance().GetCommunicationConn() + "");
-
-
-
 
         if (AppStart.GetInstance().GetCommunicationConn()!= null) {
             textView2.setVisibility(View.VISIBLE);
@@ -134,7 +127,6 @@ public class main_login extends AppCompatActivity {
         }
 
     }
-
 
     /**
      * 获取版本号
@@ -151,10 +143,6 @@ public class main_login extends AppCompatActivity {
             return "";
         }
     }
-
-
-
-
 /*
     public static void main(){
         Thread t=new Thread(new MyRunnable());//这里比第一种创建线程对象多了个任务对象
@@ -162,7 +150,6 @@ public class main_login extends AppCompatActivity {
         t.start();
     }
 */
-
 
     @Override
     protected void onDestroy(){
@@ -173,7 +160,6 @@ public class main_login extends AppCompatActivity {
         super.onDestroy();
     }
 
-
     //配置调转
     public void setconfigs(View v) {
         Intent intent = new Intent();/*创建一个新的intent对象*/
@@ -183,12 +169,9 @@ public class main_login extends AppCompatActivity {
        /* main_login.this.finish();*/
     }
 
-
-
     public void LoginClickEvent(View v) {
         /*清空缓存字典*/
         DyDictCache.instance.RefDyDict("");
-
 
         EditText username = (EditText) findViewById(R.id.user);
         EditText password = (EditText) findViewById(R.id.pass);
@@ -205,7 +188,6 @@ public class main_login extends AppCompatActivity {
             return;
         }
 
-
         ip = AppStart.GetInstance().getIP();
         port = AppStart.GetInstance().getPort();
 
@@ -217,7 +199,6 @@ public class main_login extends AppCompatActivity {
             return;
         }
         /*创建一个新的intent对象*/
-
 /*
 
         intent.putExtra("name", name);
@@ -238,32 +219,19 @@ public class main_login extends AppCompatActivity {
         Drawable statusQuestionDrawable = getResources().getDrawable(R.drawable.disablebutton);
         loginbtn.setBackgroundDrawable(statusQuestionDrawable);
 
-
-
-
-
         /*启动通讯服务*/
         AppStart.GetInstance().loginpage = "main_login";
         startIntent = new Intent(this, AnterService.class);
         startService(startIntent);
-
         //获取链接是否成功点击登陆
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
-
-
-
-
             if (AppStart.GetInstance().GetCommunicationConn().Connector.getConnectState() == false) {
                 Toast.makeText(getApplicationContext(), "网络异常请稍后再试！", Toast.LENGTH_SHORT).show();
                 return;
             }
-
          /*   if(AppStart.GetInstance().GetCommunicationConn().state!=false){*/
-
             TranCoreClass tranCoreClass = null;
             tranCoreClass = (TranCoreClass) (AppStart.GetInstance().GetCommunicationConn().SyncSend(3, AppStart.GetInstance().GetUserEntity()));
-
-
 
             if (tranCoreClass != null) {
                 if (tranCoreClass.getResult() == 0) {
@@ -276,11 +244,8 @@ public class main_login extends AppCompatActivity {
                         AppStart.GetInstance().GetCommunicationConn().Connector.BeginSendHeart();
                         usere.setUserPass(AppStart.GetInstance().GetUserEntity().getUserPass());
                         AppStart.GetInstance().SetUserEntity(usere);
-
                     }
-
                 }
-
 
                 Message message = new Message();
                 Bundle bundle = new Bundle();
@@ -296,16 +261,9 @@ public class main_login extends AppCompatActivity {
                 Log.d(TAG, String.valueOf(tranCoreClass.getResult()));
             } else {
                 Log.d(TAG, "login timeout");
-
-
             }
-
-
         }
-
-
     }
-
 
     /*广播接收器*/
     public class MsgReceiver extends BroadcastReceiver {
@@ -330,8 +288,6 @@ public class main_login extends AppCompatActivity {
                 message.arg1 = FinalManager.success;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.main_login, message);
             }
-
-
             if (bundle.get("status").equals("629") || bundle.get("status").equals("102")) {
 
                 Button loginbtn=(Button)findViewById(R.id.button3);
@@ -342,9 +298,6 @@ public class main_login extends AppCompatActivity {
                 message.arg1 = FinalManager.ConnectFail;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.main_login, message);
             }
-
-
-
         }
     }
 
@@ -355,62 +308,39 @@ public class main_login extends AppCompatActivity {
             public void handleMessage(Message msg) {
 
                 Log.d("login", msg.getData().toString());
-
-
                 if(msg.arg1 == FinalManager.ConnectFail){
                     TextView B = (TextView) findViewById(R.id.textView119);
                     B.setText("等待重连");
                     B.setTextColor(Color.rgb(247, 9, 9));
                 }
-
                 if(msg.arg1 == FinalManager.success){
 
                     TextView B= (TextView) findViewById(R.id.textView119);
                     B.setText("正常");
                     B.setTextColor(Color.rgb(13, 235, 87));
                 }
-
-
-
-
-
-
-
-
-
-
-
                 if (msg.arg1 == FinalManager.ConnectFail) {
                     String result = msg.getData().getString("status");
                     String message = msg.getData().getString("message");
                     Toast.makeText(getApplicationContext(), "登录失败，请检查网络和服务器配置", Toast.LENGTH_SHORT).show();
                 }
-
-
                 if (msg.what == FinalManager.LoginResultTag) {
                     String result = msg.getData().getString("status");
                     String message = msg.getData().getString("message");
-
-
                     if (Short.parseShort(result) == 0) {
-
                         Toast.makeText(getApplicationContext(), (String) message, Toast.LENGTH_SHORT).show();
                         intent.setClass(main_login.this, whselelct.class);
                        /*设置Intent的源地址和目标地址*/
                         startActivity(intent);       /*调用startActivity方法发送意图给系统*/
                         main_login.this.finish();
-
                     } else {
                         Toast.makeText(getApplicationContext(), (String) message, Toast.LENGTH_SHORT).show();
                         com.github.ybq.android.spinkit.SpinKitView Landing = (com.github.ybq.android.spinkit.SpinKitView) findViewById(R.id.spin_kit);
                         Landing.setVisibility(View.INVISIBLE);
                     }
-
-
                 }/*else if(msg.what == FinalManager.CommnicationBroadcast){
                     String result =  msg.getData().getString("status");
                     *//*textView35.setText(result);*//*
-
                 }*/
                 super.handleMessage(msg);
             }
@@ -419,9 +349,7 @@ public class main_login extends AppCompatActivity {
 
     }
 
-
     public void qrcodelogin(View v) {
-
         Intent myIntent = new Intent();
         myIntent = new Intent(main_login.this, qrcodelogin.class);
         startActivity(myIntent);
@@ -429,22 +357,15 @@ public class main_login extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-
         if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
-
             /*跳转home*/
             Intent home = new Intent(Intent.ACTION_MAIN);
             home.addCategory(Intent.CATEGORY_HOME);
             startActivity(home);
-
             return true;
         }
-
-
         return super.onKeyDown(keyCode, event);
     }
 
@@ -454,7 +375,58 @@ public class main_login extends AppCompatActivity {
         this.sendBroadcast(intent);
     }
 
+    public static String getAPPVersionCodeFromAPP(Context ctx) {
+        int currentVersionCode = 0;
+        String appVersionName = "";
+        PackageManager manager = ctx.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(ctx.getPackageName(), 0);
+            appVersionName = info.versionName; // 版本名
+            currentVersionCode = info.versionCode; // 版本号
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO Auto-generated catch blockd
+            e.printStackTrace();
+        }
+        return appVersionName;
+    }
+    Handler handlers = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String val = data.getString("value");
+            if (!val.equals("")) {
+                String apkurl = val;
+                updateManager = new UpdateAppManager(main_login.this);
+                updateManager.checkUpdateInfo(apkurl);
+            }
+            // TODO
+            // UI界面的更新等相关操作
+        }
+    };
 
+    Runnable networkTask = new Runnable() {
+        @Override
+        public void run() {
+            // TODO
+            // 在这里进行 http request.网络请求相关操作
+//            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
+            data = HttpGetRequest.sendGet("http://http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
+
+            try {
+                String[] stepOne = data.split(",");
+                int c = stepOne.length;
+                String[] downing = stepOne[3].split("\"");
+                downUrl = downing[3];
+                Message msg = new Message();
+                Bundle data = new Bundle();
+                data.putString("value", downUrl);
+                msg.setData(data);
+                handlers.sendMessage(msg);
+            } catch (Exception e) {
+            }
+        }
+    };
 
 }
 

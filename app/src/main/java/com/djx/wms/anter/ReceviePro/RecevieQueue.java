@@ -10,46 +10,44 @@ import pers.lh.communication.TranCoreClass;
 /**
  * Created by pc on 2016/3/10.
  */
-public class RecevieQueue{
+public class RecevieQueue {
     private static final RecevieQueue instance = new RecevieQueue();
     static final String LOG_TAG = "ini";
 
     private Queue<TranCoreClass> queue = new LinkedBlockingQueue<TranCoreClass>();
 
 
-    public static RecevieQueue getInstance(){
+    public static RecevieQueue getInstance() {
         return instance;
     }
 
 
-
     static {
         Log.d(LOG_TAG, "2");
-
     }
 
     {
         Log.d(LOG_TAG, "3");
     }
 
-    public RecevieQueue(){
+    public RecevieQueue() {
         Log.d(LOG_TAG, "4");
 
     }
 
-    public boolean Add(TranCoreClass tranCoreClass){
+    public boolean Add(TranCoreClass tranCoreClass) {
         return queue.offer(tranCoreClass);
     }
 
-    public TranCoreClass Get(){
+    public TranCoreClass Get() {
         return queue.poll();
     }
 
-    public int Count(){
+    public int Count() {
         return queue.size();
     }
 
-    public void Clear(){
+    public void Clear() {
         queue.clear();
     }
 }

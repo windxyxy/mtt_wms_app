@@ -35,9 +35,11 @@ public class the_library extends buttom_state {
 
     String SQL = "select * from t_out_stock where warehouseCode = (select whCode from t_warehouse where indexId = " + AppStart.GetInstance().Warehouse + ") " +
             "and orderStatus = 3 and srcWarehouse != warehouseCode " +
-            "and outStockNo in (select outStockNo from t_out_stock_log where operating != '审核' and userID = " + AppStart.GetInstance().getUserID() + ")";
+            "and outStockNo in (select outStockNo from t_out_stock_log where (operating = '出库手持开始拣货' and userID = " + AppStart.GetInstance().getUserID() + ") or operating = '审核')";
 
+//"and outStockNo in (select outStockNo from t_out_stock_log where operating != '审核' and userID = " + AppStart.GetInstance().getUserID() + ")";
 
+    String SQL2 = "select * from t_out_stock where  warehouseCode = (select whCode from t_warehouse where indexId = " + AppStart.GetInstance().Warehouse + ") and orderStatus = 3 and srcWarehouse != warehouseCode";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,40 +86,40 @@ public class the_library extends buttom_state {
 
                     String pickingorder = numTv.getText().toString();
                     pickingorder = TransactSQL.instance.filterSQL(pickingorder);
+                    Intent intent = new Intent();
+                    intent.setClass(the_library.this, out_picking.class);
+                    intent.putExtra("picorder",pickingorder);
+                    startActivity(intent);
+                    the_library.this.finish();
 
-                    Hashtable Param = new Hashtable<>();
-                    Param.put("SPName", "sp_out_stock_detail_get");
-                    Param.put("outstockno ", pickingorder);
-                    int userid = AppStart.GetInstance().getUserID();
-                    Param.put("currid", "" + userid + "");
-                    Param.put("whid", "" + AppStart.GetInstance().Warehouse + "");
-                    Param.put("msg", "output-varchar-500");
-                    List<Hashtable> querypick;
-                    querypick = Datarequest.GETstored(Param);
-                    if (querypick.get(0).get("result").toString().equals("0.0")) {
-                        querypick.remove(0);
-                        AppStart.GetInstance().outorder = pickingorder;
-                        Intent intent = new Intent();
-                        intent.setClass(the_library.this, out_picking.class);
-
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("qurypick", (Serializable) querypick);
-//                        intent.putExtras(bundle);
-
-                        startActivity(intent);
-                        the_library.this.finish();
-                    } else {
-                        new AlertDialog.Builder(the_library.this)
-                                .setTitle("提示")
-                                .setMessage(querypick.get(0).get("msg").toString())
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                })
-                                .show();
-                    }
+//                    Hashtable Param = new Hashtable<>();
+//                    Param.put("SPName", "sp_out_stock_detail_get");
+//                    Param.put("outstockno ", pickingorder);
+//                    int userid = AppStart.GetInstance().getUserID();
+//                    Param.put("currid", "" + userid + "");
+//                    Param.put("whid", "" + AppStart.GetInstance().Warehouse + "");
+//                    Param.put("msg", "output-varchar-500");
+//                    List<Hashtable> querypick;
+//                    querypick = Datarequest.GETstored(Param);
+//                    if (querypick.get(0).get("result").toString().equals("0.0")) {
+//                        querypick.remove(0);
+//                        AppStart.GetInstance().outorder = pickingorder;
+//                        Intent intent = new Intent();
+//                        intent.setClass(the_library.this, out_picking.class);
+//                        startActivity(intent);
+//                        the_library.this.finish();
+//                    } else {
+//                        new AlertDialog.Builder(the_library.this)
+//                                .setTitle("提示")
+//                                .setMessage(querypick.get(0).get("msg").toString())
+//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//
+//                                    }
+//                                })
+//                                .show();
+//                    }
 
                 }
             });

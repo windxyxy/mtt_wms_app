@@ -46,13 +46,11 @@ public class Datarequest {
         TranCoreClass tranCoreClass = new TranCoreClass();
         tranCoreClass = (TranCoreClass) AppStart.GetInstance().GetCommunicationConn().SyncSend(207, data);
         if (tranCoreClass != null) {
-            Log.d("Datarequest", "GETstored.............");
             stored = ConnTranPares.GetDataList(tranCoreClass, Hashtable.class);
            return stored;
 
 
         } else{
-            Log.d("Datarequest", "GETstored Timeout.............");
             /*启动通讯服务*/
             return null;
         }
@@ -77,10 +75,4 @@ public class Datarequest {
         }
 
     }*/
-
-
-
-
-
-
 }

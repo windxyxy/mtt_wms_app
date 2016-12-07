@@ -24,17 +24,16 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class goods_find extends buttom_state{
+public class goods_find extends buttom_state {
 
-    private int sum=0;
+    private int sum = 0;
     private EditText goodCode;
-    private TextView goodSku,goodname;
+    private TextView goodSku, goodname, goodBM, goodTXM,goodCodeGG;
     private List<Hashtable> listData = new ArrayList<Hashtable>();
 
     public GridView gridview;
     protected ArrayList<HashMap<String, String>> srcTable;
     protected SimpleAdapter saTable;// 适配器
-
 
 
     @Override
@@ -43,11 +42,12 @@ public class goods_find extends buttom_state{
         setContentView(R.layout.goods_find);
 
         gridview = (GridView) findViewById(R.id.gridView);
-        goodCode=(EditText)findViewById(R.id.editText32);
-        goodSku=(TextView)findViewById(R.id.textView137);
-        goodname=(TextView)findViewById(R.id.textView138);
-
-
+        goodCode = (EditText) findViewById(R.id.editText32_1);
+        goodSku = (TextView) findViewById(R.id.textView137);
+        goodname = (TextView) findViewById(R.id.textView138);
+        goodCodeGG = (TextView) findViewById(R.id.editText32);
+        goodBM = (TextView) findViewById(R.id.tv_goodsBMT);
+        goodTXM = (TextView) findViewById(R.id.tv_goodsTXMT);
 
         /*货品名称滚动*/
         roll(goodname);
@@ -67,8 +67,6 @@ public class goods_find extends buttom_state{
         });
 
 
-
-
         srcTable = new ArrayList<HashMap<String, String>>();
         saTable = new SimpleAdapter(this,
                 srcTable,// 数据来源
@@ -79,47 +77,37 @@ public class goods_find extends buttom_state{
         gridview.setAdapter(saTable);
         //添加表头
         addHeader();
-
-
-
-
-
-
-
-
-
-
     }
 
 
-
-
     /*查询货品*/
-    public Boolean querycode(View v){
+    public Boolean querycode(View v) {
         selectall(goodCode);
-
-        String Code= TransactSQL.instance.filterSQL(goodCode.getText().toString());
-        if(Code.equals("")){
+        String Code = TransactSQL.instance.filterSQL(goodCode.getText().toString());
+        if (Code.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(goods_find.this);
             build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
             return true;
         }
-        String SQL="select *from v_stock where wareGoodsCodes='"+Code+"' and (whAareType='BH' or whAareType='JH') and warehouseId="+AppStart.GetInstance().Warehouse+"";
+        String SQL = "select *from v_stock where wareGoodsCodes='" + Code + "' and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
         listData = Datarequest.GetDataArrayList(SQL);
-        if(listData.size()!=0){
+        if (listData.size() != 0) {
 
+            goodCodeGG.setText(listData.get(0).get("wareGoodsCodes").toString());
             goodSku.setText(listData.get(0).get("goodsCode").toString());
             goodname.setText(listData.get(0).get("goodsName").toString());
+            goodBM.setText(listData.get(0).get("goodsSku").toString());
+            goodTXM.setText(listData.get(0).get("barCodes").toString());
 
              /*如果没有数据刷新表格重新加载*/
             srcTable = new ArrayList<HashMap<String, String>>();
             saTable = new SimpleAdapter(this,
                     srcTable,// 数据来源
                     R.layout.gridtext,//XML实现
-                    new String[] {"ItemText","ItemTexts"},  // 动态数组与ImageItem对应的子项
-                    new int[] { R.id.ItemText,R.id.ItemTexts});
+                    new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                    new int[]{R.id.ItemText, R.id.ItemTexts});
             // 添加并且显示
             gridview.setAdapter(saTable);
             //添加表头
@@ -128,14 +116,14 @@ public class goods_find extends buttom_state{
             addData();
             setListViewHeightBasedOnChildren(gridview);
 
-        }else {
+        } else {
 
             srcTable = new ArrayList<HashMap<String, String>>();
             saTable = new SimpleAdapter(this,
                     srcTable,// 数据来源
                     R.layout.gridtext,//XML实现
-                    new String[] {"ItemText","ItemTexts"},  // 动态数组与ImageItem对应的子项
-                    new int[] { R.id.ItemText,R.id.ItemTexts});
+                    new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                    new int[]{R.id.ItemText, R.id.ItemTexts});
             // 添加并且显示
             gridview.setAdapter(saTable);
             //添加表头
@@ -154,20 +142,21 @@ public class goods_find extends buttom_state{
     /*
 货品查询，商家编码
  */
-    public Boolean  querygoodscode(View v){
+    public Boolean querygoodscode(View v) {
 
-        String Code= TransactSQL.instance.filterSQL(goodCode.getText().toString());
-        if(Code.equals("")){
+        String Code = TransactSQL.instance.filterSQL(goodCode.getText().toString());
+        if (Code.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(goods_find.this);
             build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
             return true;
         }
-        String SQL="select *from v_stock where goodsCode='"+Code+"' and (whAareType='BH' or whAareType='JH') and warehouseId="+AppStart.GetInstance().Warehouse+"";
+        String SQL = "select *from v_stock where goodsCode='" + Code + "' and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
         listData = Datarequest.GetDataArrayList(SQL);
-        if(listData.size()!=0){
+        if (listData.size() != 0) {
 
+            goodCodeGG.setText(listData.get(0).get("wareGoodsCodes").toString());
             goodSku.setText(listData.get(0).get("goodsCode").toString());
             goodname.setText(listData.get(0).get("goodsName").toString());
 
@@ -176,8 +165,8 @@ public class goods_find extends buttom_state{
             saTable = new SimpleAdapter(this,
                     srcTable,// 数据来源
                     R.layout.gridtext,//XML实现
-                    new String[] {"ItemText","ItemTexts"},  // 动态数组与ImageItem对应的子项
-                    new int[] { R.id.ItemText,R.id.ItemTexts});
+                    new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                    new int[]{R.id.ItemText, R.id.ItemTexts});
             // 添加并且显示
             gridview.setAdapter(saTable);
             //添加表头
@@ -186,14 +175,14 @@ public class goods_find extends buttom_state{
             addData();
             setListViewHeightBasedOnChildren(gridview);
 
-        }else {
+        } else {
 
             srcTable = new ArrayList<HashMap<String, String>>();
             saTable = new SimpleAdapter(this,
                     srcTable,// 数据来源
                     R.layout.gridtext,//XML实现
-                    new String[] {"ItemText","ItemTexts"},  // 动态数组与ImageItem对应的子项
-                    new int[] { R.id.ItemText,R.id.ItemTexts});
+                    new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                    new int[]{R.id.ItemText, R.id.ItemTexts});
             // 添加并且显示
             gridview.setAdapter(saTable);
             //添加表头
@@ -209,27 +198,26 @@ public class goods_find extends buttom_state{
     }
 
 
-
-
-
     /*表格头部*/
-    public void addHeader(){
+    public void addHeader() {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("ItemText","货位编码");
-        map.put("ItemTexts","库存数量");
+        map.put("ItemText", "货位编码");
+        map.put("ItemTexts", "库存数量");
         srcTable.add(map);
         saTable.notifyDataSetChanged(); //更新数据
     }
+
     /*表格数据绑定*/
-    public void addData(){
-        for(Map i:listData){
+    public void addData() {
+        for (Map i : listData) {
             HashMap<String, String> map = new HashMap<String, String>();
-            map.put("ItemText",i.get("posCode").toString());
-            map.put("ItemTexts",i.get("realStock").toString());
+            map.put("ItemText", i.get("posCode").toString());
+            map.put("ItemTexts", i.get("realStock").toString());
             srcTable.add(map);
         }
         saTable.notifyDataSetChanged(); //更新数据
     }
+
     /*表格列宽固定*/
     public static void setListViewHeightBasedOnChildren(GridView listView) {
         // 获取listview的adapter
@@ -262,10 +250,9 @@ public class goods_find extends buttom_state{
 
     /*返回键拦截*/
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
 
 
             Intent myIntent = new Intent();
@@ -274,13 +261,12 @@ public class goods_find extends buttom_state{
             goods_find.this.finish();
 
 
-
             return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public void goodbacks(View v){
+    public void goodbacks(View v) {
         Intent myIntent = new Intent();
         myIntent = new Intent(goods_find.this, library_management.class);
         startActivity(myIntent);

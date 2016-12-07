@@ -1,10 +1,15 @@
 package com.djx.wms.anter;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +17,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
@@ -35,7 +41,8 @@ public class buttom_state extends AppCompatActivity {
     private MsgReceiver msgReceiver;
     Handler handler = null;
     public static final String TAG = "CommunicationImpl";
-    private AlertDialog  p=null;
+    private AlertDialog p = null;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -43,6 +50,7 @@ public class buttom_state extends AppCompatActivity {
         /*初始化屏蔽键盘*/
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//禁用横屏
         /*初始化屏蔽头部*/
         ActionBar actionBar;
         actionBar = getSupportActionBar();
@@ -62,7 +70,6 @@ public class buttom_state extends AppCompatActivity {
     }
 
 
-
     /* 广播接收器*/
     public class MsgReceiver extends BroadcastReceiver {
         @Override
@@ -76,18 +83,18 @@ public class buttom_state extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("status", String.valueOf(status));
             message.setData(bundle);
-            if(bundle.get("status").equals("629") || bundle.get("status").equals("102")){
-                message.arg1= FinalManager.ConnectFail;
+            if (bundle.get("status").equals("629") || bundle.get("status").equals("102")) {
+                message.arg1 = FinalManager.ConnectFail;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.buttom_state, message);
 
 
-                AppStart.switchs=false;
-                TextView B=(TextView)findViewById(R.id.state);
+                AppStart.switchs = false;
+                TextView B = (TextView) findViewById(R.id.state);
                 B.setText("等待重连");
                 B.setTextColor(Color.rgb(247, 9, 9));
                 /*操作提示*/
-                if(p==null){
-                    p=new AlertDialog.Builder(buttom_state.this)
+                if (p == null) {
+                    p = new AlertDialog.Builder(buttom_state.this)
                             .setTitle("提示")
                             .setMessage("等待连接")
                             .setCancelable(false)
@@ -97,10 +104,9 @@ public class buttom_state extends AppCompatActivity {
 
             }
 
-            if(bundle.get("status").equals("200") || bundle.get("status").equals("100")){
+            if (bundle.get("status").equals("200") || bundle.get("status").equals("100")) {
                 message.arg1 = FinalManager.success;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.buttom_state, message);
-
 
 
                 AppStart.switchs = true;
@@ -108,35 +114,36 @@ public class buttom_state extends AppCompatActivity {
                 B.setText("正常");
                 B.setTextColor(Color.rgb(13, 235, 87));
                  /*操作提示*/
-                if(p!=null){
+                if (p != null) {
                     p.dismiss();
-                    p=null;
+                    p = null;
                 }
             }
 
             Log.d("loginActivity", "收到广播.............");
         }
 
+
     }
 
-   /* 消息接收器*/
-    private void CreateHandler(){
-        handler = new Handler(){
+    /* 消息接收器*/
+    private void CreateHandler() {
+        handler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
 
-                if(msg.arg1== FinalManager.ConnectFail) {
-                    String result =  msg.getData().getString("status");
-                    String message =  msg.getData().getString("message");
+                if (msg.arg1 == FinalManager.ConnectFail) {
+                    String result = msg.getData().getString("status");
+                    String message = msg.getData().getString("message");
 
-                    AppStart.switchs=false;
-                    TextView B=(TextView)findViewById(R.id.state);
+                    AppStart.switchs = false;
+                    TextView B = (TextView) findViewById(R.id.state);
                     B.setText("等待重连");
                     B.setTextColor(Color.rgb(247, 9, 9));
 
 
-                    if(p==null){
-                            p=new AlertDialog.Builder(buttom_state.this)
+                    if (p == null) {
+                        p = new AlertDialog.Builder(buttom_state.this)
                                 .setTitle("提示")
                                 .setMessage("等待连接")
                                 .setCancelable(false)
@@ -151,9 +158,9 @@ public class buttom_state extends AppCompatActivity {
                     TextView B = (TextView) findViewById(R.id.state);
                     B.setText("正常");
                     B.setTextColor(Color.rgb(13, 235, 87));
-                    if(p!=null){
+                    if (p != null) {
                         p.dismiss();
-                        p=null;
+                        p = null;
                     }
 
 
@@ -168,7 +175,7 @@ public class buttom_state extends AppCompatActivity {
 
     /*页面销毁事件*/
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         unregisterReceiver(msgReceiver);
         ((AppStart) getApplication()).DelHandler(FinalManager.buttom_state);
        /* OrderProThread.GetInstance().CloseThread();
@@ -180,54 +187,51 @@ public class buttom_state extends AppCompatActivity {
     }
 
 
-
     /* 页面加载完成*/
     @Override
-    public void onWindowFocusChanged(boolean hasFocus)
-    {
-        if (hasFocus)
-        {
-            TextView A=(TextView)findViewById(R.id.Operator);
-            String username=AppStart.GetInstance().initUserEntity();
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            TextView A = (TextView) findViewById(R.id.Operator);
+            String username = AppStart.GetInstance().initUserEntity();
             A.setText(username);
-          if(AppStart.switchs==false){
-              TextView B=(TextView)findViewById(R.id.state);
-              B.setText("等待重连");
-              B.setTextColor(Color.rgb(247, 9, 9));
-              }else {
+            if (AppStart.switchs == false) {
+                TextView B = (TextView) findViewById(R.id.state);
+                B.setText("等待重连");
+                B.setTextColor(Color.rgb(247, 9, 9));
+            } else {
 
-              TextView B=(TextView)findViewById(R.id.state);
-              B.setText("正常");
-              B.setTextColor(Color.rgb(13, 235, 87));
-                }
+                TextView B = (TextView) findViewById(R.id.state);
+                B.setText("正常");
+                B.setTextColor(Color.rgb(13, 235, 87));
+            }
         }
     }
 
 
     /*全选事件*/
-    public void selectall(EditText assembly){
+    public void selectall(EditText assembly) {
         assembly.setText(assembly.getText().toString());//添加这句后实现效果
         Spannable content = assembly.getText();
         Selection.selectAll(content);
     }
 
     /*获取焦点*/
-    public void Getfocus(EditText assembly){
+    public void Getfocus(EditText assembly) {
         assembly.setFocusable(true);
         assembly.setFocusableInTouchMode(true);
         assembly.requestFocus();
     }
 
     /*非空验证*/
-    public  void Nonull(EditText assembly,String erro){
-        String  content = TransactSQL.instance.filterSQL(assembly.getText().toString());
-        if(content.equals("")){
+    public void Nonull(EditText assembly, String erro) {
+        String content = TransactSQL.instance.filterSQL(assembly.getText().toString());
+        if (content.equals("")) {
             assembly.setError(erro);
         }
     }
 
     /*超出滚动滚动*/
-    public  void roll(TextView assembly){
+    public void roll(TextView assembly) {
         assembly.setMovementMethod(new ScrollingMovementMethod());
     }
 
@@ -262,17 +266,7 @@ public class buttom_state extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
     private PowerManager.WakeLock wakeLock = null;
-
-
 
 
     private void acquireWakeLock() {
@@ -296,7 +290,6 @@ public class buttom_state extends AppCompatActivity {
             wakeLock = null;
         }
     }
-
 
 
 }

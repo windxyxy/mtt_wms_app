@@ -1,78 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout">
+            android:layout_alignParentTop="true">
 
             <Button
+                android:id="@+id/button14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="返回"
-                android:id="@+id/button14"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:onClick="purchase_back" />
+                android:layout_centerVertical="true"
+                android:onClick="purchase_back"
+                android:text="返回"/>
 
             <TextView
+                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="货品上架"
-                android:id="@+id/textView12"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="25dp"
-                android:textIsSelectable="false" />
+                android:layout_centerVertical="true"
+                android:text="货品上架"
+                android:textIsSelectable="false"
+                android:textSize="25dp"/>
+
             <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:id="@+id/imageView6"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/button14"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
-                android:background="#e6e6e6" />
+                android:layout_below="@+id/button14"
+                android:background="#e6e6e6"/>
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relativeLayout21"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout21">
+            android:layout_alignParentStart="true">
+
             <include
                 android:id="@+id/relativeLayout_main"
+                layout="@layout/bottom_state"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                layout="@layout/bottom_state"/>
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/scrollView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_above="@+id/relativeLayout21"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/relativeLayout"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -81,155 +84,157 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/relativeLayout"
+                android:layout_above="@+id/relativeLayout21"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_above="@+id/relativeLayout21"
+                android:layout_below="@+id/relativeLayout"
                 android:gravity="center_horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="货品条码："
                     android:id="@+id/textView96"
-                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView104"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignRight="@id/textView104"
+                    android:text="仓库货品条码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="货位编码："
                     android:id="@+id/textView104"
-                    android:textSize="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/scrollView3"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:text="货位编码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="货品名称："
                     android:id="@+id/textView105"
-                    android:textIsSelectable="false"
-                    android:textSize="16dp"
-                    android:layout_below="@+id/editText25"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="20dp" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="上架数量："
-                    android:id="@+id/textView106"
-                    android:textSize="16dp"
-                    android:layout_below="@+id/editText26"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="20dp" />
+                    android:layout_below="@+id/editText25"
+                    android:layout_marginTop="20dp"
+                    android:text="货品名称："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textIsSelectable="false"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/textView106"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/editText26"
+                    android:layout_marginTop="20dp"
+                    android:text="上架数量："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"/>
 
                 <EditText
+                    android:id="@+id/editText25"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
-                    android:id="@+id/editText25"
-                    android:background="@drawable/bg_edittext"
-                    android:singleLine="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/textView104"
                     android:layout_toRightOf="@+id/textView104"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:background="@drawable/bg_edittext"
+                    android:singleLine="true"/>
 
                 <EditText
+                    android:id="@+id/editText32"
                     android:layout_width="160dp"
                     android:layout_height="30dp"
-                    android:id="@+id/editText32"
-                    android:singleLine="true"
-                    android:background="@drawable/bg_edittext"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/textView96"
                     android:layout_toRightOf="@+id/textView96"
+                    android:background="@drawable/bg_edittext"
                     android:maxLength="60"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:singleLine="true"/>
 
                 <EditText
+                    android:id="@+id/editText28"
                     android:layout_width="200dp"
                     android:layout_height="30dp"
-                    android:id="@+id/editText28"
-                    android:singleLine="true"
-                    android:background="@drawable/bg_edittext"
-                    android:inputType="number"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/textView106"
                     android:layout_toRightOf="@+id/textView106"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:maxLength="9" />
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:singleLine="true"/>
 
                 <Button
+                    android:id="@+id/button36"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:text="完成"
-                    android:background="@drawable/button"
-                    android:id="@+id/button36"
-                    android:layout_marginTop="37dp"
-                    android:onClick="savagood"
                     android:layout_below="@+id/editText28"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="37dp"
+                    android:background="@drawable/button"
+                    android:onClick="savagood"
+                    android:text="完成"/>
 
                 <TextView
+                    android:id="@+id/editText26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/editText26"
-                    android:scrollbars = "vertical"
-                    android:maxLines="2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/textView105"
                     android:layout_toRightOf="@+id/textView105"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:textSize="16dp" />
+                    android:maxLines="2"
+                    android:scrollbars="vertical"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"/>
 
 
                 <Button
+                    android:id="@+id/button45"
                     android:layout_width="50dp"
                     android:layout_height="31dp"
-                    android:text="确定"
-                    android:background="@drawable/normalbutton"
-                    android:id="@+id/button45"
-                    android:onClick="enters"
-                    android:focusable="false"
-                    android:visibility="invisible"
                     android:layout_alignTop="@+id/editText32"
-                    android:layout_toRightOf="@+id/editText32"
+                    android:layout_marginTop="-1dp"
                     android:layout_toEndOf="@+id/editText32"
-                    android:layout_marginTop="-1dp" />
+                    android:layout_toRightOf="@+id/editText32"
+                    android:background="@drawable/normalbutton"
+                    android:focusable="false"
+                    android:onClick="enters"
+                    android:text="确定"
+                    android:visibility="invisible"/>
 
                 <ScrollView
+                    android:id="@+id/scrollView3"
                     android:layout_width="wrap_content"
                     android:layout_height="140dp"
-                    android:id="@+id/scrollView3"
 
-                    android:layout_below="@+id/button45"
-                    android:layout_alignLeft="@+id/textView96"
-                    android:layout_alignStart="@+id/textView96"
-                    android:layout_marginTop="8dp"
-                    android:layout_alignRight="@+id/button45"
                     android:layout_alignEnd="@+id/button45"
+                    android:layout_alignLeft="@+id/textView96"
+                    android:layout_alignRight="@+id/button45"
+                    android:layout_alignStart="@+id/textView96"
+                    android:layout_below="@+id/button45"
+                    android:layout_marginTop="8dp"
                     android:fillViewport="false">
 
                     <com.djx.wms.anter.tags
+                        android:id="@+id/gridView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/gridView"
-                        android:layout_alignTop="@+id/imageView10"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="50dp" />
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/imageView10"
+                        android:layout_marginTop="50dp"/>
                 </ScrollView>
 
 

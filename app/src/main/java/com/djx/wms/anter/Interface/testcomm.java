@@ -1,7 +1,5 @@
 package com.djx.wms.anter.Interface;
 
-import pers.lh.communication.ICommunicationConnectorEvent;
-
 /**
  * Created by gfgh on 2016/3/14.
  */

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,12 +36,16 @@ public class whselelct extends buttom_state {
     private Spinner brand;
     /*spinner 初始化下标状态*/
     private Boolean warestaus = true;
+    private List<Hashtable> mList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.whselect);
+        /*
+        *
+        * */
 
 
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
@@ -159,7 +164,6 @@ public class whselelct extends buttom_state {
                                 Intent myIntent = new Intent();
                                 myIntent = new Intent(whselelct.this, main_login.class);
                                 startActivity(myIntent);
-                                whselelct.this.finish();
                             } else {
                                 AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
                                 build.setMessage("退出失败").show();
@@ -203,7 +207,6 @@ public class whselelct extends buttom_state {
                             Intent myIntent = new Intent();
                             myIntent = new Intent(whselelct.this, main_login.class);
                             startActivity(myIntent);
-                            whselelct.this.finish();
                         } else {
                             AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
                             build.setMessage("退出失败").show();
@@ -230,11 +233,20 @@ public class whselelct extends buttom_state {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
-
+                        Hashtable parm = new Hashtable<>();
+                        parm.put("SPName","sp_login_user_warehouse");
+                        parm.put("userId",AppStart.GetInstance().getUserID());
+                        parm.put("warehouseId",AppStart.GetInstance().Warehouse+"");
+                        parm.put("msg","output-varchar-500");
+                        mList = Datarequest.GETstored(parm);
+                        if (mList.get(0).get("result").equals("0.0")){
+                            Log.e("whselect",mList.get(0).toString());
+                        }else {
+                            Log.e("anter",mList.get(0).get("msg").toString());
+                        }
                         Intent myIntent = new Intent();
                         myIntent = new Intent(whselelct.this, home_page.class);
                         startActivity(myIntent);
-                        whselelct.this.finish();
                     }
                 })
 

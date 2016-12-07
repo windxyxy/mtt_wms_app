@@ -5,6 +5,7 @@ package com.djx.wms.anter;
  */
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.Handler;
@@ -26,6 +27,8 @@ import java.util.Map;
 
 public class AppStart extends Application {
     private static AppStart instance = null;
+    private static Context mContext;
+
 
 
 
@@ -82,15 +85,22 @@ public class AppStart extends Application {
 
         Log.d(TAG, "Application onCreate");
         super.onCreate();
+
+        mContext = getApplicationContext();
+
         instance = this;
         initUserEntity();
-        /*initServiceAddr();*/
         CrashIni();
+
+
 
         initializationconfig();
     }
 
 
+    public static Context getmContext(){
+        return mContext;
+    }
     public static int Warehouse;
 
     @Override

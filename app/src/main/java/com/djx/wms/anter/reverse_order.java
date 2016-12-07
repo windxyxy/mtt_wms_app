@@ -217,16 +217,4 @@ public class reverse_order extends buttom_state {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

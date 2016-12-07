@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.djx.wms.anter"
-    >
+          package="com.djx.wms.anter">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <!-- <uses-permission android:name="android.permission.DELETE_PACKAGES"/> -->
     <!-- android:allowBackup="true" -->
@@ -23,186 +22,187 @@
         android:label="@string/app_name"
         android:launchMode="singleTask"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".qrcodelogin"
             android:label="独角犀WMS"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".main_login"
-            android:label="独角犀仓储管理系统" />
+            android:label="独角犀仓储管理系统"/>
         <activity
             android:name=".config"
-            android:label="独角犀仓储管理系统" />
+            android:label="独角犀仓储管理系统"/>
         <activity
             android:name=".home_page"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".twolevel_menu"
-            android:label="退出" />
+            android:label="退出"/>
         <activity
             android:name=".shelf_list"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".buttom_state"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".order_details"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".single_shelves"
-            android:label="货品" />
+            android:label="货品"/>
         <activity
             android:name=".storage_inquiry"
-            android:label="入库查询" />
+            android:label="入库查询"/>
         <activity
             android:name=".good_shelf"
-            android:label="货品上架" />
+            android:label="货品上架"/>
         <activity
             android:name=".Table"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".bulk_shelves"
-            android:label="批量上架单" />
+            android:label="批量上架单"/>
         <activity
             android:name=".storage_enquiry"
-            android:label="采购单查询" />
+            android:label="采购单查询"/>
         <activity
             android:name=".storage_goods"
-            android:label="货品入库" />
+            android:label="货品入库"/>
         <activity
             android:name=".warehousing_check"
-            android:label="入库审核" />
+            android:label="入库审核"/>
         <activity
             android:name=".autoshelf"
-            android:label="自动上架单" />
+            android:label="自动上架单"/>
         <activity
             android:name=".manualshelves"
-            android:label="手动上架" />
+            android:label="手动上架"/>
 
         <service
             android:name=".AnterService"
             android:enabled="true"
-            android:exported="true" />
-
+            android:exported="true"/>
         <!-- 库内 -->
         <activity
             android:name=".library_management"
-            android:label="库内菜单" />
+            android:label="库内菜单"/>
         <activity
             android:name=".replenishment_new"
-            android:label="补货单新增" />
+            android:label="补货单新增"/>
         <activity
             android:name=".reple_query"
-            android:label="补货单查询" />
+            android:label="补货单查询"/>
         <activity
             android:name=".temporary_shelves"
-            android:label="临时上架" />
+            android:label="临时上架"/>
         <activity
             android:name=".reple_goods"
-            android:label="货品补货" />
+            android:label="货品补货"/>
         <activity
             android:name=".whselelct"
-            android:label="仓库选择" />
+            android:label="仓库选择"/>
         <activity
             android:name=".pickingquery"
-            android:label="拣货查询" />
+            android:label="拣货查询"/>
         <activity
             android:name=".picking"
-            android:label="拣货" />
+            android:label="拣货"/>
         <activity
             android:name=".reple_task"
-            android:label="补货任务" />
+            android:label="补货任务"/>
         <activity
             android:name=".reple_replenishment"
-            android:label="货品补货" />
+            android:label="货品补货"/>
         <activity
             android:name=".transfer_task"
-            android:label="移库任务查询" />
+            android:label="移库任务查询"/>
         <activity
             android:name=".transfer_pick"
-            android:label="移库拣货" />
+            android:label="移库拣货"/>
         <activity
             android:name=".transfer_repair"
-            android:label="移库上货" />
+            android:label="移库上货"/>
         <activity
             android:name=".exception_menu"
-            android:label="异常处理" />
+            android:label="异常处理"/>
         <activity
             android:name=".many_goods"
-            android:label="异常单创建" />
+            android:label="异常单创建"/>
         <activity
             android:name=".multiple_goods"
-            android:label="货品上货" />
+            android:label="货品上货"/>
         <activity
             android:name=".less_goods"
-            android:label="少货任务查询" />
+            android:label="少货任务查询"/>
         <activity
             android:name=".lessgood_picking"
-            android:label="少货货品拣货" />
+            android:label="少货货品拣货"/>
         <activity
             android:name=".reverse_order"
-            android:label="反拣任务查询" />
+            android:label="反拣任务查询"/>
         <activity
             android:name=".counter_picking"
-            android:label="反拣上货" />
+            android:label="反拣上货"/>
         <activity
             android:name=".query_library"
-            android:label="货品查询" />
+            android:label="货品查询"/>
         <activity
             android:name=".library_processing"
-            android:label="仓内加工" />
+            android:label="仓内加工"/>
         <activity
             android:name=".library_picking_stock"
-            android:label="拣货出库" />
+            android:label="拣货出库"/>
         <activity
             android:name=".picking_stock"
-            android:label="出库拣货" />
+            android:label="出库拣货"/>
         <activity
             android:name=".inventory_task"
-            android:label="盘点任务查询" />
+            android:label="盘点任务查询"/>
         <activity
             android:name=".inventory_goods"
-            android:label="盘点货品" />
+            android:label="盘点货品"/>
         <activity
             android:name=".allocation_task"
-            android:label="调拨任务列表" />
+            android:label="调拨任务列表"/>
         <activity
             android:name=".allocation_picking"
-            android:label="调拨拣货" />
+            android:label="调拨拣货"/>
         <activity
             android:name=".outbound_menu"
-            android:label="出库菜单" />
+            android:label="出库菜单"/>
         <activity
             android:name=".query_good"
-            android:label="货品查询" />
+            android:label="货品查询"/>
         <activity
             android:name=".off_the_shelf"
-            android:label="下架" />
+            android:label="下架"/>
         <activity
             android:name=".the_library"
-            android:label="出库" />
+            android:label="出库"/>
         <activity
             android:name=".out_picking"
-            android:label="出库拣货" />
+            android:label="出库拣货"/>
         <activity
             android:name=".reple_singlegood"
-            android:label="查询上货" />
+            android:label="查询上货"/>
         <activity
             android:name=".temporary"
-            android:label="临时上架" />
+            android:label="临时上架"/>
         <activity
             android:name=".temporary_lnventory"
-            android:label="临时盘点" />
+            android:label="临时盘点"/>
         <activity
             android:name=".goods_find"
-            android:label="货品查询" />
+            android:label="货品查询"/>
+        <activity android:name=".TestActivity">
+        </activity>
     </application>
 
 </manifest>

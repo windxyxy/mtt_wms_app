@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
     <RelativeLayout
@@ -40,117 +40,111 @@
                     android:layout_marginTop="35dp"
                     android:text="移库单号："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
                 <TextView
                     android:id="@+id/editText56"
-                    android:layout_width="180dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/textView97"
                     android:layout_toRightOf="@+id/textView97"
                     android:editable="false"
                     android:longClickable="false"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/editText57"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/editText56"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/editText56"
-                    android:layout_below="@+id/editText46"
-                    android:layout_marginTop="20dp"
-                    android:editable="false"
-                    android:maxLines="2"
-                    android:scrollbars="vertical"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
 
                 <TextView
                     android:id="@+id/textView100"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView97"
-                    android:layout_alignStart="@+id/textView97"
-
+                    android:layout_height="30dp"
                     android:layout_below="@+id/editText56"
                     android:layout_marginTop="20dp"
                     android:text="货位编码："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
 
                 <EditText
                     android:id="@+id/editText45"
-                    android:layout_width="180dp"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_alignLeft="@+id/editText56"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/editText56"
                     android:layout_below="@+id/editText56"
                     android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/textView97"
                     android:background="@drawable/bg_edittext"
                     android:maxLength="60"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
 
                 <TextView
                     android:id="@+id/textView101"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textView100"
-                    android:layout_alignStart="@+id/textView100"
+                    android:layout_alignLeft="@id/textView100"
+                    android:layout_alignRight="@id/textView100"
                     android:layout_below="@+id/editText45"
                     android:layout_marginTop="20dp"
-                    android:text="货品条码："
+                    android:paddingRight="4dp"
+                    android:text="仓库货品条码："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
                 <EditText
                     android:id="@+id/editText46"
-                    android:layout_width="180dp"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_alignLeft="@+id/editText57"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/editText57"
                     android:layout_alignTop="@+id/textView101"
+                    android:layout_toRightOf="@+id/textView101"
                     android:background="@drawable/bg_edittext"
                     android:maxLength="60"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/textView102"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_alignLeft="@+id/textView101"
                     android:layout_alignStart="@+id/textView101"
-                    android:layout_below="@+id/editText46"
-
-                    android:layout_marginTop="73dp"
-                    android:text="补货数量："
+                    android:layout_below="@+id/editText57"
+                    android:layout_marginTop="20dp"
+                    android:text="拣货数量："
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"/>
 
                 <EditText
                     android:id="@+id/editText29"
-                    android:layout_width="180dp"
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_alignBaseline="@+id/textView102"
-                    android:layout_alignBottom="@+id/textView102"
-                    android:layout_alignLeft="@+id/editText46"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/editText46"
+                    android:layout_below="@+id/editText57"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/textView102"
                     android:background="@drawable/bg_edittext"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:inputType="number"
-                    android:maxLength="9"
-                    android:singleLine="false" />
+                    android:maxLength="9"/>
+
+
+                <TextView
+                    android:id="@+id/textView123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView101"
+                    android:layout_marginTop="30dp"
+                    android:text="货品名称："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/editText57"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView101"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/textView123"
+                    android:editable="false"
+                    android:scrollbars="vertical"
+                    android:textSize="16dp"/>
 
                 <Button
                     android:id="@+id/button39"
@@ -161,20 +155,7 @@
                     android:layout_marginTop="30dp"
                     android:background="@drawable/button"
                     android:onClick="savasumbit"
-                    android:text="确    定" />
-
-                <TextView
-                    android:id="@+id/textView123"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/editText57"
-                    android:layout_alignBottom="@+id/editText57"
-                    android:layout_alignLeft="@+id/textView101"
-                    android:layout_alignStart="@+id/textView101"
-                    android:layout_marginTop="20dp"
-                    android:text="货品名称："
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp" />
+                    android:text="确    定"/>
 
 
             </RelativeLayout>
@@ -196,7 +177,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:onClick="backtasks"
-                android:text="返回" />
+                android:text="返回"/>
 
             <TextView
                 android:id="@+id/textView12"
@@ -206,7 +187,7 @@
                 android:layout_centerVertical="true"
                 android:text="移库拣货"
                 android:textIsSelectable="false"
-                android:textSize="25dp" />
+                android:textSize="25dp"/>
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -218,7 +199,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/button14"
-                android:background="#e6e6e6" />
+                android:background="#e6e6e6"/>
 
         </RelativeLayout>
 
@@ -239,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"/>
         </RelativeLayout>
 
 

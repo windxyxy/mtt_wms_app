@@ -58,9 +58,6 @@ public class reple_goods  extends buttom_state {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reple_goods);
 
-
-
-
         Intent intent=getIntent();
         Bundle bundle = intent.getExtras();
         replenorder=intent.getStringExtra("order");
@@ -69,6 +66,7 @@ public class reple_goods  extends buttom_state {
         TextView editText18=(TextView)findViewById(R.id.editText56);
         TextView editText19=(TextView)findViewById(R.id.editText57);
         TextView editText20=(TextView)findViewById(R.id.editText58);
+        TextView tv_yujian = (TextView) findViewById(R.id.tv_yujian);
 
         /*货品名称滚动*/
         roll(editText20);
@@ -327,14 +325,6 @@ public Boolean repeat(){
 
     /*完成提交*/
     public void sumbit(){
-
-
-
-
-
-
-
-
 
     Hashtable ParamValues =new Hashtable<>();
     ParamValues.put("SPName", "PRO_MOVESGOODS_HANDHELD_ADD");

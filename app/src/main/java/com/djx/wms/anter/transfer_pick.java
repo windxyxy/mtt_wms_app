@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,7 +32,6 @@ public class transfer_pick extends buttom_state {
     private int sum = 0, bhsum = 0, odd = 0;
     private TextView orderinput, goodsname;
     private EditText postion, waregood, plQysum;
-    private Boolean statce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,14 @@ public class transfer_pick extends buttom_state {
                     odd++;
                     if (odd % 2 != 0) {
                         quergood();
+                        if (waregood.getError() == null) {
+                            plQysum.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    plQysum.requestFocus();
+                                }
+                            }, 400);
+                        }
                     }
                     return true;
                 }
@@ -94,58 +102,22 @@ public class transfer_pick extends buttom_state {
             }
         });
 
-
-        waregood.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+        waregood.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+
                 if (!hasFocus) {
                     quergood();
                 }
             }
         });
-
-
-        //输入框值change事件
-        plQysum.addTextChangedListener(
-                new TextWatcher() {
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        EditText editText29 = (EditText) findViewById(R.id.editText29);
-                        if (!editText29.getText().toString().equals("")) {
-
-                            int jhsum = 0;
-                            try {
-                                jhsum = Integer.parseInt(editText29.getText().toString());
-                            } catch (Exception e) {
-                            }
-
-                            if (/*jhsum > bhsum || */jhsum <= 0) {
-                                editText29.setText("");
-                                AlertDialog.Builder build = new AlertDialog.Builder(transfer_pick.this);
-                                build.setMessage("拣货数量不正确！").show();
-                            }
-
-                        }
-                    }
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-                });
-
-
     }
-
 
     /* 查询货位*/
     public Boolean querypostion() {
         String Textpos = TransactSQL.instance.filterSQL(postion.getText().toString());
         if (Textpos.equals("")) {
-            /*postion.setError("请输入正确的货位编码！");*/
+            postion.setError("请输入正确的货位编码！");
             return true;
         }
 
@@ -175,59 +147,25 @@ public class transfer_pick extends buttom_state {
     public void quergood() {
         String Textpos = TransactSQL.instance.filterSQL(postion.getText().toString());
         String Textware = TransactSQL.instance.filterSQL(waregood.getText().toString());
-
         if (Textpos.equals("")) {
+            postion.setError("请输入正确的货位编码");
             return;
         }
-
-
         if (Textware.equals("")) {
+            waregood.setError("请输入正确的货品编码");
             return;
         }
-
-
-        waregood.setText(waregood.getText().toString());//添加这句后实现效果
-        Spannable content = waregood.getText();
-        Selection.selectAll(content);
-        if (Textware.equals(nextgoods)) {
-            if (statce) {
-                int sum = 0;
-                try {
-                    sum = Integer.parseInt(plQysum.getText().toString());
-                } catch (Exception e) {
-                }
-                sum++;
-                plQysum.setText("" + sum + "");
-
-            } else {
-                waregood.setError("该货位下没有该货品库存！");
-                nextgoods = "";
-                return;
-            }
-
-
+        List<Hashtable> wareCode = new ArrayList<>();
+        String SQL = "select * from v_stock  where posCode='" + Textpos + "' and warehouseId='" + AppStart.GetInstance().Warehouse + "'  and wareGoodsCodes='" + Textware + "'";
+        //and whAareType!='SH'
+        wareCode = Datarequest.GetDataArrayList(SQL);
+        if (wareCode.size() != 0) {
+            bhsum = Integer.parseInt(wareCode.get(0).get("realStock").toString());
+            goodsname.setText(wareCode.get(0).get("goodsName").toString());
         } else {
-
-            List<Hashtable> wareCode = new ArrayList<Hashtable>();
-            String SQL = "select * from v_stock  where posCode='" + Textpos + "' and warehouseId='" + AppStart.GetInstance().Warehouse + "' and whAareType!='SH' and wareGoodsCodes='" + Textware + "'  and realStock!=0";
-            wareCode = Datarequest.GetDataArrayList(SQL);
-            if (wareCode.size() != 0) {
-                bhsum = Integer.parseInt(wareCode.get(0).get("realStock").toString());
-                plQysum.setText("1");
-                goodsname.setText(wareCode.get(0).get("goodsName").toString());
-                statce = true;
-                waregood.setError(null);
-            } else {
-                statce = false;
-                waregood.setError("该货位下没有该货品库存！");
-                nextgoods = "";
-                return;
-            }
-
-
+            selectall(waregood);
+            waregood.setError("该货位下没有该货品！");
         }
-
-        nextgoods = Textware;
     }
 
 
@@ -244,16 +182,19 @@ public class transfer_pick extends buttom_state {
 
         if (querypostion()) {
             postion.setError("请输入正确的货位编码！");
+            postion.requestFocus();
             return;
         }
 
         if (goodsname.getText().toString().equals("")) {
             waregood.setError("请输入正确的货品编码！");
+            waregood.requestFocus();
             return;
         }
 
         if (plQysum.getText().toString().equals("")) {
             plQysum.setError("请输入上货数量！");
+            waregood.requestFocus();
             return;
         }
 
@@ -302,8 +243,6 @@ public class transfer_pick extends buttom_state {
                                         public void onClick(DialogInterface dialog, int which) {
                                             // TODO Auto-generated method stub
 
-                                            nextgoods = "";
-                                            bhsum = 0;
                                             postion.setText("");
                                             goodsname.setText("");
                                             waregood.setText("");
@@ -320,6 +259,7 @@ public class transfer_pick extends buttom_state {
                                             Intent intent = new Intent();
                                             intent.setClass(transfer_pick.this, transfer_task.class);
                                             startActivity(intent);/*调用startActivity方法发送意图给系统*/
+                                            dialog.dismiss();
                                             transfer_pick.this.finish();
                                         }
                                     })
