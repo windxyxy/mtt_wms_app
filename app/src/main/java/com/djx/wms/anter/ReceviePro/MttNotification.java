@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -22,54 +23,33 @@ import pers.lh.communication.TranCoreClass;
  * Describe:
  */
 public class MttNotification implements IOrderTran {
-    private int NOTIFY_ID_TEST = 0;
-    private Context mContext;
     private int injType;
     private MttNotifi notifi;
     private OrderParse mParse;
+    private Context mContext;
+
+    private PowerManager pm;//电源管理器
+    private PowerManager.WakeLock mWakeLock;
 
     @Override
     public void Tran(TranCoreClass tcc) {
+        mContext = AppStart.getmContext();
         notifi= new MttNotifi();
         mParse = new OrderParse();
         injType = mParse.inOrder;
         Log.e("mttInOrder","injType = "+injType);
-        notifi.getNotification(injType);
-//        mContext = AppStart.getmContext();
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                if (AppStart.GetInstance().getUserID() == 0) {
-//                } else if (AppStart.GetInstance().Warehouse == 0) {
-//                } else {
-//                    try {
-//                        Thread.sleep(100);
-//                        Log.e("MttNotifi", "MttNotification");
-//                        NotificationManager nm = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-//                        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
-//                        Intent intent = new Intent(mContext, reple_task.class);
-//
-//                        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                        Notification notification = builder
-//                                .setContentTitle("任务通知")
-//                                .setContentText("有新的补货任务，点击查看")
-//                                .setWhen(System.currentTimeMillis())
-//                                .setSmallIcon(R.mipmap.xinniu)
-//                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.xinniu))
-//                                .setDefaults(Notification.DEFAULT_ALL)
-//                                .setContentIntent(pendingIntent)
-//                                .build();
-//
-//                        notification.flags = Notification.FLAG_AUTO_CANCEL;//点击后通知消失
-//                        nm.notify(NOTIFY_ID_TEST, notification);
-//                        NOTIFY_ID_TEST++;
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
 
+        pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        //点亮屏幕
+        //亮屏状态不执行此操作，否则点亮屏幕
+        if (pm.isScreenOn()){
+            //无操作
+        }else {
+            mWakeLock = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.SCREEN_DIM_WAKE_LOCK,"wakeup");
+            //超时锁，10秒后自动释放
+            mWakeLock.acquire(10000);
+        }
+        notifi.getNotification(injType);
 
     }
 }

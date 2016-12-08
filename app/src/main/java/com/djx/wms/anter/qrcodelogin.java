@@ -49,6 +49,7 @@ public class qrcodelogin extends AppCompatActivity {
 
     private String data = "";
     private String downUrl = "";
+    private UserEntity mEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,9 @@ public class qrcodelogin extends AppCompatActivity {
         actionBar.hide();
         /*仓库下标初始化*/
         AppStart.GetInstance().waresubscript = 0;
+
+        mEntity = new UserEntity();
+        mEntity.setLoginState(-11);//未登录状态
 
 
         Version = getAPPVersionCodeFromAPP(qrcodelogin.this);
@@ -185,6 +189,8 @@ public class qrcodelogin extends AppCompatActivity {
                     UserEntity usere = ConnTranPares.GetData(tranCoreClass, UserEntity.class);
                     if (usere != null) {
                         usere.setUserID(usere.UserID);
+
+                        usere.setLoginState(1);//-----
 
                         AppStart.GetInstance().handlers.removeCallbacks(AppStart.GetInstance().runnable);
                         AppStart.GetInstance().GetCommunicationConn().Connector.SetTid(tranCoreClass.getToken());
@@ -376,8 +382,8 @@ public class qrcodelogin extends AppCompatActivity {
         public void run() {
             // TODO
             // 在这里进行 http request.网络请求相关操作
-//            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
-            data = HttpGetRequest.sendGet("http://http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
+            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
+//            data = HttpGetRequest.sendGet("http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
 
             try {
                 String[] stepOne = data.split(",");

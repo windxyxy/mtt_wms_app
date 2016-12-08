@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView144"
                     android:layout_marginTop="10dp"
-                    android:text="预捡数量："
+                    android:text="预拣数量："
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="18sp"/>
 

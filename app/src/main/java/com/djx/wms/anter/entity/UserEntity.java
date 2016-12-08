@@ -16,7 +16,7 @@ public class UserEntity
     public Boolean isUse;
     public String lastTime;
     public String ClientID;
-    public int loginState;
+    public static int loginState;
     public String EnterID;
     public String EntCode;
     public String WarehouseIDs;

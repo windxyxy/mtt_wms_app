@@ -66,7 +66,7 @@ public class reple_goods  extends buttom_state {
         TextView editText18=(TextView)findViewById(R.id.editText56);
         TextView editText19=(TextView)findViewById(R.id.editText57);
         TextView editText20=(TextView)findViewById(R.id.editText58);
-        TextView tv_yujian = (TextView) findViewById(R.id.tv_yujian);
+//        TextView tv_yujian = (TextView) findViewById(R.id.tv_yujian);
 
         /*货品名称滚动*/
         roll(editText20);

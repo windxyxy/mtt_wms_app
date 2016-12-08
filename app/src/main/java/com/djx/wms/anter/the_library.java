@@ -35,7 +35,7 @@ public class the_library extends buttom_state {
 
     String SQL = "select * from t_out_stock where warehouseCode = (select whCode from t_warehouse where indexId = " + AppStart.GetInstance().Warehouse + ") " +
             "and orderStatus = 3 and srcWarehouse != warehouseCode " +
-            "and outStockNo in (select outStockNo from t_out_stock_log where (operating = '出库手持开始拣货' and userID = " + AppStart.GetInstance().getUserID() + ") or operating = '审核')";
+            "and outStockNo in (select outStockNo from t_out_stock_log where (operating = '出库手持开始拣货' and userID = " + AppStart.GetInstance().getUserID() + ") or operating = '审核' or operating = '自动审核')";
 
 //"and outStockNo in (select outStockNo from t_out_stock_log where operating != '审核' and userID = " + AppStart.GetInstance().getUserID() + ")";
 

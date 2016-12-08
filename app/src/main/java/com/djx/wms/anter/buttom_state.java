@@ -86,8 +86,6 @@ public class buttom_state extends AppCompatActivity {
             if (bundle.get("status").equals("629") || bundle.get("status").equals("102")) {
                 message.arg1 = FinalManager.ConnectFail;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.buttom_state, message);
-
-
                 AppStart.switchs = false;
                 TextView B = (TextView) findViewById(R.id.state);
                 B.setText("等待重连");

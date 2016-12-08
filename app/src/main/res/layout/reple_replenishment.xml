@@ -149,25 +149,26 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="16dp"/>
 
-                <TextView
-                    android:id="@+id/tv_yububu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_goodsN"
-                    android:layout_marginTop="10dp"
-                    android:text="预补数量："
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="16dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_yububu"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@id/tv_goodsN"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:text="预补数量："-->
+                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                    <!--android:textSize="16dp"/>-->
 
                 <TextView
                     android:id="@+id/textView99"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_yububu"
+                    android:layout_below="@+id/tv_goodsN"
                     android:layout_marginTop="10dp"
                     android:layout_toLeftOf="@+id/editText57"
                     android:layout_toStartOf="@+id/editText57"
                     android:text="已拣剩余数量："
+                    android:paddingRight="4dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="16dp"/>
 
@@ -192,13 +193,13 @@
                     android:layout_toRightOf="@+id/tv_goodsN"
                     android:textSize="16dp"/>
 
-                <TextView
-                    android:id="@+id/tv_yubuNO"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_yububu"
-                    android:layout_toRightOf="@+id/tv_yububu"
-                    android:textSize="16dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_yubuNO"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignTop="@+id/tv_yububu"-->
+                    <!--android:layout_toRightOf="@+id/tv_yububu"-->
+                    <!--android:textSize="16dp"/>-->
 
                 <TextView
                     android:id="@+id/editText58"
@@ -211,6 +212,7 @@
                     android:editable="false"
                     android:ellipsize="end"
                     android:singleLine="true"
+                    android:paddingLeft="10dp"
                     android:textSize="16dp"/>
 
                 <!--  <TextView
@@ -368,7 +370,7 @@
 
                 <Button
                     android:id="@+id/button39"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="40dp"
                     android:layout_alignLeft="@+id/editText29"
                     android:layout_alignStart="@+id/editText29"

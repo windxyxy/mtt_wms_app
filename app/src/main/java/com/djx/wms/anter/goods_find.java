@@ -3,6 +3,7 @@ package com.djx.wms.anter;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +46,7 @@ public class goods_find extends buttom_state {
         goodCode = (EditText) findViewById(R.id.editText32_1);
         goodSku = (TextView) findViewById(R.id.textView137);
         goodname = (TextView) findViewById(R.id.textView138);
-        goodCodeGG = (TextView) findViewById(R.id.editText32);
+        goodCodeGG = (TextView) findViewById(R.id.textViewgc);
         goodBM = (TextView) findViewById(R.id.tv_goodsBMT);
         goodTXM = (TextView) findViewById(R.id.tv_goodsTXMT);
 
@@ -86,15 +87,18 @@ public class goods_find extends buttom_state {
         String Code = TransactSQL.instance.filterSQL(goodCode.getText().toString());
         if (Code.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(goods_find.this);
-            build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
+            goodCodeGG.setText("");
+            goodBM.setText("");
+            goodTXM.setText("");
+            build.setMessage("条码不能为空！").show();
             return true;
         }
-        String SQL = "select *from v_stock where wareGoodsCodes='" + Code + "' and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
+        String SQL = "select * from v_stock where wareGoodsCodes='" + Code + "' and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
         listData = Datarequest.GetDataArrayList(SQL);
         if (listData.size() != 0) {
-
+            Log.e("goods_find","lisData = "+listData.get(0).toString());
             goodCodeGG.setText(listData.get(0).get("wareGoodsCodes").toString());
             goodSku.setText(listData.get(0).get("goodsCode").toString());
             goodname.setText(listData.get(0).get("goodsName").toString());
@@ -133,6 +137,9 @@ public class goods_find extends buttom_state {
             build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
+            goodCodeGG.setText("");
+            goodBM.setText("");
+            goodTXM.setText("");
 
         }
         return true;
@@ -147,9 +154,13 @@ public class goods_find extends buttom_state {
         String Code = TransactSQL.instance.filterSQL(goodCode.getText().toString());
         if (Code.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(goods_find.this);
-            build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
+            goodCodeGG.setText("");
+            goodBM.setText("");
+            goodTXM.setText("");
+            build.setMessage("条码不能为空！").show();
+
             return true;
         }
         String SQL = "select *from v_stock where goodsCode='" + Code + "' and (whAareType='BH' or whAareType='JH') and warehouseId=" + AppStart.GetInstance().Warehouse + "";
@@ -192,6 +203,9 @@ public class goods_find extends buttom_state {
             build.setMessage("商品未上架！").show();
             goodSku.setText("");
             goodname.setText("");
+            goodCodeGG.setText("");
+            goodBM.setText("");
+            goodTXM.setText("");
 
         }
         return true;

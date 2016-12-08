@@ -75,6 +75,8 @@ public class main_login extends AppCompatActivity {
     private String Version = "";
     private String data = "";
     private String downUrl = "";
+
+    private UserEntity mEntity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,9 @@ public class main_login extends AppCompatActivity {
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代
         /*仓库下标初始化*/
         AppStart.GetInstance().waresubscript=0;
+
+        mEntity = new UserEntity();
+        mEntity.setLoginState(-11);
 
         Version = getAPPVersionCodeFromAPP(main_login.this);
         TranCoreClass tranCoreClass = new TranCoreClass();
@@ -169,6 +174,7 @@ public class main_login extends AppCompatActivity {
        /* main_login.this.finish();*/
     }
 
+    //登錄按鈕
     public void LoginClickEvent(View v) {
         /*清空缓存字典*/
         DyDictCache.instance.RefDyDict("");
@@ -198,13 +204,6 @@ public class main_login extends AppCompatActivity {
             Landings.setVisibility(View.INVISIBLE);
             return;
         }
-        /*创建一个新的intent对象*/
-/*
-
-        intent.putExtra("name", name);
-        intent.putExtra("pass", pass);
-*/
-
         //保存users
         AppStart.GetInstance().setUserconfig(name, pass);
         //获取传入user实体
@@ -238,6 +237,8 @@ public class main_login extends AppCompatActivity {
                     UserEntity usere = ConnTranPares.GetData(tranCoreClass, UserEntity.class);
                     if (usere != null) {
                         usere.setUserID(usere.UserID);
+                        //登录成功状态为1
+                        usere.setLoginState(1);//--------
 
                         AppStart.GetInstance().GetCommunicationConn().Connector.SetTid(tranCoreClass.getToken());
                         /*发送心跳*/
@@ -410,8 +411,8 @@ public class main_login extends AppCompatActivity {
         public void run() {
             // TODO
             // 在这里进行 http request.网络请求相关操作
-//            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
-            data = HttpGetRequest.sendGet("http://http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
+            data = HttpGetRequest.sendGet("http://wms.meitaomeitao.com/api/sys/aupdate?v=" + Version + "", "");
+//            data = HttpGetRequest.sendGet("http://http://192.168.10.254:8221//api/sys/aupdate?v="+Version+"", "");
 
             try {
                 String[] stepOne = data.split(",");

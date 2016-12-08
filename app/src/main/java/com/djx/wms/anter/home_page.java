@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.djx.wms.anter.ReceviePro.IOrderTran;
+import com.djx.wms.anter.ReceviePro.MttNotifi;
 import com.djx.wms.anter.ReceviePro.MttNotification;
 import com.djx.wms.anter.ReceviePro.OrderProThread;
 import com.djx.wms.anter.ReceviePro.OrderRegister;
@@ -37,6 +38,14 @@ public class home_page extends buttom_state {
         ActionBar actionBar;
         actionBar = getSupportActionBar();
         actionBar.hide();
+    }
+
+    /*
+    * 測試消息推送功能
+    * */
+    public void testMessage(View view){
+        MttNotifi mttNotifi = new MttNotifi();
+        mttNotifi.getNotification(209);
     }
 
     public void Storageclick(View v) {

@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.djx.wms.anter.entity.RoleInfor;
+import com.djx.wms.anter.entity.UserEntity;
 import com.djx.wms.anter.tools.Datarequest;
 import com.djx.wms.anter.tools.DyDictCache;
 import com.djx.wms.anter.tools.cache;
@@ -37,6 +38,7 @@ public class whselelct extends buttom_state {
     /*spinner 初始化下标状态*/
     private Boolean warestaus = true;
     private List<Hashtable> mList;
+    private UserEntity userEntity;
 
 
     @Override
@@ -46,7 +48,8 @@ public class whselelct extends buttom_state {
         /*
         *
         * */
-
+        userEntity = new UserEntity();
+        userEntity.setLoginState(1);//进入仓库选择页面将登录状态设置为1
 
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
             if (AppStart.GetInstance().GetCommunicationConn().Connector.GetTid().equals("")) {
@@ -153,14 +156,19 @@ public class whselelct extends buttom_state {
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Auto-generated method stub
 
-                            AppStart.GetInstance().setUserconfig("", "");
-                            AppStart.GetInstance().initUserEntity();
+
                             AppStart.GetInstance().GetCommunicationConn().state = false;
                             Boolean tranCoreClass;
                             AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
-                            tranCoreClass = (Boolean) (AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1));
+                            tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
 
                             if (tranCoreClass) {
+                                AppStart.GetInstance().setUserconfig("", "");
+                                Log.e("UserInit", "UserInit==" + AppStart.GetInstance().initUserEntity());
+                                //退出成功将登录状态改为-11
+
+                                userEntity.setLoginState(-11);
+
                                 Intent myIntent = new Intent();
                                 myIntent = new Intent(whselelct.this, main_login.class);
                                 startActivity(myIntent);
@@ -201,9 +209,14 @@ public class whselelct extends buttom_state {
                         AppStart.GetInstance().GetCommunicationConn().state = false;
                         Boolean tranCoreClass;
                         AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
-                        tranCoreClass = (Boolean) (AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1));
+                        tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
 
                         if (tranCoreClass) {
+
+                            //退出成功将登录状态改为-11
+                            UserEntity userEntity = new UserEntity();
+                            userEntity.setLoginState(-11);
+
                             Intent myIntent = new Intent();
                             myIntent = new Intent(whselelct.this, main_login.class);
                             startActivity(myIntent);
@@ -233,17 +246,22 @@ public class whselelct extends buttom_state {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
+
+
                         Hashtable parm = new Hashtable<>();
-                        parm.put("SPName","sp_login_user_warehouse");
-                        parm.put("userId",AppStart.GetInstance().getUserID());
-                        parm.put("warehouseId",AppStart.GetInstance().Warehouse+"");
-                        parm.put("msg","output-varchar-500");
+                        parm.put("SPName", "sp_login_user_warehouse");
+                        parm.put("userId", AppStart.GetInstance().getUserID());
+                        parm.put("warehouseId", AppStart.GetInstance().Warehouse + "");
+                        parm.put("msg", "output-varchar-500");
                         mList = Datarequest.GETstored(parm);
-                        if (mList.get(0).get("result").equals("0.0")){
-                            Log.e("whselect",mList.get(0).toString());
-                        }else {
-                            Log.e("anter",mList.get(0).get("msg").toString());
+                        if (mList.get(0).get("result").equals("0.0")) {
+                            Log.e("whselect", mList.get(0).toString());
+                        } else {
+                            Log.e("anter", mList.get(0).get("msg").toString());
                         }
+
+                        userEntity.setLoginState(2);//仓库选择成功将登录状态设置为2
+
                         Intent myIntent = new Intent();
                         myIntent = new Intent(whselelct.this, home_page.class);
                         startActivity(myIntent);
