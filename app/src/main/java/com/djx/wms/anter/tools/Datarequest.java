@@ -24,6 +24,7 @@ public class Datarequest {
         TranCoreClass tranCoreClass = null;
         tranCoreClass = (TranCoreClass) AppStart.GetInstance().GetCommunicationConn().SyncSend(203, SQL);
         if (tranCoreClass != null) {
+            Log.e("DataRequest","TranCoreClass!=null--");
             olisthas = ConnTranPares.GetDataList(tranCoreClass, Hashtable.class);
             return olisthas;
         } else{

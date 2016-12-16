@@ -1,14 +1,8 @@
 package com.djx.wms.anter.tools;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by gfgh on 2016/3/23.

@@ -156,7 +156,7 @@ public class transfer_pick extends buttom_state {
             return;
         }
         List<Hashtable> wareCode = new ArrayList<>();
-        String SQL = "select * from v_stock  where posCode='" + Textpos + "' and warehouseId='" + AppStart.GetInstance().Warehouse + "'  and wareGoodsCodes='" + Textware + "'";
+        String SQL = "select * from v_stock  where posCode='"+Textpos+"' and warehouseId= "+AppStart.GetInstance().Warehouse+"  and wareGoodsCodes='"+Textware+"'";
         //and whAareType!='SH'
         wareCode = Datarequest.GetDataArrayList(SQL);
         if (wareCode.size() != 0) {
@@ -165,6 +165,7 @@ public class transfer_pick extends buttom_state {
         } else {
             selectall(waregood);
             waregood.setError("该货位下没有该货品！");
+            return;
         }
     }
 

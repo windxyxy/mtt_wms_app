@@ -91,13 +91,8 @@ public class whselelct extends buttom_state {
                         lsts.add(item);
                     }
                 }
-
-
             }
-
-
         }
-
 
         //添加到适配器
         ArrayAdapter<CItem> myaAdapters = new ArrayAdapter<CItem>(this, android.R.layout.simple_spinner_item, lsts);
@@ -120,7 +115,6 @@ public class whselelct extends buttom_state {
                     AppStart.GetInstance().waresubscript = position;
                     brand.setSelection(AppStart.GetInstance().waresubscript, true);
                 }
-
             }
 
             @Override
@@ -129,25 +123,17 @@ public class whselelct extends buttom_state {
             }
         });
 
-
         if (AppStart.GetInstance().GetCommunicationConn().state) {
             Intent intent = new Intent("commnication.status");
             intent.putExtra("status", 200);
             AnterService.GetServiceInstans().sendBroadcast(intent);
         }
-
-
     }
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
-        /*    new android.support.v7.app.AlertDialog.Builder(this).setTitle("提示")
-                    .setMessage("确定要脱出吗？")  .setView(
-                    new EditText(this)).setPositiveButton("确定", null)
-                    .setNegativeButton("取消", null).show();*/
             new AlertDialog.Builder(this)
                     .setTitle("提示")
                     .setMessage("确定退出登录吗？")
@@ -155,39 +141,31 @@ public class whselelct extends buttom_state {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Auto-generated method stub
-
-
                             AppStart.GetInstance().GetCommunicationConn().state = false;
                             Boolean tranCoreClass;
-                            AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
+//                            AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
                             tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
-
                             if (tranCoreClass) {
-                                AppStart.GetInstance().setUserconfig("", "");
-                                Log.e("UserInit", "UserInit==" + AppStart.GetInstance().initUserEntity());
+//                                AppStart.GetInstance().setUserconfig("", "");
                                 //退出成功将登录状态改为-11
-
                                 userEntity.setLoginState(-11);
-
                                 Intent myIntent = new Intent();
                                 myIntent = new Intent(whselelct.this, main_login.class);
                                 startActivity(myIntent);
+                                dialog.dismiss();
+                                whselelct.this.finish();
                             } else {
                                 AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
                                 build.setMessage("退出失败").show();
                             }
-                            /*AppStart.GetInstance().GetCommunicationConn().Connector.Close();*/
-                            /*AppStart.GetInstance().SetCommunication(null);*/
                         }
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            /*this.finish();*/
                         }
                     })
-
                     .show();
             return true;
         }
@@ -203,12 +181,12 @@ public class whselelct extends buttom_state {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Auto-generated method stub
-                        AppStart.GetInstance().setUserconfig("", "");
+//                        AppStart.GetInstance().setUserconfig("", "");
                         AppStart.GetInstance().initUserEntity();
 
-                        AppStart.GetInstance().GetCommunicationConn().state = false;
+                        AppStart.GetInstance().GetCommunicationConn().state = true;
                         Boolean tranCoreClass;
-                        AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
+//                        AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
                         tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
 
                         if (tranCoreClass) {

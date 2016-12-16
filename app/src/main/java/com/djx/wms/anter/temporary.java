@@ -155,7 +155,6 @@ public class temporary extends buttom_state {
         });
     }
 
-
     public void quergood() {
         String str27 = editText27.getText().toString();
         String sku = TransactSQL.instance.filterSQL(str27);
@@ -294,19 +293,21 @@ public class temporary extends buttom_state {
                         results = Datarequest.GETstored(ParamValues);
 
                         if (results.get(0).get("result").toString().equals("0.0")) {
-                            new AlertDialog.Builder(temporary.this)
-                                    .setTitle("提示")
-                                    .setMessage("上架成功")
-                                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Intent myIntent = new Intent(temporary.this, temporary.class);
-                                            dialog.dismiss();
-                                            startActivity(myIntent);
-                                            temporary.this.finish();
-                                        }
-                                    })
-                                    .show();
+                            Intent intent = new Intent(temporary.this,temporary.class);
+                            startActivity(intent);
+//                            new AlertDialog.Builder(temporary.this)
+//                                    .setTitle("提示")
+//                                    .setMessage("上架成功")
+//                                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialog, int which) {
+//                                            Intent myIntent = new Intent(temporary.this, temporary.class);
+//                                            dialog.dismiss();
+//                                            startActivity(myIntent);
+//                                            temporary.this.finish();
+//                                        }
+//                                    })
+//                                    .show();
 
                         } else {
                             AlertDialog.Builder build = new AlertDialog.Builder(temporary.this);

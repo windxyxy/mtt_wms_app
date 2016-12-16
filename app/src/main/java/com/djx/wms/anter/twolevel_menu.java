@@ -19,25 +19,25 @@ import java.util.List;
 /**
  * Created by gfgh on 2016/3/11.
  */
-public class twolevel_menu  extends buttom_state {
+public class twolevel_menu extends buttom_state {
     private List<Hashtable> listhas = new ArrayList<Hashtable>();
 
     private Context context = this;
 
     private TextView tv_explain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.twolevel_menu);
 
         tv_explain = (TextView) findViewById(R.id.tv_explain);
-        String explain = "货品上架：<br />货品上架指货品入库到<font color = '#FF0000'>收货区</font>后，需要将货品移入到<font color = '#FF0000'>备货区</font>或者<font color = '#FF0000'>拣货区</font>，避免收货区货品积压。";
+        String explain = "入库上架：<br />入库上架指货品入库到<font color = '#FF0000'>收货区</font>后，需要将货品移入到<font color = '#FF0000'>备货区</font>或者<font color = '#FF0000'>拣货区</font>，避免收货区货品积压。";
         tv_explain.setText(Html.fromHtml(explain));
         tv_explain.setTextSize(18);
     }
 
-    public void twoback(View v)
-    {
+    public void twoback(View v) {
         Intent myIntent = new Intent();
         myIntent = new Intent(twolevel_menu.this, home_page.class);
         startActivity(myIntent);
@@ -45,8 +45,7 @@ public class twolevel_menu  extends buttom_state {
         twolevel_menu.this.finish();
     }
 
-    public void shelfclick(View v)
-    {
+    public void shelfclick(View v) {
         Intent myIntent = new Intent();
         myIntent = new Intent(twolevel_menu.this, storage_inquiry.class);
         startActivity(myIntent);
@@ -83,7 +82,6 @@ public class twolevel_menu  extends buttom_state {
     }*/
 
 
-
 //    public void Storageclick(View v)
 //    {
 //
@@ -104,29 +102,18 @@ public class twolevel_menu  extends buttom_state {
 //
 //    }
 
-   public void temporary_shelves(View v){
+    public void temporary_shelves(View v) {
 
-                       Intent intent = new Intent();
-                       intent = new Intent(twolevel_menu.this,temporary_shelves.class);
-                       startActivity(intent);
-                       twolevel_menu.this.finish();
-   }
-
-
-
-
-
-
-
-
-
-
+        Intent intent = new Intent();
+        intent = new Intent(twolevel_menu.this, temporary_shelves.class);
+        startActivity(intent);
+        twolevel_menu.this.finish();
+    }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
             Intent myIntent = new Intent();
             myIntent = new Intent(twolevel_menu.this, home_page.class);
             startActivity(myIntent);
@@ -135,7 +122,6 @@ public class twolevel_menu  extends buttom_state {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

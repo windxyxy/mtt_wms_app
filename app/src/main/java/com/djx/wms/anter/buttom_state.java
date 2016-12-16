@@ -98,8 +98,6 @@ public class buttom_state extends AppCompatActivity {
                             .setCancelable(false)
                             .show();
                 }
-
-
             }
 
             if (bundle.get("status").equals("200") || bundle.get("status").equals("100")) {

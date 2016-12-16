@@ -37,7 +37,7 @@ public class transfer_task extends buttom_state {
         String SQL = "select t_movegoods.*,SUM(c.stock) as stock from (select * from t_movegoods where orderStatus = 1 and whId =" + AppStart.GetInstance().Warehouse + " and mgoType=3 " +
                 "union select a.* from t_movegoods as a  join t_movegoods_log as b on a.mgoNo = b.mgoNo  where (a.orderStatus = 4 or a.orderStatus =5) and a.mgoType = 3   and b.userID =" + AppStart.GetInstance().getUserID() + " and a.whId=" + AppStart.GetInstance().Warehouse + ") " +
                 "as t_movegoods left join v_fillgoods as c on t_movegoods.mgoNo = c.mgoNo " + " group by " +
-                "t_movegoods.indexId,t_movegoods.mgoNo,t_movegoods.whId,t_movegoods.whName,t_movegoods.mgoType,t_movegoods.creator,t_movegoods.auditor,t_movegoods.executor,t_movegoods.createTime,t_movegoods.lastTime,t_movegoods.orderStatus,t_movegoods.flagId,t_movegoods.flagName,t_movegoods.remark,t_movegoods.fillNum";
+                "t_movegoods.indexId,t_movegoods.mgoNo,t_movegoods.whId,t_movegoods.whName,t_movegoods.mgoType,t_movegoods.creator,t_movegoods.auditor,t_movegoods.executor,t_movegoods.createTime,t_movegoods.lastTime,t_movegoods.orderStatus,t_movegoods.flagId,t_movegoods.flagName,t_movegoods.remark,t_movegoods.fillNum,t_movegoods.isAuto";
 
 
         listData = Datarequest.GetDataArrayList(SQL);
@@ -213,6 +213,7 @@ public class transfer_task extends buttom_state {
         int userId = AppStart.GetInstance().getUserID();
         ParamValue.put("userID", "" + userId + "");
         ParamValue.put("mgotype", "3");
+        ParamValue.put("isAuto","0");
         ParamValue.put("inPosFullCode", "");
         ParamValue.put("flagId", "");
         ParamValue.put("remark", "");

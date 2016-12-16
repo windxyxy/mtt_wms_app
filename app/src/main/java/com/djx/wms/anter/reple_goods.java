@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djx.wms.anter.tools.Datarequest;
 import com.djx.wms.anter.tools.TransactSQL;
@@ -37,47 +39,49 @@ import java.util.Map;
  * Created by gfgh on 2016/4/7.
  */
 
-public class reple_goods  extends buttom_state {
+public class reple_goods extends buttom_state {
 
-    private List<Map<String, String>> listData= new ArrayList<Map<String, String>>();
-    private List<Map<String, String>> gridData= new ArrayList<Map<String, String>>();
+    private List<Map<String, String>> listData = new ArrayList<Map<String, String>>();
+    private List<Map<String, String>> gridData = new ArrayList<Map<String, String>>();
     public GridView gridview;
     protected ArrayList<HashMap<String, String>> srcTable;
     protected SimpleAdapter saTable;// 适配器
 
-    private int sum=0,sumpos=0,bhsum=0,sums=0;
-    private String postionID="";
-    private Boolean pos=true;
-    private  Boolean statce=false;
-    private Boolean sumstatce=false;
-    private AlertDialog  prompt=null;
-    private String Stocking="",replenorder="",nextsku="",goodCode="";
+    private int sum = 0, sumpos = 0, bhsum = 0, sums = 0;
+    private String postionID = "";
+    private Boolean pos = true;
+    private Boolean statce = false;
+    private Boolean sumstatce = false;
+    private AlertDialog prompt = null;
+    private String Stocking = "", replenorder = "", nextsku = "", goodCode = "",planStock="";
 
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //无标题
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reple_goods);
 
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        replenorder=intent.getStringExtra("order");
+        replenorder = intent.getStringExtra("order");
+        planStock = intent.getStringExtra("planStock");//---
 
-        gridData= (List) bundle.getSerializable("griddata");
-        TextView editText18=(TextView)findViewById(R.id.editText56);
-        TextView editText19=(TextView)findViewById(R.id.editText57);
-        TextView editText20=(TextView)findViewById(R.id.editText58);
-//        TextView tv_yujian = (TextView) findViewById(R.id.tv_yujian);
+
+
+        gridData = (List) bundle.getSerializable("griddata");
+        TextView editText18 = (TextView) findViewById(R.id.editText56);
+        TextView editText19 = (TextView) findViewById(R.id.editText57);
+        TextView editText20 = (TextView) findViewById(R.id.editText58);
+        TextView tv_yubu = (TextView) findViewById(R.id.tv_yubu);
 
         /*货品名称滚动*/
         roll(editText20);
 
 
-        goodCode=gridData.get(0).get("wareGoodsCodes").toString();
+        goodCode = gridData.get(0).get("wareGoodsCodes").toString();
         editText18.setText(gridData.get(0).get("goodsCode").toString());
         editText19.setText(gridData.get(0).get("wareGoodsCodes").toString());
         editText20.setText(gridData.get(0).get("goodsName").toString());
-
-
+        tv_yubu.setText(planStock);//---
 
 
         gridview = (GridView) findViewById(R.id.gridView);
@@ -85,8 +89,8 @@ public class reple_goods  extends buttom_state {
         saTable = new SimpleAdapter(this,
                 srcTable,// 数据来源
                 R.layout.gridtext,//XML实现
-                new String[] {"ItemText","ItemTexts"},  // 动态数组与ImageItem对应的子项
-                new int[] { R.id.ItemText,R.id.ItemTexts});
+                new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                new int[]{R.id.ItemText, R.id.ItemTexts});
         // 添加并且显示
         gridview.setAdapter(saTable);
         //添加表头
@@ -95,7 +99,7 @@ public class reple_goods  extends buttom_state {
         addData();
         setListViewHeightBasedOnChildren(gridview);
 
-        EditText editText29=(EditText)findViewById(R.id.editText29);
+        EditText editText29 = (EditText) findViewById(R.id.editText29);
         //输入框值change事件
         editText29.addTextChangedListener(
                 new TextWatcher() {
@@ -103,10 +107,11 @@ public class reple_goods  extends buttom_state {
                     public void afterTextChanged(Editable s) {
                         EditText editText29 = (EditText) findViewById(R.id.editText29);
                         if (!editText29.getText().toString().equals("")) {
-                            int jsum=0;
-                            try{
+                            int jsum = 0;
+                            try {
                                 jsum = Integer.parseInt(editText29.getText().toString());
-                            }catch(Exception e){}
+                            } catch (Exception e) {
+                            }
 
                             if (/*jsum > bhsum || */jsum <= 0) {
                                 editText29.setText("");
@@ -127,7 +132,7 @@ public class reple_goods  extends buttom_state {
                 });
 
 
-        EditText editText21=(EditText)findViewById(R.id.editText45);
+        EditText editText21 = (EditText) findViewById(R.id.editText45);
         editText21.setFocusable(true);
         editText21.setFocusableInTouchMode(true);
         editText21.requestFocus();
@@ -136,14 +141,14 @@ public class reple_goods  extends buttom_state {
         editText21.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                      sums++;
-                      if (sums % 2 != 0) {
-                          if (querypos()) {
-                              return true;
-                          } else {
-                              return false;
-                          }
-                      }
+                    sums++;
+                    if (sums % 2 != 0) {
+                        if (querypos()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
                 }
                 return true;
             }
@@ -160,7 +165,7 @@ public class reple_goods  extends buttom_state {
             }
         });
 
-        EditText editText22=(EditText)findViewById(R.id.editText46);
+        EditText editText22 = (EditText) findViewById(R.id.editText46);
        /*失去焦点触发事件*/
         editText22.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
             @Override
@@ -181,10 +186,10 @@ public class reple_goods  extends buttom_state {
         editText22.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        sum++;
-                        if (sum % 2 != 0) {
-                            querycode();
-                        }
+                    sum++;
+                    if (sum % 2 != 0) {
+                        querycode();
+                    }
                     return true;
                 }
                 return true;
@@ -222,46 +227,47 @@ public class reple_goods  extends buttom_state {
 
     }
 
-public Boolean repeat(){
+    public Boolean repeat() {
 
-    EditText edit22=(EditText)findViewById(R.id.editText46);
-    String values=edit22.getText().toString();
-    values = TransactSQL.instance.filterSQL(values);
+        EditText edit22 = (EditText) findViewById(R.id.editText46);
+        String values = edit22.getText().toString();
+        values = TransactSQL.instance.filterSQL(values);
 
 
-    EditText editText29=(EditText)findViewById(R.id.editText29);
-        if(nextsku.equals(values)&&!nextsku.equals("")){
-            int  sum=0;
-            try{
-             sum=Integer.parseInt(editText29.getText().toString());
-            }catch (Exception e){}
+        EditText editText29 = (EditText) findViewById(R.id.editText29);
+        if (nextsku.equals(values) && !nextsku.equals("")) {
+            int sum = 0;
+            try {
+                sum = Integer.parseInt(editText29.getText().toString());
+            } catch (Exception e) {
+            }
 
-            sum=sum+1;
-            if(sum>bhsum||sum<=0){
+            sum = sum + 1;
+            if (sum > bhsum || sum <= 0) {
                 AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
                 build.setMessage("拣货数量不正确！").show();
-                statce=false;
+                statce = false;
                 return false;
             }
-            editText29.setText(""+sum+"");
-        }else {
+            editText29.setText("" + sum + "");
+        } else {
 
             EditText edit21 = (EditText) findViewById(R.id.editText45);
             String bhposition = edit21.getText().toString();
             bhposition = TransactSQL.instance.filterSQL(bhposition);
-            Map <String,String> positionquer=new HashMap<String,String>();
-            for(Map g:gridData){
-                if(g.get("wareGoodsCodes").toString().equals(values)){
-                    positionquer=g;
-                    if(g.get("posCode").toString().equals(bhposition)){
+            Map<String, String> positionquer = new HashMap<String, String>();
+            for (Map g : gridData) {
+                if (g.get("wareGoodsCodes").toString().equals(values)) {
+                    positionquer = g;
+                    if (g.get("posCode").toString().equals(bhposition)) {
                         bhsum = Integer.parseInt(positionquer.get("realStock").toString());
                     }
                 }
             }
 
             /*  */
-            if (positionquer.size()!= 0) {
-                statce=true;
+            if (positionquer.size() != 0) {
+                statce = true;
                 editText29.setText("1");
             } else {
                 AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
@@ -270,14 +276,14 @@ public Boolean repeat(){
             }
 
         }
-    return true;
-}
+        return true;
+    }
 
 
-    public void savareple(View v){
+    public void savareple(View v) {
 
-        EditText text21=(EditText)findViewById(R.id.editText45);
-        if(text21.getText().toString().equals("")){
+        EditText text21 = (EditText) findViewById(R.id.editText45);
+        if (text21.getText().toString().equals("")) {
             text21.setError("请输入正确的货位！");
             return;
         }
@@ -292,7 +298,7 @@ public Boolean repeat(){
         }
 
         EditText edit29 = (EditText) findViewById(R.id.editText29);
-        if(edit29.getText().toString().equals("")){
+        if (edit29.getText().toString().equals("")) {
             edit29.setError("请输入拣货数量！");
             return;
         }
@@ -319,82 +325,83 @@ public Boolean repeat(){
                 .show();
 
 
-
-
     }
 
     /*完成提交*/
-    public void sumbit(){
+    public void sumbit() {
 
-    Hashtable ParamValues =new Hashtable<>();
-    ParamValues.put("SPName", "PRO_MOVESGOODS_HANDHELD_ADD");
-    ParamValues.put("msg", "output-varchar-8000");
-    ParamValues.put("mgotype", "2");
-    ParamValues.put("mgoNo", replenorder);
+        Hashtable ParamValues = new Hashtable<>();
+        ParamValues.put("SPName", "PRO_MOVESGOODS_HANDHELD_ADD");
+        ParamValues.put("msg", "output-varchar-8000");
+        ParamValues.put("mgotype", "2");
+        ParamValues.put("mgoNo", replenorder);
 
-    EditText text22=(EditText)findViewById(R.id.editText46);
-    String   wareGoodsCodes=TransactSQL.instance.filterSQL(text22.getText().toString());
-    ParamValues.put("wareGoodsCodes",wareGoodsCodes);
+        EditText text22 = (EditText) findViewById(R.id.editText46);
+        String wareGoodsCodes = TransactSQL.instance.filterSQL(text22.getText().toString());
+        ParamValues.put("wareGoodsCodes", wareGoodsCodes);
 
-    EditText text29=(EditText)findViewById(R.id.editText29);
-    String   realStock=TransactSQL.instance.filterSQL(text29.getText().toString());
-    ParamValues.put("realStock",realStock);
+        EditText text29 = (EditText) findViewById(R.id.editText29);
+        String realStock = TransactSQL.instance.filterSQL(text29.getText().toString());
+        ParamValues.put("realStock", realStock);
 
-    int  userId=AppStart.GetInstance().getUserID();
-    ParamValues.put("createId",""+userId+"");
-    ParamValues.put("whid", AppStart.GetInstance().Warehouse);
+        int userId = AppStart.GetInstance().getUserID();
+        ParamValues.put("createId", "" + userId + "");
+        ParamValues.put("whid", AppStart.GetInstance().Warehouse);
 
-    EditText text21=(EditText)findViewById(R.id.editText45);
-    String   posFullCode=TransactSQL.instance.filterSQL(text21.getText().toString());
-    ParamValues.put("posFullCode",posFullCode);
-    ParamValues.put("inPosFullCode","");
+        EditText text21 = (EditText) findViewById(R.id.editText45);
+        String posFullCode = TransactSQL.instance.filterSQL(text21.getText().toString());
+        ParamValues.put("posFullCode", posFullCode);
+        ParamValues.put("inPosFullCode", "");
 
 
+        List<Hashtable> data = new ArrayList<Hashtable>();
+        data = Datarequest.GETstored(ParamValues);
 
-    List<Hashtable> data = new ArrayList<Hashtable>();
-    data = Datarequest.GETstored(ParamValues);
 
-    if(data.get(0).get("result").toString().equals("0.0")){
-        AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
-        build.setMessage("拣货成功！").show();
+        if (data.get(0).get("result").toString().equals("0.0")) {
+//            AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
+//            build.setMessage("拣货成功！").show();
+            Toast.makeText(reple_goods.this,"拣货成功",Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent();
-        intent.setClass(reple_goods.this, reple_task.class);
-        startActivity(intent);/*调用startActivity方法发送意图给系统*/
-        reple_goods.this.finish();
-    } else {
-        AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
-        build.setMessage(data.get(0).get("msg").toString()).show();
+            Intent intent = new Intent();
+            intent.setClass(reple_goods.this, reple_task.class);
+            startActivity(intent);/*调用startActivity方法发送意图给系统*/
+//            reple_goods.this.finish();
+        } else {
+            AlertDialog.Builder build = new AlertDialog.Builder(reple_goods.this);
+            build.setMessage(data.get(0).get("msg").toString()).show();
+        }
+
+
     }
 
-
-}
-
     /*表格头部*/
-    public void addHeader(){
+    public void addHeader() {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("ItemText","备货区货位");
-        map.put("ItemTexts","库存数量");
+        map.put("ItemText", "备货区货位");
+        map.put("ItemTexts", "库存数量");
         srcTable.add(map);
         saTable.notifyDataSetChanged(); //更新数据
     }
+
     /*表格数据绑定*/
-    public void addData(){
-        for(Map i:gridData){
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("ItemText",i.get("posCode").toString());
-                map.put("ItemTexts",i.get("realStock").toString());
+    public void addData() {
+        for (Map i : gridData) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("ItemText", i.get("posCode").toString());
+            map.put("ItemTexts", i.get("realStock").toString());
 
-                if(i.get("realStock").toString().equals("")){
-                    sumstatce=true;
-                    Stocking=i.get("posCode").toString();
-                }
+            if (i.get("realStock").toString().equals("")) {
+                sumstatce = true;
+                Stocking = i.get("posCode").toString();
+            }
 
-               srcTable.add(map);
+            srcTable.add(map);
 
         }
         saTable.notifyDataSetChanged(); //更新数据
     }
+
     /*表格列宽固定*/
     public static void setListViewHeightBasedOnChildren(GridView listView) {
         // 获取listview的adapter
@@ -426,80 +433,81 @@ public Boolean repeat(){
     }
 
 
-    public  void backtask(View v){
+    public void backtask(View v) {
         Intent intent = new Intent();
         intent.setClass(reple_goods.this, reple_task.class);
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
         reple_goods.this.finish();
     }
-    public  void backmain(View v){
+
+    public void backmain(View v) {
         Intent intent = new Intent();
         intent.setClass(reple_goods.this, library_management.class);
         startActivity(intent);/*调用startActivity方法发送意图给系统*/
         reple_goods.this.finish();
     }
 
-    public Boolean querypos(){
+    public Boolean querypos() {
 
-            EditText editText46 = (EditText) findViewById(R.id.editText46);
-            EditText editText29 = (EditText) findViewById(R.id.editText29);
-            editText46.setText("");
-            editText29.setText("");
-            nextsku="";
-            EditText editText45 = (EditText) findViewById(R.id.editText45);
+        EditText editText46 = (EditText) findViewById(R.id.editText46);
+        EditText editText29 = (EditText) findViewById(R.id.editText29);
+        editText46.setText("");
+        editText29.setText("");
+        nextsku = "";
+        EditText editText45 = (EditText) findViewById(R.id.editText45);
 
-            if(editText45.getText().toString().equals("")){
+        if (editText45.getText().toString().equals("")) {
             return false;
-            }
+        }
 
-            String bhposition = editText45.getText().toString();
-            bhposition = TransactSQL.instance.filterSQL(bhposition);
-            for (Map l : gridData) {
-                if (l.get("posCode").toString().equals(bhposition)) {
-                    return false;
-                }
+        String bhposition = editText45.getText().toString();
+        bhposition = TransactSQL.instance.filterSQL(bhposition);
+        for (Map l : gridData) {
+            if (l.get("posCode").toString().equals(bhposition)) {
+                return false;
             }
+        }
 
-            editText45.setError("货位信息不匹配！");
-            editText45.setText(editText45.getText().toString());//添加这句后实现效果
-            Spannable content = editText45.getText();
-            Selection.selectAll(content);
-            return true;
+        editText45.setError("货位信息不匹配！");
+        editText45.setText(editText45.getText().toString());//添加这句后实现效果
+        Spannable content = editText45.getText();
+        Selection.selectAll(content);
+        return true;
     }
 
-    public Boolean querycode(){
+    public Boolean querycode() {
 
              /*货品条码*/
-            EditText edit22 = (EditText) findViewById(R.id.editText46);
-            EditText edit29 = (EditText) findViewById(R.id.editText29);
+        EditText edit22 = (EditText) findViewById(R.id.editText46);
+        EditText edit29 = (EditText) findViewById(R.id.editText29);
              /*货位条码*/
-            EditText postion =(EditText)findViewById(R.id.editText45);
-            String values = edit22.getText().toString();
-            values = TransactSQL.instance.filterSQL(values);
+        EditText postion = (EditText) findViewById(R.id.editText45);
+        String values = edit22.getText().toString();
+        values = TransactSQL.instance.filterSQL(values);
 
-            String postiontext=TransactSQL.instance.filterSQL(postion.getText().toString());
-             if(values.equals("")){
-                 return true;
-             }
+        String postiontext = TransactSQL.instance.filterSQL(postion.getText().toString());
+        if (values.equals("")) {
+            return true;
+        }
 
-             if(postiontext.equals("")){
-              return true;
-             }
+        if (postiontext.equals("")) {
+            return true;
+        }
 
 
-            if (!values.equals(goodCode)) {
-                nextsku = edit22.getText().toString();
-                edit22.setError("货品条码不正确！");
-                edit22.setText(edit22.getText().toString());//添加这句后实现效果
-                Spannable content = edit22.getText();
-                Selection.selectAll(content);
-            } else {
-                edit22.setText(edit22.getText().toString());//添加这句后实现效果
-                Spannable content = edit22.getText();
-                Selection.selectAll(content);
-                repeat();
-                nextsku = edit22.getText().toString();
-            }
+        if (!values.equals(goodCode)) {
+            nextsku = edit22.getText().toString();
+            edit22.setError("货品条码不正确！");
+            edit22.setText(edit22.getText().toString());//添加这句后实现效果
+            Spannable content = edit22.getText();
+            Selection.selectAll(content);
+        } else {
+            edit22.setText(edit22.getText().toString());//添加这句后实现效果
+            Spannable content = edit22.getText();
+            Selection.selectAll(content);
+            repeat();
+            nextsku = edit22.getText().toString();
+        }
 
 
         return true;
@@ -507,10 +515,9 @@ public Boolean repeat(){
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if(keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
+        if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键
             Intent myIntent = new Intent();
             myIntent = new Intent(reple_goods.this, reple_task.class);
             startActivity(myIntent);

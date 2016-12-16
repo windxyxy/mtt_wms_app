@@ -51,13 +51,13 @@ public class AnterService extends Service {
         try {
             Thread.sleep(300);
             MttNotification mttNotification = new MttNotification();
-            Log.e("anter","消息推送");
+            Log.e("anter", "消息推送");
             OrderRegister.GetInstance().Set("209", mttNotification);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        Log.e("Message"," message 处理");
+        Log.e("Message", " message 处理");
         /* message 处理 */
         OrderProThread.GetInstance().BeginThread();
 
@@ -71,6 +71,9 @@ public class AnterService extends Service {
                 String ip = AppStart.GetInstance().getIP();
                 short port = AppStart.GetInstance().getPort();
 
+//                String ip = AppStart.GetInstance().getIP();
+//                short port = Short.parseShort(AppStart.GetInstance().getNewPort());
+
                 Log.d(TAG, "ip:" + ip);
                 Log.d(TAG, "port:" + port);
 
@@ -82,15 +85,16 @@ public class AnterService extends Service {
         };
         AppStart.GetInstance().serverthread.start();
         Log.d(TAG, "onCreate() executed");
-
-
-
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "服务启动-------------------");
+        // service进程被kill后，那将保留在开始状态，但是不保留那些传入的intent。
+        // 不久后service就会再次尝试重新创建，因为保留在开始状态，在创建service后将保证调用onstartCommand。
+        // 如果没有传递任何开始命令给service，那将获取到null的intent。
+        flags = START_STICKY;
+
         AnterService.serviceInstans = this;
         AppStart.GetInstance().SetCommunication(conn);
         Log.d(TAG, "onStartCommand() executed");
@@ -100,6 +104,10 @@ public class AnterService extends Service {
     @Override
     public void onDestroy() {
         AppStart.GetInstance().GetCommunicationConn().eDestory();
+        //当服务停止时，自动再次启动服务
+        Intent serviceIntent = new Intent(this, AnterService.class);
+        startService(serviceIntent);
+
         super.onDestroy();
         Log.d(TAG, "onDestroy() executed");
     }

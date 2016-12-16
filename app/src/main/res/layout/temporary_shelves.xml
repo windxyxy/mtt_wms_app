@@ -109,7 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/scrollView3"
+                    android:layout_below="@+id/gridView"
+                    android:layout_marginTop="5dp"
                     android:text="货位编码："
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="16dp"/>
@@ -214,28 +215,26 @@
                     android:text="确定"
                     android:visibility="invisible"/>
 
-                <ScrollView
-                    android:id="@+id/scrollView3"
+                <!--<ScrollView-->
+                <!--android:id="@+id/scrollView3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="160dp"-->
+                <!--android:layout_alignLeft="@+id/textView96"-->
+                <!--android:layout_below="@+id/button45"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:fillViewport="false">-->
+
+                <com.djx.wms.anter.tags
+
+                    android:id="@+id/gridView"
                     android:layout_width="wrap_content"
-                    android:layout_height="140dp"
-
-                    android:layout_alignEnd="@+id/button45"
-                    android:layout_alignLeft="@+id/textView96"
-                    android:layout_alignRight="@+id/button45"
-                    android:layout_alignStart="@+id/textView96"
-                    android:layout_below="@+id/button45"
-                    android:layout_marginTop="8dp"
-                    android:fillViewport="false">
-
-                    <com.djx.wms.anter.tags
-                        android:id="@+id/gridView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@+id/imageView10"
-                        android:layout_marginTop="50dp"/>
-                </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/imageView10"
+                    android:layout_below="@+id/textView96"
+                    android:layout_marginTop="10dp"/>
+                <!--</ScrollView>-->
 
 
             </RelativeLayout>

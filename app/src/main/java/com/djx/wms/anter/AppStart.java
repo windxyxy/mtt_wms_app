@@ -127,18 +127,17 @@ public class AppStart extends Application {
 
     public void initializationconfig() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("serverconfig", 0);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("serverconfig", 0);
         SharedPreferences.Editor editors = sharedPreferences.edit();
         if (getIP().equals("") && getPort() == 0) {
-            setIP("123.57.143.223");
-            setPort("9300");
+            setIP("101.200.81.221");
+            setPort("9800");
         }
         editors.commit();
-
     }
 
     private void initServiceAddr() {
-        SharedPreferences sharedPreferencess = getSharedPreferences(configKey, 0);
+        SharedPreferences sharedPreferencess = mContext.getSharedPreferences(configKey, 0);
         String ip = sharedPreferencess.getString("ip", "");
         String p = sharedPreferencess.getString("port", "");
         this.IP = ip;
@@ -146,6 +145,7 @@ public class AppStart extends Application {
     }
 
     public String getIP() {
+
         String path = Environment.getExternalStorageDirectory().getPath();
         File imgFile = new File(path + "/wmsconfig");
         String filename = path + "/wmsconfig/config.txt";
@@ -156,12 +156,11 @@ public class AppStart extends Application {
 
         data = arryconfig.split(",");
         IP = data[0];
-
-
         return IP;
     }
 
     public void setIP(String IP) {
+
 
         Map<String, String> textviews = new HashMap<String, String>();
         textviews.put("IP", IP);
@@ -199,8 +198,6 @@ public class AppStart extends Application {
             fw.close();
         } catch (Exception e) {
         }
-
-
         this.IP = IP;
     }
 
@@ -243,7 +240,6 @@ public class AppStart extends Application {
 
         }
 
-
     }
 
 
@@ -266,13 +262,7 @@ public class AppStart extends Application {
             String arryconfig = "";
 
             arryconfig = a.get("IP").toString() + "," + c;
-
-
             return arryconfig;
-
-
-
-
 
          /*   fin.close();
             return arryconfig;*/
@@ -287,8 +277,6 @@ public class AppStart extends Application {
 
 
     public short getPort() {
-
-
         String path = Environment.getExternalStorageDirectory().getPath();
         File imgFile = new File(path + "/wmsconfig");
         String filename = path + "/wmsconfig/config.txt";
@@ -311,7 +299,6 @@ public class AppStart extends Application {
 
     public void setPort(String port) {
 
-
         Map<String, String> textviews = new HashMap<String, String>();
         textviews.put("port", port);
         savafile(textviews);
@@ -327,20 +314,20 @@ public class AppStart extends Application {
 
 
     public String initUserEntity() {
-        sharedPreferencess = getSharedPreferences(configKey, Context.MODE_PRIVATE);
+        sharedPreferencess = mContext.getSharedPreferences(configKey, 0);
         String name = sharedPreferencess.getString("username", "");
         String pass = sharedPreferencess.getString("pass", "");
         if (userEntity == null)
             userEntity = new UserEntity();
-            userEntity.setLoginName(name);
-            userEntity.setUserPass(pass);
+        userEntity.setLoginName(name);
+        userEntity.setUserPass(pass);
         return userEntity.getUserName();
     }
 
 
     public void setUserconfig(String var1, String var2) {
 
-        sharedPreferencess = getSharedPreferences(configKey,  Context.MODE_PRIVATE);
+        sharedPreferencess = mContext.getSharedPreferences(configKey, 0);
         SharedPreferences.Editor editors = sharedPreferencess.edit();
         editors.putString("username", var1);
         editors.putString("pass", var2);

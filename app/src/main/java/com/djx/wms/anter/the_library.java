@@ -1,31 +1,22 @@
 package com.djx.wms.anter;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.djx.wms.anter.tools.Datarequest;
 import com.djx.wms.anter.tools.TransactSQL;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by gfgh on 2016/6/22.
@@ -33,13 +24,10 @@ import java.util.Objects;
 public class the_library extends buttom_state {
 
 
-    String SQL = "select * from t_out_stock where warehouseCode = (select whCode from t_warehouse where indexId = " + AppStart.GetInstance().Warehouse + ") " +
-            "and orderStatus = 3 and srcWarehouse != warehouseCode " +
-            "and outStockNo in (select outStockNo from t_out_stock_log where (operating = '出库手持开始拣货' and userID = " + AppStart.GetInstance().getUserID() + ") or operating = '审核' or operating = '自动审核')";
+    String SQL = "select * from v_out_stock where orderStatus=3 and srcWarehouse<>warehouseCode and whid="+AppStart.GetInstance().Warehouse+"" +
+            "and (exists(select 1 from t_out_stock_log where operating='出库手持开始拣货' and t_out_stock_log.outStockNo=v_out_stock.outStockNo and userID="+AppStart.GetInstance().getUserID()+")" +
+            "or (select count(1) from t_out_stock_log where  operating='出库手持开始拣货' and v_out_stock.outStockNo=t_out_stock_log.outStockNo)=0)";
 
-//"and outStockNo in (select outStockNo from t_out_stock_log where operating != '审核' and userID = " + AppStart.GetInstance().getUserID() + ")";
-
-    String SQL2 = "select * from t_out_stock where  warehouseCode = (select whCode from t_warehouse where indexId = " + AppStart.GetInstance().Warehouse + ") and orderStatus = 3 and srcWarehouse != warehouseCode";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,35 +79,6 @@ public class the_library extends buttom_state {
                     intent.putExtra("picorder",pickingorder);
                     startActivity(intent);
                     the_library.this.finish();
-
-//                    Hashtable Param = new Hashtable<>();
-//                    Param.put("SPName", "sp_out_stock_detail_get");
-//                    Param.put("outstockno ", pickingorder);
-//                    int userid = AppStart.GetInstance().getUserID();
-//                    Param.put("currid", "" + userid + "");
-//                    Param.put("whid", "" + AppStart.GetInstance().Warehouse + "");
-//                    Param.put("msg", "output-varchar-500");
-//                    List<Hashtable> querypick;
-//                    querypick = Datarequest.GETstored(Param);
-//                    if (querypick.get(0).get("result").toString().equals("0.0")) {
-//                        querypick.remove(0);
-//                        AppStart.GetInstance().outorder = pickingorder;
-//                        Intent intent = new Intent();
-//                        intent.setClass(the_library.this, out_picking.class);
-//                        startActivity(intent);
-//                        the_library.this.finish();
-//                    } else {
-//                        new AlertDialog.Builder(the_library.this)
-//                                .setTitle("提示")
-//                                .setMessage(querypick.get(0).get("msg").toString())
-//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//
-//                                    }
-//                                })
-//                                .show();
-//                    }
 
                 }
             });

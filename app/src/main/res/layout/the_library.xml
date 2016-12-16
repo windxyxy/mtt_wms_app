@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
     <RelativeLayout
@@ -9,126 +10,128 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout">
+            android:layout_alignParentTop="true">
 
             <Button
+                android:id="@+id/button14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="返回"
-                android:id="@+id/button14"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:nestedScrollingEnabled="false"
-                android:onClick="the_libraryback" />
+                android:onClick="the_libraryback"
+                android:text="返回"/>
 
 
             <TextView
+                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务查询"
-                android:id="@+id/textView12"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="25dp"
-                android:textIsSelectable="false" />
+                android:layout_centerVertical="true"
+                android:text="任务查询"
+                android:textIsSelectable="false"
+                android:textSize="25dp"/>
 
             <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:id="@+id/imageView6"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/button14"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
-                android:background="#e6e6e6" />
+                android:layout_below="@+id/button14"
+                android:background="#e6e6e6"/>
         </RelativeLayout>
+
         <ScrollView
             android:id="@+id/sv_showMsg"
-            android:layout_below="@+id/relativeLayout"
-            android:layout_above="@+id/relativeLayout9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/relativeLayout9"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_margin="5dp"
             android:background="#ffffff"
-            android:fillViewport="false"
-            android:layout_margin="5dp">
+            android:fillViewport="false">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:id="@+id/ll_msg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/ll_msg">
+                android:orientation="vertical">
 
             </LinearLayout>
         </ScrollView>
+
         <RelativeLayout
+            android:id="@+id/relativeLayout9"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout9">
+            android:layout_alignParentStart="true">
 
             <include
                 android:id="@+id/relativeLayout_main"
+                layout="@layout/bottom_state"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                layout="@layout/bottom_state"/>
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
         <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_above="@+id/relativeLayout9"-->
-            <!--android:layout_below="@+id/relativeLayout"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:paddingRight="10dp">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_above="@+id/relativeLayout9"-->
+        <!--android:layout_below="@+id/relativeLayout"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp">-->
 
 
-            <!--<EditText-->
-                <!--android:layout_width="265dp"-->
-                <!--android:layout_height="45dp"-->
-                <!--android:id="@+id/editText7"-->
-                <!--android:hint="wms出库单号"-->
-                <!--android:layout_marginTop="130dp"-->
-                <!--android:background="@drawable/border"-->
-                <!--android:layout_alignParentTop="true"-->
-                <!--android:singleLine="true"-->
-                <!--android:imeOptions="actionDone"-->
+        <!--<EditText-->
+        <!--android:layout_width="265dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:id="@+id/editText7"-->
+        <!--android:hint="wms出库单号"-->
+        <!--android:layout_marginTop="130dp"-->
+        <!--android:background="@drawable/border"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:singleLine="true"-->
+        <!--android:imeOptions="actionDone"-->
 
-                <!--android:inputType="text"-->
-                <!--android:maxLength="60"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true" />-->
+        <!--android:inputType="text"-->
+        <!--android:maxLength="60"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
 
 
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:text="确   定"-->
-                <!--android:id="@+id/button23"-->
-                <!--android:layout_below="@+id/editText7"-->
-                <!--android:layout_alignLeft="@+id/editText7"-->
-                <!--android:layout_alignStart="@+id/editText7"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:layout_alignRight="@+id/editText7"-->
-                <!--android:layout_alignEnd="@+id/editText7"-->
-                <!--android:background="@drawable/button"-->
-                <!--android:textColor="#ffffff"-->
-                <!--android:onClick="clickoutpick" />-->
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:text="确   定"-->
+        <!--android:id="@+id/button23"-->
+        <!--android:layout_below="@+id/editText7"-->
+        <!--android:layout_alignLeft="@+id/editText7"-->
+        <!--android:layout_alignStart="@+id/editText7"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_alignRight="@+id/editText7"-->
+        <!--android:layout_alignEnd="@+id/editText7"-->
+        <!--android:background="@drawable/button"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:onClick="clickoutpick" />-->
 
 
         <!--</RelativeLayout>-->

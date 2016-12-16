@@ -17,36 +17,35 @@ import java.io.File;
  * Created by gfgh on 2016/3/9.
  */
 public class config extends AppCompatActivity {
+    private EditText et_config, et_password;
+    private String config, passconfig;
+    //-----
 
 
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.serverconfig);
 
-        String ip=AppStart.GetInstance().getIP();
-        short  port=AppStart.GetInstance().getPort();
+        et_config = (EditText) findViewById(R.id.config);
+        et_password = (EditText) findViewById(R.id.configpass);
 
-        String po=""+port+"";
-        String name= TransactSQL.instance.filterSQL(ip);
-        String  passconfig= TransactSQL.instance.filterSQL(po);
+//        String thisIp = AppStart.GetInstance().getConfigIp();
+//        String thisPort = AppStart.GetInstance().getConfigPort();
 
-    /*    String name=AppStart.GetInstance().getIP();
+        String ip = AppStart.GetInstance().getIP();
+        short port = AppStart.GetInstance().getPort();
+        String po = "" + port + "";
 
-        SharedPreferences sharedPreferencess = getSharedPreferences("serverconfig", 0);
-        String ports =sharedPreferencess.getString("port", "");*/
-
-
-
-        EditText config = (EditText) findViewById(R.id.config);
-        EditText password = (EditText) findViewById(R.id.configpass);
+        config = TransactSQL.instance.filterSQL(ip);
+        passconfig = TransactSQL.instance.filterSQL(po);
 
 
-        if (!name.equals("")) {
-            config.setText(name);
-            password.setText(passconfig);
+        if (!config.equals("") && !passconfig.equals("")) {
+            et_config.setText(config);
+            et_password.setText(passconfig);
         }
-
 
     }
 
@@ -56,46 +55,35 @@ public class config extends AppCompatActivity {
 
         EditText config = (EditText) findViewById(R.id.config);
         EditText password = (EditText) findViewById(R.id.configpass);
-        String configs = config.getText().toString();
-        String configpass = password.getText().toString();
+        String configs = "";
+        String configpass = "";
 
-        configs= TransactSQL.instance.filterSQL(configs);
-        configpass= TransactSQL.instance.filterSQL(configpass);
+        configs = TransactSQL.instance.filterSQL(config.getText().toString());
+        configpass = TransactSQL.instance.filterSQL(password.getText().toString());
 
-        if(configs.equals("")||configpass.equals("")){
+        if (configs.equals("") || configpass.equals("")) {
             AlertDialog.Builder build = new AlertDialog.Builder(config.this);
             build.setMessage("IP或端口不能为空！").show();
             return;
         }
-
-
-
-
-
         String path = Environment.getExternalStorageDirectory().getPath();
-        File existence = new File(path+"/wmsconfig/config.txt");
+        File existence = new File(path + "/wmsconfig/config.txt");
         if (existence.isFile()) { // 判断是否是文件
             existence.delete();
         }
 
-
         AppStart.GetInstance().setIP(configs);
         AppStart.GetInstance().setPort(configpass);
-        if(AppStart.GetInstance().GetCommunicationConn()!=null ){
-            AppStart.GetInstance().GetCommunicationConn().Connector.SetEndPoint(configs, (short) (Integer.parseInt(configpass)));
-
-
+        if (AppStart.GetInstance().GetCommunicationConn() != null) {
+            AppStart.GetInstance().GetCommunicationConn().Connector.SetEndPoint(configs, Integer.parseInt(configpass));
             Boolean tranCoreClass;
-            tranCoreClass = (Boolean) (AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1));
+            tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
             if (!tranCoreClass) {
                 AlertDialog.Builder build = new AlertDialog.Builder(config.this);
                 build.setMessage("退出失败").show();
+                return;
             }
         }
-
-
-
-
         AlertDialog.Builder build = new AlertDialog.Builder(config.this);
         build.setMessage("保存成功").show();
 

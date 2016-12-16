@@ -17,7 +17,10 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <!--闪光灯权限-->
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
-
+    <!--开机启动权限-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--开机去除屏幕锁权限-->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <!-- <uses-permission android:name="android.permission.DELETE_PACKAGES"/> -->
     <!-- android:allowBackup="true" -->
     <application
@@ -31,15 +34,27 @@
             android:name=".qrcodelogin"
             android:label="独角犀WMS"
             android:launchMode="singleTop">
+
+        </activity>
+        <receiver android:name=".entity.OpenToService"
+            android:enabled="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <!--<activity-->
+            <!--android:name=".main_login"-->
+            <!--android:label="独角犀仓储管理系统"/>-->
+        <activity android:name=".main_login"
+                  android:label="独角犀仓储管理系统">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".main_login"
-            android:label="独角犀仓储管理系统"/>
+
         <activity
             android:name=".config"
             android:label="独角犀仓储管理系统"/>

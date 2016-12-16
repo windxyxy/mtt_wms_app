@@ -70,7 +70,7 @@ public class out_picking extends buttom_state {
                     .setTitle("提示")
                     .setMessage("该出库单已完成拣货，等待电脑端确认出库")
                     .setCancelable(false)
-                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("是",  new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Auto-generated method stub
@@ -278,19 +278,23 @@ public class out_picking extends buttom_state {
         List<Hashtable> data = new ArrayList<Hashtable>();
         data = Datarequest.GETstored(ParamValues);
         if (data.get(0).get("result").toString().equals("0.0")) {
-            new AlertDialog.Builder(this)
-                    .setMessage("拣货完成")
-                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent();
-                            intent.putExtra("picorder", pickingorder);
-                            intent.setClass(out_picking.this, out_picking.class);
-                            startActivity(intent);/*调用startActivity方法发送意图给系统*/
-                            dialog.dismiss();
-                            out_picking.this.finish();
-                        }
-                    }).show();
+            Intent intent = new Intent(out_picking.this, out_picking.class);
+            intent.putExtra("picorder", pickingorder);
+            startActivity(intent);
+
+//            new AlertDialog.Builder(this)
+//                    .setMessage("该出库已完成拣货,请到电脑端确认出库")
+//                    .setPositiveButton("是", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Intent intent = new Intent();
+//                            intent.putExtra("picorder", pickingorder);
+//                            intent.setClass(out_picking.this, out_picking.class);
+//                            startActivity(intent);/*调用startActivity方法发送意图给系统*/
+//                            dialog.dismiss();
+//                            out_picking.this.finish();
+//                        }
+//                    }).show();
 //            AlertDialog.Builder build = new AlertDialog.Builder(out_picking.this);
 //            build.setMessage("拣货成功！").show();
 //            Intent intent = new Intent();

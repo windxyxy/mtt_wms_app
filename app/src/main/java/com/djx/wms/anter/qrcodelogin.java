@@ -1,5 +1,6 @@
 package com.djx.wms.anter;
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +57,13 @@ public class qrcodelogin extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrcodelogin);
+
+        //开机去除屏幕锁
+        KeyguardManager kManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock lock = kManager.newKeyguardLock(KEYGUARD_SERVICE);
+        lock.disableKeyguard();
+
+
         ActionBar actionBar;
         actionBar = getSupportActionBar();
         actionBar.hide();
@@ -160,9 +168,6 @@ public class qrcodelogin extends AppCompatActivity {
         AppStart.GetInstance().initUserEntity();
         Log.d("qrcodelogin", "onLoginClickEvent.............");
 
-
-        String ip = AppStart.GetInstance().getIP();
-        Short port = AppStart.GetInstance().getPort();
 
 
         /*启动通讯服务*/

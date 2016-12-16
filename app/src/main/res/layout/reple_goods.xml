@@ -190,24 +190,39 @@
                     android:scrollbars="vertical"
                     android:textSize="16dp"/>
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_yubu"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_below="@+id/editText58"-->
-                    <!--android:layout_marginTop="5dp"-->
-                    <!--android:text="预补数量："-->
-                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                    <!--android:textSize="16dp"-->
-                    <!--/>-->
+                <TextView
+                    android:id="@+id/tv_yubutv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editText58"
+                    android:layout_marginTop="5dp"
+                    android:text="预补数量："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="16dp"
+                    />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_yujian"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_toRightOf="@+id/tv_yubu"-->
-                    <!--android:layout_alignTop="@+id/tv_yubu"-->
-                    <!--android:textSize="16dp"/>-->
+                <TextView
+                    android:id="@+id/tv_yubu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_yubutv"
+                    android:layout_alignTop="@+id/tv_yubutv"
+                    android:textSize="16dp"/>
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/tv_yubu"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#e6e6e6"/>
 
                 <ScrollView
                     android:id="@+id/scrollView"
@@ -321,20 +336,7 @@
                     android:onClick="savareple"
                     android:text="保存"/>
 
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/textView99"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#e6e6e6"/>
+
 
 
                 <ImageView

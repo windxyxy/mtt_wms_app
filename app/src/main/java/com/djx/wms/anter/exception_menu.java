@@ -22,8 +22,10 @@ public class exception_menu extends buttom_state {
         String explain = "反拣说明：<br />" +
                 "1、指拣货单在二次分拣前被取消；<br />" +
                 "2、二次分拣完成后，点击保存时，发现发货单被取消；<br />" +
-                "3、称重时发货单被取消，这3类取消的订单已完成拣货，就需要使用货品反拣将已拣的货品放回到货位。<br />" +
-                "<font color = '#FF0000'>注意：货品反捡只操作被取消订单的货品，人为多拿的商品不允许在此功能操作。</font>";
+                "3、称重时发货单被取消，这3类取消的订单已完成拣货，就需要使用<font color = '#FF0000'>货品反拣</font>将已拣的货品放回到货位。<br />" +
+                "<font color = '#FF0000'>注意：<br />" +
+                "1、货品反捡只操作被奇门取消订单的货品，人为多拿的商品不允许在此功能操作。<br />" +
+                "2、拣货单被取消时，取消拣货单下的商品不允许使用此功能。</font>";
         tv_explain.setText(Html.fromHtml(explain));
         tv_explain.setTextSize(18);
     }
