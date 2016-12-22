@@ -34,7 +34,7 @@ public class CommunicationImpl implements ICommunicationConnectorEvent {
         Intent intent = new Intent("commnication.status");
         intent.putExtra("status", 629);
         AnterService.GetServiceInstans().sendBroadcast(intent);
-        Log.d(TAG, "ConnectClose");
+        Log.e(TAG, "ConnectClose");
 
     }
 
@@ -43,13 +43,13 @@ public class CommunicationImpl implements ICommunicationConnectorEvent {
         Intent intent = new Intent("commnication.status");
         intent.putExtra("status", 100);
         AnterService.GetServiceInstans().sendBroadcast(intent);
-        Log.d(TAG, "ConnectClose");
+        Log.e(TAG, "ReceiveData");
 
         if(tranCoreClass!=null){
             RecevieQueue.getInstance().Add(tranCoreClass);
             if(OrderParse.isWait)
             {
-                Log.d(TAG, "通知处理线程");
+                Log.e(TAG, "通知处理线程");
                 OrderThreadWaitNotify.getIntance().DoNotify();
             }
         }
@@ -60,7 +60,7 @@ public class CommunicationImpl implements ICommunicationConnectorEvent {
         Intent intent = new Intent("commnication.status");
         intent.putExtra("status",102);
         AnterService.GetServiceInstans().sendBroadcast(intent);
-        Log.d(TAG, "ConnectFail");
+        Log.e(TAG, "ConnectFail");
     }
 
     @Override
@@ -72,27 +72,21 @@ public class CommunicationImpl implements ICommunicationConnectorEvent {
         // intent.putExtra("status", 8);
         // AnterService.GetServiceInstans().sendBroadcast(intent);
 
-
-
          ///发送数据
         ///AppStart.GetInstance().GetCommunicationConn();
         Intent intent = new Intent("commnication.status");
         intent.putExtra("status", 200);
+        Log.e(TAG, "ConnectSuccess");
         AnterService.GetServiceInstans().sendBroadcast(intent);
-        Log.d(TAG, "ConnectClose");
-
 
         if(!AppStart.GetInstance().GetCommunicationConn().Connector.GetTid().equals("")){
             TranCoreClass tranCoreClass = null;
             tranCoreClass =   (TranCoreClass)(AppStart.GetInstance().GetCommunicationConn().SyncSend(0,1));
             return;
         }
-
-
         TranCoreClass tranCoreClass = null;
         AppStart.GetInstance().GetCommunicationConn().Connector.SetVersion(AppStart.GetInstance().version);
         tranCoreClass =   (TranCoreClass)(AppStart.GetInstance().GetCommunicationConn().SyncSend(3, AppStart.GetInstance().GetUserEntity()));
-
 
         if(tranCoreClass!=null) {
             if(tranCoreClass.getResult()==0)
@@ -119,22 +113,24 @@ public class CommunicationImpl implements ICommunicationConnectorEvent {
             message.what= FinalManager.LoginResultTag;
 
             if(AppStart.GetInstance().loginpage.equals("main_login")){
+                Log.e(TAG,"main_loginMessage"+message);
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.main_login,message);
             }else{
+                Log.e(TAG,"qrcode_loginMessage"+message);
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.qrcdelogin,message);
             }
 
 
-            Log.d(TAG, "LoginComplete");
-            Log.d(TAG, tranCoreClass.getToken());
-            Log.d(TAG, String.valueOf(tranCoreClass.getResult()));
+            Log.e(TAG, "LoginComplete");
+            Log.e(TAG, tranCoreClass.getToken());
+            Log.e(TAG, String.valueOf(tranCoreClass.getResult()));
         }
         else
         {
             Intent intents = new Intent("commnication.status");
             intents.putExtra("status", 408);
             AnterService.GetServiceInstans().sendBroadcast(intents);
-            Log.d(TAG, "login timeout");
+            Log.e(TAG, "login timeout");
         }
     }
 

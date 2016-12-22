@@ -298,8 +298,8 @@ public class qrcodelogin extends AppCompatActivity {
 
 
                     if (Short.parseShort(result) == 0) {
-                        Toast.makeText(getApplicationContext(), (String) message, Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
+                        Log.e("message","qr__message=="+message);
 
                         intent.setClass(qrcodelogin.this, whselelct.class);
                        /*设置Intent的源地址和目标地址*/

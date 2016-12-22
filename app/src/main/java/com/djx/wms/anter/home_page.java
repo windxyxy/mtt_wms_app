@@ -1,24 +1,13 @@
 package com.djx.wms.anter;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.djx.wms.anter.ReceviePro.IOrderTran;
 import com.djx.wms.anter.ReceviePro.MttNotifi;
-import com.djx.wms.anter.ReceviePro.MttNotification;
-import com.djx.wms.anter.ReceviePro.OrderProThread;
-import com.djx.wms.anter.ReceviePro.OrderRegister;
-
-import pers.lh.communication.PostClass;
-import pers.lh.communication.TranCoreClass;
 
 /**
  * Created by gfgh on 2016/3/10.
@@ -26,11 +15,6 @@ import pers.lh.communication.TranCoreClass;
 
 
 public class home_page extends buttom_state {
-
-    private Intent myIntent;
-
-    private MsgReceiver msgReceiver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +29,7 @@ public class home_page extends buttom_state {
     * */
     public void testMessage(View view){
         MttNotifi mttNotifi = new MttNotifi();
-        mttNotifi.getNotification(209);
+        mttNotifi.getNotification(210);
     }
 
     public void Storageclick(View v) {

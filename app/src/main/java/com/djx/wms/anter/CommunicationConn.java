@@ -20,7 +20,7 @@ public class CommunicationConn {
     public static final String TAG = "CommunicationConn";
     public ICommunicationConnector Connector ;
 
-    public  boolean state=false;
+    public boolean state = false;
 //    private static CommunicationConn INSTANCE;
 
     public CommunicationConn (){

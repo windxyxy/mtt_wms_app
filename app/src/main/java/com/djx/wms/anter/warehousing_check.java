@@ -123,7 +123,7 @@ public class warehousing_check extends  buttom_state {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    LoginClickEvent(v);
+                    LoginClickEvents(v);
                     return false;
                 }
                 return false;
@@ -136,7 +136,7 @@ public class warehousing_check extends  buttom_state {
 
 
 
-    public void LoginClickEvent(View v)
+    public void LoginClickEvents(View v)
     {
         Button btn21=(Button)findViewById(R.id.button21);
 

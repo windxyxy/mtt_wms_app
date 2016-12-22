@@ -1,21 +1,17 @@
 package com.djx.wms.anter;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.djx.wms.anter.entity.DaoStatic;
 import com.djx.wms.anter.entity.RoleInfor;
 import com.djx.wms.anter.entity.UserEntity;
 import com.djx.wms.anter.tools.Datarequest;
@@ -27,8 +23,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import pers.lh.communication.TranCoreClass;
-
 /**
  * Created by gfgh on 2016/4/8.
  */
@@ -39,6 +33,7 @@ public class whselelct extends buttom_state {
     private Boolean warestaus = true;
     private List<Hashtable> mList;
     private UserEntity userEntity;
+    private DaoStatic mStatic;
 
 
     @Override
@@ -51,6 +46,8 @@ public class whselelct extends buttom_state {
         userEntity = new UserEntity();
         userEntity.setLoginState(1);//进入仓库选择页面将登录状态设置为1
 
+//        mStatic = new DaoStatic();
+
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
             if (AppStart.GetInstance().GetCommunicationConn().Connector.GetTid().equals("")) {
             /*  Intent intent=new Intent();
@@ -59,10 +56,7 @@ public class whselelct extends buttom_state {
                 startActivity(intent);*//*调用startActivity方法发送意图给系统*/
                 finish();
             }
-
         }
-
-
 
         /*获取仓库字典*/
         List<Hashtable> brands = new ArrayList<>();
@@ -126,6 +120,7 @@ public class whselelct extends buttom_state {
         if (AppStart.GetInstance().GetCommunicationConn().state) {
             Intent intent = new Intent("commnication.status");
             intent.putExtra("status", 200);
+            Log.e("whselect","login_fail仓库发送广播");
             AnterService.GetServiceInstans().sendBroadcast(intent);
         }
     }
@@ -141,22 +136,29 @@ public class whselelct extends buttom_state {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // TODO Auto-generated method stub
+
+                            AppStart.GetInstance().initUserEntity();
                             AppStart.GetInstance().GetCommunicationConn().state = false;
+
                             Boolean tranCoreClass;
-//                            AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
+                            AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
                             tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
                             if (tranCoreClass) {
 //                                AppStart.GetInstance().setUserconfig("", "");
                                 //退出成功将登录状态改为-11
                                 userEntity.setLoginState(-11);
+
+                                mStatic.isIn = false;
+
                                 Intent myIntent = new Intent();
                                 myIntent = new Intent(whselelct.this, main_login.class);
                                 startActivity(myIntent);
                                 dialog.dismiss();
                                 whselelct.this.finish();
-                            } else {
-                                AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
-                                build.setMessage("退出失败").show();
+//                            } else {
+//                                AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
+//                                build.setMessage("退出失败").show();
+//                            }
                             }
                         }
                     })
@@ -184,9 +186,10 @@ public class whselelct extends buttom_state {
 //                        AppStart.GetInstance().setUserconfig("", "");
                         AppStart.GetInstance().initUserEntity();
 
-                        AppStart.GetInstance().GetCommunicationConn().state = true;
+                        AppStart.GetInstance().GetCommunicationConn().state = false;
+
                         Boolean tranCoreClass;
-//                        AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
+                        AppStart.GetInstance().GetCommunicationConn().Connector.SetTid("");
                         tranCoreClass = AppStart.GetInstance().GetCommunicationConn().AsyncSend(4, 1);
 
                         if (tranCoreClass) {
@@ -195,9 +198,12 @@ public class whselelct extends buttom_state {
                             UserEntity userEntity = new UserEntity();
                             userEntity.setLoginState(-11);
 
+                            mStatic.isIn = false;
+
                             Intent myIntent = new Intent();
                             myIntent = new Intent(whselelct.this, main_login.class);
                             startActivity(myIntent);
+                            whselelct.this.finish();
                         } else {
                             AlertDialog.Builder build = new AlertDialog.Builder(whselelct.this);
                             build.setMessage("退出失败").show();

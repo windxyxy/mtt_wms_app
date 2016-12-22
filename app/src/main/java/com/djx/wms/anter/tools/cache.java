@@ -1,12 +1,5 @@
 package com.djx.wms.anter.tools;
 
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Created by gfgh on 2016/3/23.
  */

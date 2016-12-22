@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.djx.wms.anter.PickingRepair">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="backToPickUpMenuBU"
+                android:text="返回"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="拣货区上架补货"
+                android:textSize="25dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/button14"
+                android:background="#e6e6e6"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_buttom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <include
+                android:id="@+id/relativeLayout_main"
+                layout="@layout/bottom_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/RL_buttom"
+            android:layout_below="@+id/relativeLayout"
+            android:background="#ffffff"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/rele"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_listtextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="任务单号："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_listNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_listtextBU"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_whtextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_listtextBU"
+                    android:layout_alignRight="@id/tv_listtextBU"
+                    android:layout_below="@+id/tv_listtextBU"
+                    android:layout_marginTop="10dp"
+                    android:paddingRight="4dp"
+                    android:text="仓库货品条码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_whNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_whtextBU"
+                    android:layout_toRightOf="@+id/tv_whtextBU"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_goodtextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_whtextBU"
+                    android:layout_marginTop="10dp"
+                    android:text="货品名称："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_goodNAMEBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_goodtextBU"
+                    android:layout_toRightOf="@+id/tv_goodtextBU"
+                    android:editable="false"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bustextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_goodNAMEBU"
+                    android:layout_marginTop="10dp"
+                    android:text="商家编码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_busNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_bustextBU"
+                    android:layout_toRightOf="@+id/tv_bustextBU"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_linecodetextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_bustextBU"
+                    android:layout_marginTop="10dp"
+                    android:text="条形码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_linecodeNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_linecodetextBU"
+                    android:layout_toRightOf="@+id/tv_linecodetextBU"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_pickedNumtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_linecodetextBU"
+                    android:layout_marginTop="10dp"
+                    android:text="已拣数量："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_pickedNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/tv_pickedNumtext"
+                    android:layout_toRightOf="@+id/tv_pickedNumtext"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_whereUptext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_pickedNumtext"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="建议货品上架货位"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <com.djx.wms.anter.tools.MyListView
+                    android:id="@+id/listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_whereUptext">
+
+                </com.djx.wms.anter.tools.MyListView>
+
+                <TextView
+                    android:id="@+id/tv_goodtext2BU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/tv_whtextBU"
+                    android:layout_below="@+id/listview"
+                    android:layout_marginTop="10dp"
+                    android:paddingRight="4dp"
+                    android:text="仓库货品条码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+
+                <EditText
+                    android:id="@+id/et_whgoodNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@+id/tv_goodtext2BU"
+                    android:layout_toRightOf="@+id/tv_goodtext2BU"
+                    android:background="@drawable/bg_edittext"
+                    android:maxLength="60"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:id="@+id/tv_whcodetextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_goodtext2BU"
+                    android:layout_marginTop="10dp"
+                    android:text="货位编码："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/et_whcodeNOBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/tv_whcodetextBU"
+                    android:layout_below="@+id/et_whgoodNO"
+                    android:layout_toRightOf="@+id/tv_listtextBU"
+                    android:background="@drawable/bg_edittext"
+                    android:maxLength="60"
+                    android:singleLine="true"/>
+
+
+                <TextView
+                    android:id="@+id/tv_picknumtextBU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_whcodetextBU"
+                    android:layout_alignRight="@+id/tv_whcodetextBU"
+                    android:layout_below="@+id/tv_whcodetextBU"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:text="数    量："
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/et_pickNumBU"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@+id/tv_picknumtextBU"
+                    android:layout_toRightOf="@+id/tv_picknumtextBU"
+                    android:background="@drawable/bg_edittext"
+                    android:inputType="number"
+                    android:maxLength="9"
+                    android:singleLine="true"/>
+
+                <Button
+                    android:id="@+id/butn"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/et_pickNumBU"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/button"
+                    android:onClick="makeSureBU"
+                    android:text="确  定"/>
+
+                <TextView
+                    android:id="@+id/shuoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/butn"
+                    android:padding="3dp"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+</LinearLayout>

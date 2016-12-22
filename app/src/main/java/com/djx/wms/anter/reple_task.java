@@ -40,10 +40,6 @@ public class reple_task extends buttom_state {
         setContentView(R.layout.reple_task);
         List<Hashtable> listhas = new ArrayList<Hashtable>();
 
-//        String SQL = "select t_movegoods.*,c.stock from (select *,dbo.getPositionId(t_movegoods.whId,t_movegoods.remark) as positionId from t_movegoods where orderStatus = 1" +
-//                " and whId =" + AppStart.GetInstance().Warehouse + " and mgoType=2 union select a.*,dbo.getPositionId(a.whId,a.remark) as positionId from t_movegoods as a  join t_movegoods_log as b on a.mgoNo = b.mgoNo  where (a.orderStatus = 4 or a.orderStatus=5) and a.mgoType = 2" +
-//                " and b.userID=" + AppStart.GetInstance().getUserID() + " and a.whId=" + AppStart.GetInstance().Warehouse + " ) as t_movegoods left join v_fillgoods as c on t_movegoods.mgoNo = c.mgoNo left join t_position as d on t_movegoods.positionId = d.indexId order by routeValue,remark";
-
         String SQL1 = "select t_movegoods.*,c.stock from " +
                 "(select *,(select inPosIndex from t_movegoods_detail where mgoId = t_movegoods.indexId and inPosIndex!= 0) as positionId,(select inPosFullCode from t_movegoods_detail where mgoId = t_movegoods.indexId and inPosIndex!= 0) as inPosFullCode,(select planInQty from t_movegoods_detail where mgoId = t_movegoods.indexId and inPosIndex!= 0) as planInQty from t_movegoods where orderStatus = 1 and whId =" + AppStart.GetInstance().Warehouse + " and mgoType=2 " +
                 " union " +

@@ -40,22 +40,16 @@ public class AnterService extends Service {
 
     @Override
     public void onCreate() {
-        super.onCreate();
-
-
+        Log.d(TAG, "服务onCreate");
 
         /*
         * 消息推送
         * */
+        MttNotification mttNotification = new MttNotification();
+        OrderRegister.GetInstance().Set("209", mttNotification);
 
-        try {
-            Thread.sleep(300);
-            MttNotification mttNotification = new MttNotification();
-            Log.e("anter", "消息推送");
-            OrderRegister.GetInstance().Set("209", mttNotification);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        MttNotification notification = new MttNotification();
+        OrderRegister.GetInstance().Set("210", notification);
 
         Log.e("Message", " message 处理");
         /* message 处理 */
@@ -80,6 +74,8 @@ public class AnterService extends Service {
                 conn = new CommunicationConn();
                 appConfig.SetCommunication(conn);
                 conn.init(ip, port);
+
+
                 //CommunicationConn.getInstance().init(AppData.userEntity.getUserName(),AppData.IP, AppData.port);
             }
         };
@@ -89,7 +85,7 @@ public class AnterService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "服务启动-------------------");
+        Log.d(TAG, "服务onStartCommand");
         // service进程被kill后，那将保留在开始状态，但是不保留那些传入的intent。
         // 不久后service就会再次尝试重新创建，因为保留在开始状态，在创建service后将保证调用onstartCommand。
         // 如果没有传递任何开始命令给service，那将获取到null的intent。
@@ -103,12 +99,13 @@ public class AnterService extends Service {
 
     @Override
     public void onDestroy() {
+        Log.d(TAG, "onDestroy() executed");
+
         AppStart.GetInstance().GetCommunicationConn().eDestory();
         //当服务停止时，自动再次启动服务
         Intent serviceIntent = new Intent(this, AnterService.class);
         startService(serviceIntent);
 
         super.onDestroy();
-        Log.d(TAG, "onDestroy() executed");
     }
 }

@@ -52,11 +52,13 @@ public class OrderParse {
             Log.e(OrderParse.class.getName(), "处理指令:" + String.valueOf(pc.getInjType()) + ";指令体:" + pc.getCoreObject());
             IOrderTran ot = OrderRegister.GetInstance().Get(String.valueOf(pc.getInjType()));
             inOrder = pc.getInjType();
-            Log.e("inOder","inOrder = "+inOrder);
-            if (ot != null)
+            Log.e("inOder", "inOrder = " + inOrder);
+            if (ot != null) {
                 ot.Tran(tcc);
-            else
-            Log.e(OrderParse.class.getName(), "指令" + String.valueOf(pc.getInjType()) + " 没有找到对应的方法:");
+            } else {
+                Log.e(OrderParse.class.getName(), "指令" + String.valueOf(pc.getInjType()) + " 没有找到对应的方法:");
+
+            }
         }
     }
 }

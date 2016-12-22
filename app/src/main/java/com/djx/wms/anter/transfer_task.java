@@ -69,8 +69,6 @@ public class transfer_task extends buttom_state {
                 veric.addView(lin);
             } else {
                 Map taskdata = listData.get(i);
-
-            /*lin.setBackgroundDrawable(statusQuestionDrawables);*/
                 TextView Text = new TextView(this);
                 Text.setBackgroundDrawable(statusQuestionDrawables);
                 Text.setWidth(260);
@@ -78,7 +76,6 @@ public class transfer_task extends buttom_state {
                 Text.setGravity(Gravity.CENTER);
                 Text.setId(i);
                 Text.setText(taskdata.get("mgoNo").toString());
-
 
                 Button btn = new Button(this);
                 Drawable btnstatus = getResources().getDrawable(R.drawable.button);
@@ -91,7 +88,6 @@ public class transfer_task extends buttom_state {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                   /*jhPosition*/
                         String status = "";
                         for (Map poscode : listData) {
                             if (poscode.get("indexId").toString().equals("" + v.getId() + "")) {

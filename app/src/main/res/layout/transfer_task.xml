@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -9,76 +10,76 @@
         android:layout_gravity="center_horizontal">
 
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout">
+            android:layout_alignParentTop="true">
 
             <Button
+                android:id="@+id/button14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="返回"
-                android:id="@+id/button14"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:onClick="backquery" />
+                android:layout_centerVertical="true"
+                android:onClick="backquery"
+                android:text="返回"/>
 
 
             <TextView
+                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="移库单查询"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:id="@+id/textView12"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="20dp"
-                android:textIsSelectable="false" />
+                android:text="移库单查询"
+                android:textIsSelectable="false"
+                android:textSize="20dp"/>
 
             <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:id="@+id/imageView6"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/button14"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentStart="true"
-                android:background="#e6e6e6" />
+                android:layout_below="@+id/button14"
+                android:background="#e6e6e6"/>
 
             <Button
+                android:id="@+id/button48"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="创建移库单"
-                android:id="@+id/button48"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:onClick="create_transfer" />
+                android:layout_alignParentRight="true"
+                android:onClick="create_transfer"
+                android:text="创建移库单"/>
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relativeLayout24"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout24">
+            android:layout_alignParentStart="true">
 
             <include
                 android:id="@+id/relativeLayout_main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
                 layout="@layout/bottom_state"
-                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"/>
 
 
         </RelativeLayout>
@@ -86,24 +87,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/relativeLayout"
-            android:layout_above="@+id/relativeLayout24">
+            android:layout_above="@+id/relativeLayout24"
+            android:layout_below="@+id/relativeLayout">
 
             <ScrollView
                 android:id="@+id/scrollView_showMessages"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
+                android:layout_marginRight="8dp"
+                android:background="#ffffff">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/center"
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
-                    android:id="@+id/center">
-
+                    android:orientation="vertical">
                 </LinearLayout>
             </ScrollView>
 

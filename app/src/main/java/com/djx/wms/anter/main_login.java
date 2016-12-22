@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.djx.wms.anter.entity.DaoStatic;
 import com.djx.wms.anter.entity.FinalManager;
 import com.djx.wms.anter.entity.UserEntity;
 import com.djx.wms.anter.tools.ConnTranPares;
@@ -58,6 +59,7 @@ public class main_login extends AppCompatActivity {
     private SharedPreferences sharedPreferencess;
 
     private UserEntity mEntity;
+    private DaoStatic mStatic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,9 @@ public class main_login extends AppCompatActivity {
 
         mEntity = new UserEntity();
         mEntity.setLoginState(-11);
+
+        mStatic = new DaoStatic();
+        mStatic.isIn = false;
 
         username = (EditText) findViewById(R.id.user);
         password = (EditText) findViewById(R.id.pass);
@@ -109,7 +114,6 @@ public class main_login extends AppCompatActivity {
         TextView textView2 = (TextView) findViewById(R.id.textView2);
         TextView textView119 = (TextView) findViewById(R.id.textView119);
         Log.e(TAG, "状态----------------------------------------");
-        Log.e(TAG, "" + AppStart.GetInstance().GetCommunicationConn() + "");
 
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
             textView2.setVisibility(View.VISIBLE);
@@ -124,6 +128,9 @@ public class main_login extends AppCompatActivity {
 
     //登錄按鈕
     public void LoginClickEvent(View v) {
+
+        mStatic.isIn = true;
+
         /*清空缓存字典*/
         DyDictCache.instance.RefDyDict("");//-----------
 
@@ -170,6 +177,7 @@ public class main_login extends AppCompatActivity {
         startService(startIntent);
         //获取链接是否成功点击登陆
         if (AppStart.GetInstance().GetCommunicationConn() != null) {
+            Log.e("GetCommunicationConn", "GetCommunicationConn==========");
             if (AppStart.GetInstance().GetCommunicationConn().Connector.getConnectState() == false) {
                 Toast.makeText(getApplicationContext(), "网络异常请稍后再试！", Toast.LENGTH_SHORT).show();
                 return;
@@ -189,6 +197,7 @@ public class main_login extends AppCompatActivity {
                         AppStart.GetInstance().setUserconfig(name, pass);
 
                         AppStart.GetInstance().GetCommunicationConn().Connector.SetTid(tranCoreClass.getToken());
+                        Log.e("tranCoreClass.getToken()", "tranCoreClass.getToken()==" + tranCoreClass.getToken().toString());
                         /*发送心跳*/
                         AppStart.GetInstance().GetCommunicationConn().Connector.BeginSendHeart();
                         usere.setUserPass(AppStart.GetInstance().GetUserEntity().getUserPass());
@@ -206,6 +215,8 @@ public class main_login extends AppCompatActivity {
                 message.setData(bundle);
                 message.what = FinalManager.LoginResultTag;
                 AppStart.GetInstance().HandlerSendMessage(FinalManager.main_login, message);
+
+                Log.d(TAG, "LoginComplete");
             } else {
                 Log.e(TAG, "login timeout");
             }
@@ -223,13 +234,12 @@ public class main_login extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("status", String.valueOf(status));
                 message.setData(bundle);
-                Log.e("login","status=="+status);
 
                 if (bundle.get("status").equals("200") || bundle.get("status").equals("100")) {
-
+                    Log.e("login_status", "login_status=---200+100---=" + bundle.get("status"));
 
 //                Button loginbtn = (Button) findViewById(R.id.button3);
-////                loginbtn.setClickable(true);//自动点击登录按钮
+//                loginbtn.setClickable(true);//自动点击登录按钮
 //                loginbtn.setClickable(false);
 //                Drawable statusQuestionDrawable = getResources().getDrawable(R.drawable.button);
 //                loginbtn.setBackgroundDrawable(statusQuestionDrawable);
@@ -237,6 +247,7 @@ public class main_login extends AppCompatActivity {
                     AppStart.GetInstance().HandlerSendMessage(FinalManager.main_login, message);
                 }
                 if (bundle.get("status").equals("629") || bundle.get("status").equals("102")) {
+                    Log.e("login_status", "login_status=---629+102---=" + bundle.get("status"));
 
 //                Button loginbtn = (Button) findViewById(R.id.button3);
 //                loginbtn.setClickable(false);
@@ -257,34 +268,44 @@ public class main_login extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
 
-                Log.e("login", "msg==="+msg.getData().toString());
+                Log.e("login", "msg===" + msg.getData().toString());
                 if (msg.arg1 == FinalManager.ConnectFail) {
+                    Log.e("login_fail", "login_fail===" + msg.arg1);
+
                     TextView B = (TextView) findViewById(R.id.textView119);
                     B.setText("等待重连");
                     B.setTextColor(Color.rgb(247, 9, 9));
+
+//                    Toast.makeText(getApplicationContext(), "登录失败，请检查网络和服务器配置", Toast.LENGTH_SHORT).show();
                 }
                 if (msg.arg1 == FinalManager.success) {
+                    Log.e("login_success", "login_success===" + msg.arg1);
 
                     TextView B = (TextView) findViewById(R.id.textView119);
                     B.setText("正常");
                     B.setTextColor(Color.rgb(13, 235, 87));
+                    return;//------
                 }
-                if (msg.arg1 == FinalManager.ConnectFail) {
-//                    String result = msg.getData().getString("status");
-//                    String message = msg.getData().getString("message");
-                    Toast.makeText(getApplicationContext(), "登录失败，请检查网络和服务器配置", Toast.LENGTH_SHORT).show();
-                }
+//                if (msg.arg1 == FinalManager.ConnectFail) {
+////                    String result = msg.getData().getString("status");
+////                    String message = msg.getData().getString("message");
+//                    Toast.makeText(getApplicationContext(), "登录失败，请检查网络和服务器配置", Toast.LENGTH_SHORT).show();
+//                }
                 if (msg.what == FinalManager.LoginResultTag) {
                     String result = msg.getData().getString("status");
                     String message = msg.getData().getString("message");
-                    if (Short.parseShort(result) == 0) {
+//                    if (Short.parseShort(result) == 0 && mStatic.isLog() == true) {
+                    if (Short.parseShort(result) == 0 && mStatic.isIn == true){
+                        Log.e("login_loginTag", "login_loginTag===" + msg.what);
                         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                         intent.setClass(main_login.this, whselelct.class);
                        /*设置Intent的源地址和目标地址*/
                         startActivity(intent);       /*调用startActivity方法发送意图给系统*/
                         main_login.this.finish();
                     } else {
-                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//                        Log.e("message", "message===" + message);
+//                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                        return;
                     }
                 }
                 /*else if(msg.what == FinalManager.CommnicationBroadcast){
@@ -405,11 +426,11 @@ public class main_login extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         Log.d("main_lgin", "onDestroy.............");
         /*关闭的时候注意销毁handler*/
         unregisterReceiver(msgReceiver);
         ((AppStart) getApplication()).DelHandler(FinalManager.main_login);
-        super.onDestroy();
     }
 
 }

@@ -65,20 +65,41 @@ public class temporary_shelves extends buttom_state {
 
         roll(editText26);
 
-        gridview = (com.djx.wms.anter.tags) findViewById(R.id.gridView);
+        EditText editText32 = (EditText) findViewById(R.id.editText32);
+        /*回车事件复写*/
+        editText32.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    sum++;
+                    if (sum % 2 != 0) {
+                        if (enters(v)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+                return true;
+            }
+        });
 
 
-        srcTable = new ArrayList<HashMap<String, String>>();
-        saTable = new SimpleAdapter(this,
-                srcTable,// 数据来源
-                R.layout.gridtext,//XML实现
-                new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
-                new int[]{R.id.ItemText, R.id.ItemTexts});
-        // 添加并且显示
-        gridview.setAdapter(saTable);
-        //添加表头
-        addHeader();
 
+        /*失去焦点触发事件*/
+        editText32.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    enters(v);
+                }
+            }
+        });
+
+        editText32.setFocusable(true);
+        editText32.setFocusableInTouchMode(true);
+        editText32.requestFocus();
 
         EditText editText25 = (EditText) findViewById(R.id.editText25);
         //输入框值change事件
@@ -141,77 +162,18 @@ public class temporary_shelves extends buttom_state {
         });
 
 
-        EditText editText32 = (EditText) findViewById(R.id.editText32);
-        /*回车事件复写*/
-        editText32.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    sum++;
-                    if (sum % 2 != 0) {
-                        if (enters(v)) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
+        gridview = (com.djx.wms.anter.tags) findViewById(R.id.gridView);
+        srcTable = new ArrayList<HashMap<String, String>>();
+        saTable = new SimpleAdapter(this,
+                srcTable,// 数据来源
+                R.layout.gridtext,//XML实现
+                new String[]{"ItemText", "ItemTexts"},  // 动态数组与ImageItem对应的子项
+                new int[]{R.id.ItemText, R.id.ItemTexts});
+        // 添加并且显示
+        gridview.setAdapter(saTable);
+        //添加表头
+        addHeader();
 
-                    return true;
-                }
-                return true;
-            }
-        });
-
-
-
-        /*失去焦点触发事件*/
-        editText32.setOnFocusChangeListener(new android.view.View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    enters(v);
-                }
-
-
-            }
-        });
-
-        editText32.setFocusable(true);
-        editText32.setFocusableInTouchMode(true);
-        editText32.requestFocus();
-
-
-    }
-
-    /* 查询货位*/
-    public Boolean Checklocation() {
-
-
-        EditText editText25 = (EditText) findViewById(R.id.editText25);
-        String Text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
-        if (Text25.equals("")) {
-            return false;
-        }
-
-        Hashtable ParamValue = new Hashtable<>();
-        ParamValue.put("SPName", "PRO_GETPOSITIONID");
-        String username = AppStart.GetInstance().initUserEntity();
-        ParamValue.put("whid", AppStart.GetInstance().Warehouse);
-        ParamValue.put("PosFullCode", Text25);
-        ParamValue.put("type", "");
-        ParamValue.put("msg", "output-varchar-100");
-        List<Hashtable> result = new ArrayList<Hashtable>();
-        result = Datarequest.GETstored(ParamValue);
-        if (result.get(0).get("result").toString().equals("0.0")) {
-            LocationID = result.get(0).get("msg").toString();
-            return true;
-        } else {
-            editText25.setError(result.get(0).get("msg").toString());
-            editText25.setText(editText25.getText().toString());//添加这句后实现效果
-            Spannable content = editText25.getText();
-            Selection.selectAll(content);
-            return false;
-        }
-//        return true;
     }
 
     public Boolean enters(View v) {
@@ -230,8 +192,6 @@ public class temporary_shelves extends buttom_state {
 
             return false;
         }
-
-
     }
 
     /*查询货品*/
@@ -279,7 +239,38 @@ public class temporary_shelves extends buttom_state {
             return true;
         }
 
+    }
 
+    /* 查询货位*/
+    public Boolean Checklocation() {
+
+
+        EditText editText25 = (EditText) findViewById(R.id.editText25);
+        String Text25 = TransactSQL.instance.filterSQL(editText25.getText().toString());
+        if (Text25.equals("")) {
+            return false;
+        }
+
+        Hashtable ParamValue = new Hashtable<>();
+        ParamValue.put("SPName", "PRO_GETPOSITIONID");
+        String username = AppStart.GetInstance().initUserEntity();
+        ParamValue.put("whid", AppStart.GetInstance().Warehouse);
+        ParamValue.put("PosFullCode", Text25);
+        ParamValue.put("type", "");
+        ParamValue.put("msg", "output-varchar-100");
+        List<Hashtable> result = new ArrayList<Hashtable>();
+        result = Datarequest.GETstored(ParamValue);
+        if (result.get(0).get("result").toString().equals("0.0")) {
+            LocationID = result.get(0).get("msg").toString();
+            return true;
+        } else {
+            editText25.setError(result.get(0).get("msg").toString());
+            editText25.setText(editText25.getText().toString());//添加这句后实现效果
+            Spannable content = editText25.getText();
+            Selection.selectAll(content);
+            return false;
+        }
+//        return true;
     }
 
 
@@ -392,7 +383,7 @@ public class temporary_shelves extends buttom_state {
                         ParamValues.put("msg", "output-varchar-8000");
 
 
-                        ParamValues.size();
+//                        ParamValues.size();
                         List<Hashtable> results = new ArrayList<Hashtable>();
                         results = Datarequest.GETstored(ParamValues);
                         if (results.get(0).get("result").toString().equals("0.0")) {

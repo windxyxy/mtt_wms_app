@@ -38,7 +38,8 @@ import com.djx.wms.anter.tools.TransactSQL;
  */
 public class buttom_state extends AppCompatActivity {
 
-    private MsgReceiver msgReceiver;
+    //    private MsgReceiver msgReceiver;
+    private BottomReceiver mReceiver;
     Handler handler = null;
     public static final String TAG = "CommunicationImpl";
     private AlertDialog p = null;
@@ -56,10 +57,11 @@ public class buttom_state extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.hide();
 
-        msgReceiver = new MsgReceiver();
+//        msgReceiver = new MsgReceiver();
+        mReceiver = new BottomReceiver();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("commnication.status");
-        registerReceiver(msgReceiver, intentFilter);
+        intentFilter.addAction("commnication.status.buttom");
+        registerReceiver(mReceiver, intentFilter);
         Log.d(TAG, "广播注册完成——————————————————————");
         CreateHandler();
 
@@ -71,7 +73,7 @@ public class buttom_state extends AppCompatActivity {
 
 
     /* 广播接收器*/
-    public class MsgReceiver extends BroadcastReceiver {
+    public class BottomReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("loginActivity", "收到广播.............");
@@ -115,10 +117,7 @@ public class buttom_state extends AppCompatActivity {
                     p = null;
                 }
             }
-
-            Log.d("loginActivity", "收到广播.............");
         }
-
 
     }
 
@@ -172,13 +171,11 @@ public class buttom_state extends AppCompatActivity {
     /*页面销毁事件*/
     @Override
     public void onDestroy() {
-        unregisterReceiver(msgReceiver);
+        unregisterReceiver(mReceiver);
         ((AppStart) getApplication()).DelHandler(FinalManager.buttom_state);
-       /* OrderProThread.GetInstance().CloseThread();
-        AppStart.GetInstance().serverthread.interrupt();
-        AppStart.GetInstance().GetCommunicationConn().Connector.Close();
-        Intent iService=new Intent(this,AnterService.class);
-        stopService(iService);*/
+        if (p != null) {
+            p.dismiss();
+        }
         super.onDestroy();
     }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.djx.wms.anter.PickingAreaUp">
+
+    <RelativeLayout
+        android:id="@+id/RL_pickupTop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="backToHome"
+            android:text="返回"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="任务查询"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttom_statusw"
+        android:layout_below="@+id/RL_pickupTop"
+        android:layout_margin="3dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_explain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="拣货区上架：指推送到系统中的发货单中某些商品未在拣货区上架，需执行拣货区上架功能。\n拣货区上架功能操作：1、先点击“拣”按钮，用户去到备货区拣货。\n2、拣完货以后点击“补”按钮，用户对已拣的货品进行补货操作。"
+                    android:textColor="#000000"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_mission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/buttom_statusw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <include
+            layout="@layout/bottom_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

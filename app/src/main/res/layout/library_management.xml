@@ -52,6 +52,147 @@
 
         </RelativeLayout>
 
+        <ScrollView
+            android:id="@+id/scrollView7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/relativeLayout17"
+            android:layout_below="@+id/relativeLayout">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout27"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <Button
+                    android:id="@+id/button32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="replenishment"
+                    android:text="补货"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+                <Button
+                    android:id="@+id/button18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button32"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="transfer_click"
+                    android:text="移库"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+
+
+                <Button
+                    android:id="@+id/button47"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button18"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickinventory_task"
+                    android:text="盘点"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:id="@+id/button49"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button52"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="exception_menu"
+                    android:text="异常处理"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:id="@+id/button50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button51"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clicklibrary_processing"
+                    android:text="仓内加工"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:visibility="invisible"/>
+
+                <Button
+                    android:id="@+id/button51"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button47"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickgoodquery"
+                    android:text="货品查询"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:id="@+id/button52"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button51"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="clickpostionquery"
+                    android:text="货位查询"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:id="@+id/button53"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button49"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:clickable="true"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="click_Offshelf"
+                    android:text="下架"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button53"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button"
+                    android:text="拣货区上架"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:onClick="pickingAreaUp"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
         <RelativeLayout
             android:id="@+id/relativeLayout17"
             android:layout_width="match_parent"
@@ -71,191 +212,7 @@
                 android:layout_alignParentTop="true"/>
 
         </RelativeLayout>
-
-        <ScrollView
-            android:id="@+id/scrollView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/relativeLayout17"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/relativeLayout">
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout27"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/relativeLayout17"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/relativeLayout"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-                <Button
-                    android:id="@+id/button18"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/button32"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="transfer_click"
-                    android:text="移库"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button32"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/button18"
-                    android:layout_alignLeft="@+id/button18"
-                    android:layout_alignRight="@+id/button18"
-                    android:layout_alignStart="@+id/button18"
-                    android:layout_below="@+id/button33"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="replenishment"
-                    android:text="补货"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button33"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button18"
-                    android:layout_alignStart="@+id/button18"
-
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:text="盘点"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"
-                    android:visibility="gone"/>
-
-                <Button
-                    android:id="@+id/button47"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button18"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/button18"
-                    android:layout_below="@+id/button18"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="clickinventory_task"
-                    android:text="盘点"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button49"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button50"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/button50"
-                    android:layout_below="@+id/button52"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="exception_menu"
-                    android:text="异常处理"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button50"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button51"
-                    android:layout_alignStart="@+id/button51"
-                    android:layout_below="@+id/button51"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="clicklibrary_processing"
-                    android:text="仓内加工"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"
-                    android:visibility="invisible"/>
-
-                <Button
-                    android:id="@+id/button51"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button47"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/button47"
-                    android:layout_below="@+id/button47"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="clickgoodquery"
-                    android:text="货品查询"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button52"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button50"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/button50"
-                    android:layout_below="@+id/button51"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="clickpostionquery"
-                    android:text="货位查询"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-                <Button
-                    android:id="@+id/button53"
-                    android:layout_width="275dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/button49"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignStart="@+id/button49"
-                    android:layout_below="@+id/button49"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button"
-                    android:clickable="true"
-                    android:nestedScrollingEnabled="false"
-                    android:onClick="click_Offshelf"
-                    android:text="下架"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"/>
-
-            </RelativeLayout>
-        </ScrollView>
-
-
     </RelativeLayout>
+
+
 </LinearLayout>

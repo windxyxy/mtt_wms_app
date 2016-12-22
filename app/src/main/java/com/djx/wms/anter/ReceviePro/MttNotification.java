@@ -37,7 +37,7 @@ public class MttNotification implements IOrderTran {
         notifi= new MttNotifi();
         mParse = new OrderParse();
         injType = mParse.inOrder;
-        Log.e("mttInOrder","injType = "+injType);
+        Log.e("MttNotification","injType = "+injType);
 
         pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         //点亮屏幕
